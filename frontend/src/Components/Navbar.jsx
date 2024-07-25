@@ -15,12 +15,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
 import { Link } from "react-router-dom";
 
-const logoStyle = {
-  width: "140px",
-  height: "auto",
-  cursor: "pointer",
-};
-
 function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
 
@@ -72,10 +66,13 @@ function Navbar({ mode, toggleColorMode }) {
               }}
             >
               <img
-                src={
-                  "https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"
-                }
-                style={logoStyle}
+                src={"/images/nitaiLogo.png"}
+                style={{
+                  width: "3rem",
+                  margin: "0 2rem 0 .3rem",
+                  height: "auto",
+                  cursor: "pointer",
+                }}
                 alt="logo of sitemark"
               />
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -100,13 +97,6 @@ function Navbar({ mode, toggleColorMode }) {
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link to="/contactUs" className="navItems">
-                  <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography variant="body2" color="text.primary">
-                      Contact Us
-                    </Typography>
-                  </MenuItem>
-                </Link>
               </Box>
             </Box>
             <Box
@@ -119,23 +109,13 @@ function Navbar({ mode, toggleColorMode }) {
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
               <Button
                 color="primary"
-                variant="text"
+                variant="outlined"
                 size="small"
                 component="a"
                 href="/material-ui/getting-started/templates/sign-in/"
                 target="_blank"
               >
-                Sign in
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                size="small"
-                component="a"
-                href="/material-ui/getting-started/templates/sign-up/"
-                target="_blank"
-              >
-                Sign up
+                Contact Us
               </Button>
             </Box>
             <Box sx={{ display: { sm: "", md: "none" } }}>
@@ -183,35 +163,18 @@ function Navbar({ mode, toggleColorMode }) {
                       Products And Solutions
                     </Link>
                   </MenuItem>
-                  <MenuItem>
-                    <Link to="/contactUs" className="navItems">
-                      Contact Us
-                    </Link>
-                  </MenuItem>
 
                   <Divider />
                   <MenuItem>
                     <Button
                       color="primary"
-                      variant="contained"
-                      component="a"
-                      href="/material-ui/getting-started/templates/sign-up/"
-                      target="_blank"
-                      sx={{ width: "100%" }}
-                    >
-                      Sign up
-                    </Button>
-                  </MenuItem>
-                  <MenuItem>
-                    <Button
-                      color="primary"
                       variant="outlined"
+                      size="small"
                       component="a"
                       href="/material-ui/getting-started/templates/sign-in/"
                       target="_blank"
-                      sx={{ width: "100%" }}
                     >
-                      Sign in
+                      Contact Us
                     </Button>
                   </MenuItem>
                 </Box>
