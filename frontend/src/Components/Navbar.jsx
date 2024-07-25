@@ -65,16 +65,18 @@ function Navbar({ mode, toggleColorMode }) {
                 px: 0,
               }}
             >
-              <img
-                src={"/images/nitaiLogo.png"}
-                style={{
-                  width: "3rem",
-                  margin: "0 2rem 0 .3rem",
-                  height: "auto",
-                  cursor: "pointer",
-                }}
-                alt="logo of sitemark"
-              />
+              <Link to="/" style={{ display: "grid", placeItems: "center" }}>
+                <img
+                  src={"/images/nitaiLogo.png"}
+                  style={{
+                    width: "3rem",
+                    margin: "0 2rem 0 .3rem",
+                    height: "auto",
+                    cursor: "pointer",
+                  }}
+                  alt="logo of sitemark"
+                />
+              </Link>
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <Link to="/" className="navItems">
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
@@ -112,8 +114,7 @@ function Navbar({ mode, toggleColorMode }) {
                 variant="outlined"
                 size="small"
                 component="a"
-                href="/material-ui/getting-started/templates/sign-in/"
-                target="_blank"
+                href="#contactUs"
               >
                 Contact Us
               </Button>
@@ -171,8 +172,7 @@ function Navbar({ mode, toggleColorMode }) {
                       variant="outlined"
                       size="small"
                       component="a"
-                      href="/material-ui/getting-started/templates/sign-in/"
-                      target="_blank"
+                      href="#contactUs"
                     >
                       Contact Us
                     </Button>

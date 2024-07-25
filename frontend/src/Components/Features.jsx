@@ -16,7 +16,7 @@ import ViewQuiltRoundedIcon from "@mui/icons-material/ViewQuiltRounded";
 const items = [
   {
     icon: <ViewQuiltRoundedIcon />,
-    title: "Cyber Security",
+    title: "Cyber Security - Penetration Testing",
     description:
       "Through real-time online connections with existing and potential customers, a company can convey information regarding its brand, product and service.",
     imageLight:
