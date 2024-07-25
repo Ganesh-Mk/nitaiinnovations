@@ -11,17 +11,15 @@ export default function LandingPage() {
   return (
     <>
       <Hero />
-      <Box sx={{ bgcolor: "background.default" }}>
-        <Features />
-        <Divider />
-        <Divider />
-        <Divider />
-        <Pricing />
-        <Divider />
-        <FAQ />
-        <Divider />
-        <Footer />
-      </Box>
+      <Features />
+      <Divider />
+      <Divider />
+      <Divider />
+      <Pricing />
+      <Divider />
+      <FAQ />
+      <Divider />
+      <Footer />
     </>
   );
 }
