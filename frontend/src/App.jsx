@@ -10,6 +10,7 @@ import Navbar from "./Components/Navbar";
 import AboutUs from "./Pages/AboutUs";
 import Home from "./Pages/Home";
 import CloudService from "./Pages/CloudService";
+import CyberSecurity from "./Pages/CyberSecurity";
 
 export default function App() {
   const [mode, setMode] = React.useState("light");
@@ -27,6 +28,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/cyberSecurity" element={<CyberSecurity />} />
           <Route path="/cloudService" element={<CloudService />} />
         </Routes>
       </Router>
