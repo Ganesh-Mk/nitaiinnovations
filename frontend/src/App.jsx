@@ -10,7 +10,7 @@ import Navbar from "./Components/Navbar";
 import ProductsAndSolutions from "./Pages/ProductsAndSolutions";
 import AboutUs from "./Pages/AboutUs";
 import Home from "./Pages/Home";
-import AWS from "./Pages/AWS";
+import CloudService from "./Pages/CloudService";
 
 export default function App() {
   const [mode, setMode] = React.useState("light");
@@ -32,7 +32,7 @@ export default function App() {
             path="/productsAndSolutions"
             element={<ProductsAndSolutions />}
           />
-          <Route path="/aws" element={<AWS />} />
+          <Route path="/cloudService" element={<CloudService />} />
         </Routes>
       </Router>
     </ThemeProvider>

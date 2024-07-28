@@ -19,22 +19,23 @@ export default function CloudServiceFeatures() {
   return (
     <>
       <Typography
-        variant="h1"
+        variant="h3"
         color="#0959AA"
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           alignSelf: "center",
+          textAlign: "center",
         }}
       >
-        Azure
+        Azure - Cloud Services
       </Typography>
       <Typography
         variant="body1"
         color="text.secondary"
         sx={{ textAlign: "center" }}
       >
-        Microsoft Azure Development Services
+        Our expert team of Azure developers will teach you :
       </Typography>
 
       <Container

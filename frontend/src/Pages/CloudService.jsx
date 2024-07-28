@@ -7,10 +7,10 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import CloudServiceFeatures from "../Components/CloudServiceFeatures";
+import AWSFeatures from "../Components/AWSFeatures";
 import AzureFeatures from "../Components/AzureFeatures";
 
-function AWS() {
+function CloudService() {
   return (
     <Box
       id="hero"
@@ -37,13 +37,14 @@ function AWS() {
           <Typography
             variant="h1"
             sx={{
+              textAlign: "center",
               display: "flex",
               flexDirection: { xs: "column", md: "row" },
               alignSelf: "center",
               gap: 1,
             }}
           >
-            AWS
+            Cloud Services
           </Typography>
 
           <Typography
@@ -51,7 +52,7 @@ function AWS() {
             color="text.secondary"
             sx={{ textAlign: "center" }}
           >
-            Amazon Web Services - Cloud Services
+            AWS & Azure
           </Typography>
           <Typography
             variant="body2"
@@ -70,6 +71,27 @@ function AWS() {
             guarantees swift delivery and precise development.
           </Typography>
         </Stack>
+
+        <Box
+          sx={{
+            marginTop: "5rem",
+            width: "100%",
+            display: "grid",
+            placeItems: "center",
+          }}
+        >
+          <Box
+            component="img"
+            src="/images/aws1.png"
+            alt=""
+            sx={{
+              width: {
+                xs: "90%",
+                md: "40%",
+              },
+            }}
+          />
+        </Box>
 
         <Stack
           direction="row"
@@ -103,6 +125,26 @@ function AWS() {
             burden of on-premise systems but also offers unparalleled security
             and dependability.
           </Typography>
+          <Box
+            sx={{
+              marginTop: "5rem !important",
+              width: "100%",
+              display: "grid",
+              placeItems: "center",
+            }}
+          >
+            <Box
+              component="img"
+              src="/images/aws2.png"
+              alt=""
+              sx={{
+                width: {
+                  xs: "70%",
+                  md: "20%",
+                },
+              }}
+            />
+          </Box>
           <Typography
             variant="body1"
             color="text.secondary"
@@ -127,11 +169,11 @@ function AWS() {
           </Typography>
         </Stack>
 
-        <CloudServiceFeatures />
+        <AWSFeatures />
         <AzureFeatures />
       </Container>
     </Box>
   );
 }
 
-export default AWS;
+export default CloudService;
