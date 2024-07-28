@@ -99,6 +99,13 @@ function Navbar({ mode, toggleColorMode }) {
                     </Typography>
                   </MenuItem>
                 </Link>
+                <Link to="/aws" className="navItems">
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Typography variant="body2" color="text.primary">
+                      AWS
+                    </Typography>
+                  </MenuItem>
+                </Link>
               </Box>
             </Box>
             <Box

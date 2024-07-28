@@ -29,3 +29,13 @@
   border-radius: 50%;
   margin: 0.5rem;
 }
+
+
+@media screen and (max-width: 800px) {
+  .aboutUsComp{
+    grid-template-columns: 1fr;
+  }
+  .aboutUsImage {
+    width: 100%;
+  }
+}
