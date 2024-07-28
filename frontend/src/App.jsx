@@ -7,7 +7,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import getLPTheme from "./Components/getLPTheme";
 
 import Navbar from "./Components/Navbar";
-import ProductsAndSolutions from "./Pages/ProductsAndSolutions";
 import AboutUs from "./Pages/AboutUs";
 import Home from "./Pages/Home";
 import CloudService from "./Pages/CloudService";
@@ -28,10 +27,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
-          <Route
-            path="/productsAndSolutions"
-            element={<ProductsAndSolutions />}
-          />
           <Route path="/cloudService" element={<CloudService />} />
         </Routes>
       </Router>

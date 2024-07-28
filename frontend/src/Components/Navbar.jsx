@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import "../Styles/navbar.css";
 
 import Box from "@mui/material/Box";
@@ -13,7 +14,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
-import { Link } from "react-router-dom";
 
 function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
@@ -65,7 +65,12 @@ function Navbar({ mode, toggleColorMode }) {
                 px: 0,
               }}
             >
-              <Link to="/" style={{ display: "grid", placeItems: "center" }}>
+              <Link
+                to="/"
+                state={{ scrollTo: "homeSection" }}
+                className="navItems"
+                style={{ display: "grid", placeItems: "center" }}
+              >
                 <img
                   src={"/images/nitaiLogo.png"}
                   style={{
@@ -74,35 +79,40 @@ function Navbar({ mode, toggleColorMode }) {
                     height: "auto",
                     cursor: "pointer",
                   }}
-                  alt="logo of sitemark"
+                  alt="logo of company"
                 />
               </Link>
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <Link to="/" className="navItems">
+                <Link
+                  to="/"
+                  state={{ scrollTo: "homeSection" }}
+                  className="navItems"
+                >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
                     <Typography variant="body2" color="text.primary">
                       Home
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link to="/aboutUs" className="navItems">
+                <Link
+                  to="/"
+                  state={{ scrollTo: "aboutUsSection" }}
+                  className="navItems"
+                >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
                     <Typography variant="body2" color="text.primary">
                       About Us
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link to="/productsAndSolutions" className="navItems">
+                <Link
+                  to="/"
+                  state={{ scrollTo: "productsAndSolutionSection" }}
+                  className="navItems"
+                >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
                     <Typography variant="body2" color="text.primary">
-                      Products And Solutions
-                    </Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/cloudService" className="navItems">
-                  <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography variant="body2" color="text.primary">
-                      Cloud Service
+                      Products and Solutions
                     </Typography>
                   </MenuItem>
                 </Link>
@@ -116,15 +126,21 @@ function Navbar({ mode, toggleColorMode }) {
               }}
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-              <Button
-                color="primary"
-                variant="outlined"
-                size="small"
-                component="a"
-                href="#contactUs"
+
+              <Link
+                to="/"
+                state={{ scrollTo: "contactUsSection" }}
+                className="navItems"
               >
-                Contact Us
-              </Button>
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  size="small"
+                  component="a"
+                >
+                  Contact Us
+                </Button>
+              </Link>
             </Box>
             <Box sx={{ display: { sm: "", md: "none" } }}>
               <Button
@@ -158,32 +174,58 @@ function Navbar({ mode, toggleColorMode }) {
                       toggleColorMode={toggleColorMode}
                     />
                   </Box>
-                  <Link to="/" className="navItems">
-                    <MenuItem>Home</MenuItem>
+                  <Link
+                    to="/"
+                    state={{ scrollTo: "homeSection" }}
+                    className="navItems"
+                  >
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography variant="body2" color="text.primary">
+                        Home
+                      </Typography>
+                    </MenuItem>
                   </Link>
-                  <MenuItem>
-                    <Link to="/aboutUs" className="navItems">
-                      About Us
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link to="/productsAndSolutions" className="navItems">
-                      Products And Solutions
-                    </Link>
-                  </MenuItem>
+                  <Link
+                    to="/"
+                    state={{ scrollTo: "aboutUsSection" }}
+                    className="navItems"
+                  >
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography variant="body2" color="text.primary">
+                        About Us
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                  <Link
+                    to="/"
+                    state={{ scrollTo: "productsAndSolutionSection" }}
+                    className="navItems"
+                  >
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography variant="body2" color="text.primary">
+                        Products and Solutions
+                      </Typography>
+                    </MenuItem>
+                  </Link>
 
                   <Divider />
-                  <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      size="small"
-                      component="a"
-                      href="#contactUs"
-                    >
-                      Contact Us
-                    </Button>
-                  </MenuItem>
+
+                  <Link
+                    to="/"
+                    state={{ scrollTo: "contactUsSection" }}
+                    className="navItems"
+                  >
+                    <MenuItem>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        component="a"
+                      >
+                        Contact Us
+                      </Button>
+                    </MenuItem>
+                  </Link>
                 </Box>
               </Drawer>
             </Box>
@@ -193,10 +235,5 @@ function Navbar({ mode, toggleColorMode }) {
     </div>
   );
 }
-
-Navbar.propTypes = {
-  mode: PropTypes.oneOf(["dark", "light"]).isRequired,
-  toggleColorMode: PropTypes.func.isRequired,
-};
 
 export default Navbar;
