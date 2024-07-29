@@ -26,8 +26,8 @@ const items = [
     link: "/cyberSecurity",
     description:
       "Through real-time online connections with existing and potential customers, a company can convey information regarding its brand, product and service.",
-    imageLight: 'url("images/cs.png")',
-    imageDark: 'url("images/cs.png")',
+    imageLight: 'url("images/cs1.png")',
+    imageDark: 'url("images/cs1.png")',
   },
   {
     icon: <EdgesensorHighRounded />,

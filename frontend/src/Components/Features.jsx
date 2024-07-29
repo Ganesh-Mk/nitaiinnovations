@@ -3,7 +3,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function Features({ data, imageURL = "" }) {
+export default function Features({ data, imageURL = "", number = false }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -72,6 +72,16 @@ export default function Features({ data, imageURL = "" }) {
                 aria-controls={`panel${index}d-content`}
                 id={`panel${index}d-header`}
               >
+                {number && (
+                  <Typography
+                    component="h3"
+                    style={{ marginRight: "2rem" }}
+                    variant="subtitle2"
+                  >
+                    {index + 1}.
+                  </Typography>
+                )}
+
                 <Typography component="h3" variant="subtitle2">
                   {item.title}
                 </Typography>
