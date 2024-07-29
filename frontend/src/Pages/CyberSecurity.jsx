@@ -334,7 +334,7 @@ function CyberSecurity() {
             we can help protect your most valuable assets from cyber threats.
           </Typography>
           <div className="cyberimg">
-            <img src="public/images/penetrationTesting2.webp" alt="" />
+            <img src="images/penetrationTesting2.webp" alt="" />
           </div>
           <div className="container">
             <Typography
@@ -452,35 +452,38 @@ function CyberSecurity() {
                 }}
               >
                 <ListItem>
-                  Web Application Pen Test: <br />(Buy & Set Up Online!)Test web
-                  applications, whether cloud-based or on-premises, of any
-                  complexity.
+                  Web Application Pen Test: <br />
+                  (Buy & Set Up Online!)Test web applications, whether
+                  cloud-based or on-premises, of any complexity.
                 </ListItem>
                 <ListItem>
-                  Network Pen Test: <br />(Buy & Set Up Online!) Rely on expert
-                  network pen testers to find hidden flaws that other approaches
-                  can.
+                  Network Pen Test: <br />
+                  (Buy & Set Up Online!) Rely on expert network pen testers to
+                  find hidden flaws that other approaches can.
                 </ListItem>
                 <ListItem>
-                  Mobile Application Pen Test: <br /> Count on excellent results from a
-                  curated team of mobile app security experts.
+                  Mobile Application Pen Test: <br /> Count on excellent results
+                  from a curated team of mobile app security experts.
                 </ListItem>
                 <ListItem>
-                  Cloud Pen Test: <br />Identify vulnerabilities unique to cloud
-                  environments, while respecting shared responsibility.
+                  Cloud Pen Test: <br />
+                  Identify vulnerabilities unique to cloud environments, while
+                  respecting shared responsibility.
                 </ListItem>
                 <ListItem>
-                  API Pen Test: <br />Test the security of your APIs, with results
-                  fully integrated with your SDLC, before they ship.
+                  API Pen Test: <br />
+                  Test the security of your APIs, with results fully integrated
+                  with your SDLC, before they ship.
                 </ListItem>
                 <ListItem>
-                  IoT Device Pen Test: <br />Find cyber-physical vulnerabilities
-                  unique to connected devices, from pacemakers to planes.
+                  IoT Device Pen Test: <br />
+                  Find cyber-physical vulnerabilities unique to connected
+                  devices, from pacemakers to planes.
                 </ListItem>
                 <ListItem>
-                  Social Engineering Pen Test: <br />Run a specialised test to assess
-                  how your organisation responds to common social engineering
-                  threats.
+                  Social Engineering Pen Test: <br />
+                  Run a specialised test to assess how your organisation
+                  responds to common social engineering threats.
                 </ListItem>
               </List>
             </Typography>

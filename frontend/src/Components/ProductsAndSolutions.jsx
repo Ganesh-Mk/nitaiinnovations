@@ -22,9 +22,8 @@ const items = [
     link: "/cyberSecurity",
     description:
       "Through real-time online connections with existing and potential customers, a company can convey information regarding its brand, product and service.",
-    imageLight:
-      'url("/static/images/templates/templates-images/dash-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
+    imageLight: 'url("images/ml.png")',
+    imageDark: 'url("images/ml.png")',
   },
   {
     icon: <EdgesensorHighRoundedIcon />,
@@ -41,10 +40,8 @@ const items = [
     link: "/AIML",
     description:
       "This item could let users know the product is available on all platforms, such as web, mobile, and desktop.",
-    imageLight:
-      'url("/static/images/templates/templates-images/devices-light.png")',
-    imageDark:
-      'url("/static/images/templates/templates-images/devices-dark.png")',
+    imageLight: 'url("images/ai1.png")',
+    imageDark: 'url("images/ai1.png")',
   },
 ];
 
