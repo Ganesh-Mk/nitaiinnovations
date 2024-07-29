@@ -13,6 +13,8 @@ export default function Home() {
   const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     if (location.state?.scrollTo) {
       const offset =
         location.state.scrollTo === "productsAndSolutionsSection" ? 180 : -120;

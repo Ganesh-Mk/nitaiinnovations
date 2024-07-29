@@ -1,32 +1,36 @@
 import * as React from "react";
 import { Element } from "react-scroll";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import Chip from "@mui/material/Chip";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import DevicesRoundedIcon from "@mui/icons-material/DevicesRounded";
-import EdgesensorHighRoundedIcon from "@mui/icons-material/EdgesensorHighRounded";
-import ViewQuiltRoundedIcon from "@mui/icons-material/ViewQuiltRounded";
-import { Link as RouterLink } from "react-router-dom"; // Import React Router Link
+import {
+  Box,
+  Button,
+  Card,
+  Chip,
+  Container,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
+import {
+  ChevronRightRounded,
+  DevicesRounded,
+  EdgesensorHighRounded,
+  ViewQuiltRounded,
+} from "@mui/icons-material";
+import { Link as RouterLink } from "react-router-dom";
 
 const items = [
   {
-    icon: <ViewQuiltRoundedIcon />,
+    icon: <ViewQuiltRounded />,
     title: "Cyber Security - Penetration Testing",
     link: "/cyberSecurity",
     description:
       "Through real-time online connections with existing and potential customers, a company can convey information regarding its brand, product and service.",
-    imageLight: 'url("images/ml.png")',
-    imageDark: 'url("images/ml.png")',
+    imageLight: 'url("images/cs.png")',
+    imageDark: 'url("images/cs.png")',
   },
   {
-    icon: <EdgesensorHighRoundedIcon />,
+    icon: <EdgesensorHighRounded />,
     title: "Cloud Services",
     link: "/cloudService",
     description:
@@ -35,7 +39,7 @@ const items = [
     imageDark: 'url("images/aws1.png")',
   },
   {
-    icon: <DevicesRoundedIcon />,
+    icon: <DevicesRounded />,
     title: "AI & ML",
     link: "/AIML",
     description:
@@ -148,7 +152,7 @@ export default function ProductsAndSolutions() {
                   }}
                 >
                   <span>Learn more</span>
-                  <ChevronRightRoundedIcon
+                  <ChevronRightRounded
                     fontSize="small"
                     sx={{ mt: "1px", ml: "2px" }}
                   />
@@ -245,7 +249,7 @@ export default function ProductsAndSolutions() {
                         }}
                       >
                         <span>Learn more</span>
-                        <ChevronRightRoundedIcon
+                        <ChevronRightRounded
                           fontSize="small"
                           sx={{ mt: "1px", ml: "2px" }}
                         />

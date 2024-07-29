@@ -1,14 +1,9 @@
 import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-
+import { Box, Container, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function Features({ data }) {
+export default function Features({ data, imageURL = "" }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -17,12 +12,35 @@ export default function Features({ data }) {
 
   return (
     <>
-      <Typography variant="h3" color="#0959AA" sx={{ textAlign: "center" }}>
-        {data.title}
-      </Typography>
       <div style={{ display: "grid", placeItems: "center" }}>
+        <Typography variant="h3" color="#0959AA">
+          {data.title}
+        </Typography>
+        {imageURL && (
+          <Box
+            sx={{
+              margin: "1rem !important",
+              width: "100%",
+              display: "grid",
+              placeItems: "center",
+            }}
+          >
+            <Box
+              component="img"
+              src={imageURL}
+              alt=""
+              sx={{
+                width: {
+                  xs: "70%",
+                  md: "20%",
+                },
+              }}
+            />
+          </Box>
+        )}
+
         <Typography
-          variant="body1"
+          variant="h6"
           color="text.secondary"
           sx={{ textAlign: "center", width: { xs: "90%", sm: "70%" } }}
         >

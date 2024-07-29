@@ -1,65 +1,23 @@
+import { useEffect } from "react";
 import "../Styles/index.css";
-import { alpha } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import AWSFeatures from "../Components/AWSFeatures";
-import AzureFeatures from "../Components/AzureFeatures";
+
+import { alpha, Box, Container, Stack, Typography } from "@mui/material";
+import Features from "../Components/Features";
+import FeatureMainSection from "../Components/FeatureMainSection";
+import { AWSFeatures } from "../Data/AWSFeaturesData";
+import { AzureFeatures } from "../Data/AzureFeaturesData";
 
 function CloudService() {
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <Box
-      id="hero"
-      sx={(theme) => ({
-        width: "100%",
-        backgroundImage:
-          theme.palette.mode === "light"
-            ? "linear-gradient(180deg, #CEE5FD, #FFF)"
-            : `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`,
-        backgroundSize: "100% 20%",
-        backgroundRepeat: "no-repeat",
-      })}
-    >
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          pt: { xs: 14, sm: 20 },
-          pb: { xs: 8, sm: 12 },
-        }}
-      >
-        <Stack spacing={2} useFlexGap sx={{ width: { xs: "100%", sm: "70%" } }}>
-          <Typography
-            variant="h1"
-            sx={{
-              textAlign: "center",
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              alignSelf: "center",
-              gap: 1,
-            }}
-          >
-            Cloud Services
-          </Typography>
-
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{ textAlign: "center" }}
-          >
-            AWS & Azure
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ textAlign: "center", marginTop: "2rem", fontSize: "1.2rem" }}
-          >
-            Our AWS experts make businesses go places with custom-built,
+    <>
+      <FeatureMainSection
+        title="Cloud Services"
+        subTitle="AWS & Azure"
+        description="Our AWS experts make businesses go places with custom-built,
             scalable, and innovative digital solutions - strategized and
             developed, considering your specific business requirements and
             objectives. Our AWS, Azure, GCP, accessibility, and connectivity.
@@ -68,52 +26,31 @@ function CloudService() {
             solutions that drive scalability, efficiency, and sales. Stay ahead
             of the market curve by transitioning to the cloud. At Nitai
             Innovations, we follow a sophisticated agile approach that
-            guarantees swift delivery and precise development.
-          </Typography>
-        </Stack>
+            guarantees swift delivery and precise development."
+        imageURL="/images/aws1.png"
+      />
 
-        <Box
-          sx={{
-            marginTop: "5rem",
-            width: "100%",
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          <Box
-            component="img"
-            src="/images/aws1.png"
-            alt=""
-            sx={{
-              width: {
-                xs: "90%",
-                md: "40%",
-              },
-            }}
-          />
-        </Box>
-
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{
-            width: "100%",
-            marginTop: "5rem",
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          <Typography
-            variant="h4"
-            color="#0959AA"
-            sx={{ textAlign: "center", marginTop: "5rem !important" }}
-          >
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{
+          width: "100%",
+          display: "grid",
+          placeItems: "center",
+        }}
+      >
+        <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
+          <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
             Comprehensive range of AWS development services:
           </Typography>
           <Typography
             variant="body1"
             color="text.secondary"
             sx={{
+              width: {
+                xs: "100%",
+                md: "80%",
+              },
               textAlign: "center",
               fontSize: "1.2rem",
               marginTop: "3rem !important",
@@ -125,33 +62,40 @@ function CloudService() {
             burden of on-premise systems but also offers unparalleled security
             and dependability.
           </Typography>
+        </div>
+        <Box
+          sx={{
+            marginTop: "5rem !important",
+            width: "100%",
+            display: "grid",
+            placeItems: "center",
+          }}
+        >
           <Box
+            component="img"
+            src="/images/aws2.png"
+            alt=""
             sx={{
-              marginTop: "5rem !important",
-              width: "100%",
-              display: "grid",
-              placeItems: "center",
+              width: {
+                xs: "70%",
+                md: "20%",
+              },
             }}
-          >
-            <Box
-              component="img"
-              src="/images/aws2.png"
-              alt=""
-              sx={{
-                width: {
-                  xs: "70%",
-                  md: "20%",
-                },
-              }}
-            />
-          </Box>
+          />
+        </Box>
+        <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
           <Typography
             variant="body1"
             color="text.secondary"
             sx={{
+              width: {
+                xs: "100%",
+                md: "80%",
+              },
               textAlign: "center",
               fontSize: "1.2rem",
               marginTop: "5rem !important",
+              marginBottom: "10rem !important",
             }}
           >
             <span>As a distinguished AWS development partner</span> , we handle
@@ -167,12 +111,12 @@ function CloudService() {
             applications from the ground up. Let us propel your business into
             the future of cloud computing with confidence and innovation.
           </Typography>
-        </Stack>
+        </div>
+      </Stack>
 
-        <AWSFeatures />
-        <AzureFeatures />
-      </Container>
-    </Box>
+      <Features data={AWSFeatures} />
+      <Features data={AzureFeatures} />
+    </>
   );
 }
 
