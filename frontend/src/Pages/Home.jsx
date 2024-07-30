@@ -12,12 +12,15 @@ import { scroller } from "react-scroll";
 export default function Home() {
   const location = useLocation();
 
+  // Scroll to particular section on navItem click
   useEffect(() => {
     window.scrollTo(0, 0);
 
     if (location.state?.scrollTo) {
       const offset =
-        location.state.scrollTo === "productsAndSolutionsSection" ? 180 : -120;
+        location.state.scrollTo === "productsAndSolutionSection" ? 0 : -120;
+
+      console.log(offset);
 
       scroller.scrollTo(location.state.scrollTo, {
         smooth: true,

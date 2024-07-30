@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
+import DropDownButton from "./DropDownButton";
 
 function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
@@ -82,7 +83,12 @@ function Navbar({ mode, toggleColorMode }) {
                   alt="logo of company"
                 />
               </Link>
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  placeItems: "center",
+                }}
+              >
                 <Link
                   to="/"
                   state={{ scrollTo: "homeSection" }}
@@ -116,6 +122,7 @@ function Navbar({ mode, toggleColorMode }) {
                     </Typography>
                   </MenuItem>
                 </Link>
+                <DropDownButton toggleDrawer={toggleDrawer} />
               </Box>
             </Box>
             <Box
@@ -178,6 +185,7 @@ function Navbar({ mode, toggleColorMode }) {
                     to="/"
                     state={{ scrollTo: "homeSection" }}
                     className="navItems"
+                    onClick={toggleDrawer(false)}
                   >
                     <MenuItem sx={{ py: "6px", px: "12px" }}>
                       <Typography variant="body2" color="text.primary">
@@ -189,6 +197,7 @@ function Navbar({ mode, toggleColorMode }) {
                     to="/"
                     state={{ scrollTo: "aboutUsSection" }}
                     className="navItems"
+                    onClick={toggleDrawer(false)}
                   >
                     <MenuItem sx={{ py: "6px", px: "12px" }}>
                       <Typography variant="body2" color="text.primary">
@@ -196,24 +205,35 @@ function Navbar({ mode, toggleColorMode }) {
                       </Typography>
                     </MenuItem>
                   </Link>
-                  <Link
-                    to="/"
-                    state={{ scrollTo: "productsAndSolutionSection" }}
-                    className="navItems"
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "start",
+                      alignItems: "center",
+                    }}
                   >
-                    <MenuItem sx={{ py: "6px", px: "12px" }}>
-                      <Typography variant="body2" color="text.primary">
-                        Products and Solutions
-                      </Typography>
-                    </MenuItem>
-                  </Link>
+                    <Link
+                      to="/"
+                      state={{ scrollTo: "productsAndSolutionSection" }}
+                      className="navItems"
+                      onClick={toggleDrawer(false)}
+                    >
+                      <MenuItem sx={{ py: "6px", px: "12px" }}>
+                        <Typography variant="body2" color="text.primary">
+                          Products and Solutions
+                        </Typography>
+                      </MenuItem>
+                    </Link>
+                    <DropDownButton toggleDrawer={toggleDrawer} />
+                  </Box>
 
                   <Divider />
-
+                  <br />
                   <Link
                     to="/"
                     state={{ scrollTo: "contactUsSection" }}
                     className="navItems"
+                    onClick={toggleDrawer(false)}
                   >
                     <MenuItem>
                       <Button
@@ -226,6 +246,24 @@ function Navbar({ mode, toggleColorMode }) {
                       </Button>
                     </MenuItem>
                   </Link>
+                  <div
+                    style={{
+                      height: "50%",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "flex-end",
+                    }}
+                  >
+                    <Link
+                      to="/"
+                      state={{ scrollTo: "homeSection" }}
+                      className="navItems"
+                      onClick={toggleDrawer(false)}
+                    >
+                      <img src="/images/nitaiLogo.png" alt="" />
+                    </Link>
+                  </div>
                 </Box>
               </Drawer>
             </Box>

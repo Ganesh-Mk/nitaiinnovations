@@ -7,7 +7,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import getLPTheme from "./Components/getLPTheme";
 
 import Navbar from "./Components/Navbar";
-import AboutUs from "./Pages/AboutUs";
 import Home from "./Pages/Home";
 import CloudService from "./Pages/CloudService";
 import CyberSecurity from "./Pages/CyberSecurity";
@@ -28,7 +27,6 @@ export default function App() {
         <Navbar mode={mode} toggleColorMode={toggleColorMode} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/cyberSecurity" element={<CyberSecurity />} />
           <Route path="/cloudService" element={<CloudService />} />
           <Route path="/AIML" element={<AIML />} />

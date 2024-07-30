@@ -64,7 +64,12 @@ export default function ProductsAndSolutions() {
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
             <div>
-              <Typography component="h2" variant="h4" color="text.primary">
+              <Typography
+                component="h2"
+                variant="h4"
+                color="text.primary"
+                sx={{ textAlign: "center" }}
+              >
                 Products and Solutions
               </Typography>
             </div>
@@ -72,7 +77,12 @@ export default function ProductsAndSolutions() {
               container
               item
               gap={1}
-              sx={{ display: { xs: "auto", sm: "none" } }}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                flexWrap: { xs: "wrap", sm: "none" },
+                marginTop: { xs: "1rem", sm: "none" },
+                justifyContent: { xs: "center", sm: "none" },
+              }}
             >
               {items.map(({ title }, index) => (
                 <Chip
@@ -109,6 +119,7 @@ export default function ProductsAndSolutions() {
               sx={{
                 display: { xs: "auto", sm: "none" },
                 mt: 4,
+                padding: "1rem",
               }}
             >
               <Box
@@ -126,8 +137,9 @@ export default function ProductsAndSolutions() {
               <Box sx={{ px: 2, pb: 2 }}>
                 <Typography
                   color="text.primary"
-                  variant="body2"
+                  variant="h6"
                   fontWeight="bold"
+                  sx={{ mt: 2 }}
                 >
                   {selectedFeature.title}
                 </Typography>
@@ -142,9 +154,10 @@ export default function ProductsAndSolutions() {
                   component={RouterLink} // Use React Router Link here
                   to={selectedFeature.link} // Set the `to` prop
                   color="primary"
-                  variant="body2"
+                  variant="h6"
                   fontWeight="bold"
                   sx={{
+                    mt: 2,
                     display: "inline-flex",
                     alignItems: "center",
                     "& > svg": { transition: "0.2s" },
@@ -271,6 +284,7 @@ export default function ProductsAndSolutions() {
               sx={{
                 height: "100%",
                 width: "100%",
+
                 display: { xs: "none", sm: "flex" },
                 pointerEvents: "none",
               }}
@@ -285,8 +299,8 @@ export default function ProductsAndSolutions() {
                     theme.palette.mode === "light"
                       ? items[selectedItemIndex].imageLight
                       : items[selectedItemIndex].imageDark,
-                  backgroundRepeat: "no-repeat", // Ensure no-repeat
-                  backgroundPosition: "center", // Center the image
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
                 }}
               />
             </Card>
