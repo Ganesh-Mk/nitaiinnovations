@@ -61,6 +61,7 @@ export default function Footer() {
           }}
         >
           <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
+            <div className="sectionLogo">
             <Box sx={{ ml: { xs: 0, sm: "-15px" } }}>
               <img
                 src={
@@ -70,6 +71,8 @@ export default function Footer() {
                 alt="logo of sitemark"
               />
             </Box>
+            </div>
+            
             <Typography variant="body2" fontWeight={600} gutterBottom>
               ABOUT NITAI INNOVATIONS
             </Typography>

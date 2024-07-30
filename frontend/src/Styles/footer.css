@@ -18,8 +18,14 @@
 }
 @media screen and (max-width: 460px) {
     .sectionDivider {
+        width: 100%;
         display: flex;
         flex-direction: column;
         padding: 0vw 2vw;
     }
+    .sectionLogo {
+        display: flex;
+        justify-content: center;
+    }
+
 }
