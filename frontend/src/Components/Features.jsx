@@ -13,7 +13,7 @@ export default function Features({ data, imageURL = "", number = false }) {
   return (
     <>
       <div style={{ display: "grid", placeItems: "center" }}>
-        <Typography variant="h3" color="#0959AA">
+        <Typography variant="h3" color="#0959AA" sx={{ textAlign: "center" }}>
           {data.title}
         </Typography>
         {imageURL && (

@@ -38,10 +38,10 @@ function CyberSecurity() {
               digital world."
         imageURL="/images/cs1.png"
       />
-      <div style={{ display: "grid", placeItems: "center" }}>
+      <Box sx={{ display: "grid", placeItems: "center" }}>
         <DividerLine />
 
-        <Typography variant="h4" color="#0959AA">
+        <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
           Penetration Testing Services
         </Typography>
         <Typography
@@ -56,7 +56,7 @@ function CyberSecurity() {
           need to focus on what matters most—your business.
         </Typography>
         <DividerLine />
-        <Typography variant="h4" color="#0959AA">
+        <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
           What is Penetration Testing?
         </Typography>
         <Typography
@@ -92,10 +92,15 @@ function CyberSecurity() {
             }}
           />
         </Box>
-      </div>
-
-      <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
-        <Typography variant="h4" color="#0959AA">
+      </Box>
+      <br />
+      <br />
+      <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
+        <Typography
+          variant="h4"
+          color="#0959AA"
+          sx={{ textAlign: { xs: "center", sm: "left" } }}
+        >
           Benefits of Penetration Testing
         </Typography>
         <ul>
@@ -128,11 +133,22 @@ function CyberSecurity() {
 
       <DividerLine />
 
-      <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
-        <Typography variant="h4" color="#0959AA">
+      <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
+        <Typography
+          variant="h4"
+          color="#0959AA"
+          sx={{ textAlign: { xs: "center", sm: "left" } }}
+        >
           Our Approach
         </Typography>
-        <Typography variant="h6" color="text.secondary">
+        <Typography
+          variant="h6"
+          color="text.secondary"
+          sx={{
+            textIndent: { xs: "0rem", sm: "4rem" },
+            textAlign: { xs: "center", sm: "left" },
+          }}
+        >
           At NITAI INNOVATIONS, we take a comprehensive and tailored approach to
           penetration testing. Our team of experienced cybersecurity
           professionals utilizes industry-leading methodologies, tools, and
@@ -145,11 +161,22 @@ function CyberSecurity() {
 
       <DividerLine />
 
-      <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
-        <Typography variant="h4" color="#0959AA">
+      <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
+        <Typography
+          variant="h4"
+          color="#0959AA"
+          sx={{ textAlign: { xs: "center", sm: "left" } }}
+        >
           Expertise and Experience
         </Typography>
-        <Typography variant="h6" color="text.secondary">
+        <Typography
+          variant="h6"
+          color="text.secondary"
+          sx={{
+            textIndent: { xs: "0rem", sm: "4rem" },
+            textAlign: { xs: "center", sm: "left" },
+          }}
+        >
           With five plus years of experience in the cybersecurity industry, our
           team brings a wealth of knowledge and expertise to every engagement.
           Our certified professionals hold industry-recognized certifications
@@ -160,37 +187,252 @@ function CyberSecurity() {
 
       <DividerLine />
 
-      <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
+      <Box
+        sx={{
+          display: "grid",
+          placeItems: "center",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          gridTemplateAreas: {
+            xs: `
+              "image"
+              "content"
+            `,
+            sm: `
+              "content image"
+            `,
+          },
+        }}
+      >
+        <Box>
+          <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
+            <Typography
+              variant="h4"
+              color="#0959AA"
+              sx={{ textAlign: { xs: "center", sm: "left" } }}
+            >
+              Types of Penetration Testing Services Offered
+            </Typography>
+            <ul>
+              <li>
+                <Typography variant="h6" color="text.secondary">
+                  Network Penetration Testing
+                </Typography>
+              </li>
+              <li>
+                <Typography variant="h6" color="text.secondary">
+                  Web Application Testing
+                </Typography>
+              </li>
+              <li>
+                <Typography variant="h6" color="text.secondary">
+                  Wireless Network Testing
+                </Typography>
+              </li>
+              <li>
+                <Typography variant="h6" color="text.secondary">
+                  Social Engineering Assessments
+                </Typography>
+              </li>
+              <li>
+                <Typography variant="h6" color="text.secondary">
+                  And more tailored services to meet your specific needs.
+                </Typography>
+              </li>
+            </ul>
+          </Box>
+          <br />
+          <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" }, gridArea: "content" }}>
+            <Typography
+              variant="h4"
+              color="#0959AA"
+              sx={{ textAlign: { xs: "center", sm: "left" } }}
+            >
+              Reporting and Deliverables
+            </Typography>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{
+                textIndent: { xs: "0rem", sm: "4rem" },
+                textAlign: { xs: "center", sm: "left" },
+              }}
+            >
+              Our penetration testing reports provide clear and actionable
+              insights into identified vulnerabilities, along with prioritized
+              recommendations for remediation. We believe in transparency and
+              clarity, ensuring you have the information you need to strengthen
+              your security posture effectively.
+            </Typography>
+          </Box>
+        </Box>
+        <Box
+          component="img"
+          src={"/images/cs3.png"}
+          alt=""
+          sx={{
+            gridArea: "image",
+            width: {
+              xs: "70%",
+              md: "80%",
+            },
+          }}
+        />
+      </Box>
+
+      <DividerLine />
+
+      <Box
+        sx={{
+          display: "grid",
+          placeItems: "center",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          gridTemplateAreas: {
+            xs: `
+              "image"
+              "content"
+            `,
+            sm: `
+              "image content "
+            `,
+          },
+        }}
+      >
+        <Box>
+          <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
+            ,
+            <Typography
+              variant="h4"
+              color="#0959AA"
+              sx={{ textAlign: { xs: "center", sm: "left" } }}
+            >
+              Customization and Collaboration
+            </Typography>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{
+                textIndent: { xs: "0rem", sm: "4rem" },
+                textAlign: { xs: "center", sm: "left" },
+              }}
+            >
+              We understand that every business is unique, which is why we offer
+              customizable penetration testing engagements tailored to your
+              specific requirements and objectives. Our collaborative approach
+              ensures that the testing aligns with your business goals and
+              delivers maximum value.
+            </Typography>
+          </Box>
+          <br />
+          <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" }, gridArea: "content" }}>
+            <Typography
+              variant="h4"
+              color="#0959AA"
+              sx={{ textAlign: { xs: "center", sm: "left" } }}
+            >
+              Continuous Support and Monitoring
+            </Typography>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{
+                textIndent: { xs: "0rem", sm: "4rem" },
+                textAlign: { xs: "center", sm: "left" },
+              }}
+            >
+              Our commitment to your security doesn't end with the completion of
+              the penetration testing engagement. We offer post-testing support
+              and monitoring services to help you address identified
+              vulnerabilities and maintain a robust security posture over time.
+            </Typography>
+          </Box>
+          <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}></Box>
+        </Box>
+        <Box
+          component="img"
+          src={"/images/cs4.png"}
+          alt=""
+          sx={{
+            gridArea: "image",
+            width: {
+              xs: "70%",
+              md: "80%",
+            },
+          }}
+        />
+      </Box>
+      <DividerLine />
+
+      <Box sx={{ display: "grid", placeItems: "center" }}>
         <Typography variant="h4" color="#0959AA">
-          Types of Penetration Testing Services Offered
+          Get Started Today
         </Typography>
-        <ul>
-          <li>
-            <Typography variant="h6" color="text.secondary">
-              Network Penetration Testing
+        <Typography
+          variant="h6"
+          sx={{ textAlign: "center", width: { xs: "90%", sm: "60%" } }}
+          color="text.secondary"
+        >
+          Ready to take the next step in securing your business? Contact us
+          today to learn more about our penetration testing services and how we
+          can help protect your most valuable assets from cyber threats.
+        </Typography>
+        <br />
+        <br />
+        <Typography
+          variant="h6"
+          sx={{ textAlign: "center", width: { xs: "90%", sm: "80%" } }}
+          color="text.secondary"
+        >
+          In our experience, successful penetration tests rely heavily on manual
+          testing. The skills and abilities brought to the table by an
+          experienced penetration test team emulate those of the threat. While
+          Automated Vulnerability Scanners and Exploitation Frameworks do have a
+          place, they are severely limited by the signatures or modules
+          contained in the tools.
+        </Typography>
+      </Box>
+
+      <DividerLine />
+
+      <Box
+        sx={{
+          display: "grid",
+          placeItems: "center",
+        }}
+      >
+        <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
+          Pen Test as a service[Compliance along with risk reduction]
+        </Typography>
+        <Box
+          sx={{
+            display: "grid",
+            placeItems: "center",
+            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          }}
+        >
+          <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{ textAlign: "center" }}
+            >
+              Our SaaS platforms rich Pen Test Dashboard is under development
+              and be made available soon in order to give access to our
+              Penetration testing as a Service to the timelines, analytics,
+              prioritised findings, and test progress for 24/7.'
             </Typography>
-          </li>
-          <li>
-            <Typography variant="h6" color="text.secondary">
-              Web Application Testing
+          </Box>
+          <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{ textAlign: "center" }}
+            >
+              We make human-driven penetration tests easy to launch, run, and
+              scale per your precise assets and requirements, delivering
+              compliance assurance along with better results for risk.
             </Typography>
-          </li>
-          <li>
-            <Typography variant="h6" color="text.secondary">
-              Wireless Network Testing
-            </Typography>
-          </li>
-          <li>
-            <Typography variant="h6" color="text.secondary">
-              Social Engineering Assessments
-            </Typography>
-          </li>
-          <li>
-            <Typography variant="h6" color="text.secondary">
-              And more tailored services to meet your specific needs.
-            </Typography>
-          </li>
-        </ul>
+          </Box>
+        </Box>
       </Box>
 
       <DividerLine />
