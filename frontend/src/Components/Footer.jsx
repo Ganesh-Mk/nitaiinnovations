@@ -39,7 +39,6 @@ export default function Footer() {
         alignItems: "center",
         gap: { xs: 4, sm: 8 },
         py: { xs: 8, sm: 10 },
-        py: { xs: 8, sm: 10 },
         textAlign: { xs: "center", sm: "left" },
       }}
     >
@@ -65,7 +64,7 @@ export default function Footer() {
             <Box sx={{ ml: { xs: 0, sm: "-15px" } }}>
               <img
                 src={
-                  "public/images/nitaiLogo.png"
+                  "/images/nitaiLogo.png"
                 }
                 style={logoStyle}
                 alt="logo of sitemark"
@@ -127,7 +126,7 @@ export default function Footer() {
           >
             <img
               style={{ width: "20px", height: "20px" }}
-              src="public/images/location.png"
+              src="/images/location.png"
               alt=""
             />
             <Typography variant="body2" color="text.secondary" fontWeight={600}>
@@ -146,7 +145,7 @@ export default function Footer() {
           >
             <img
               style={{ width: "20px", height: "20px" }}
-              src="public/images/gmail.png"
+              src="/images/gmail.png"
               alt=""
             />
             <Typography variant="body2" color="text.secondary" fontWeight={600}>
