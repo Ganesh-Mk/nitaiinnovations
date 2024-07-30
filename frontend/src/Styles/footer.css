@@ -11,9 +11,15 @@
     /* border: 2px solid red; */
     justify-content: space-between;
 }
-
-@media screen and (max-width: 640px) {
-    .divider {
-
+.sectionDivider {
+    display: flex;
+    /* width: 100%; */
+    padding: 0vw 0vw;
+}
+@media screen and (max-width: 460px) {
+    .sectionDivider {
+        display: flex;
+        flex-direction: column;
+        padding: 0vw 2vw;
     }
 }

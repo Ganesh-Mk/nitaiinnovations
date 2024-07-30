@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { Box, Stack, Typography } from "@mui/material";
-import "../Styles/contactUsComp.css";
+// import "../Styles/contactUsComp.css";
+import "../Styles/contactUs.css"
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import { styled } from "@mui/system";
 import { Button as BaseButton, buttonClasses } from "@mui/base/Button";

@@ -22,7 +22,8 @@ const logoStyle = {
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" mt={1}>
+    <Typography variant="body2" color="text.secondary" mt={1} textAlign="center"
+    >
       Copyright © NITAI INNOVATIONS&nbsp;
       {new Date().getFullYear()}
     </Typography>
@@ -37,6 +38,7 @@ export default function Footer() {
         flexDirection: "column",
         alignItems: "center",
         gap: { xs: 4, sm: 8 },
+        py: { xs: 8, sm: 10 },
         py: { xs: 8, sm: 10 },
         textAlign: { xs: "center", sm: "left" },
       }}
@@ -101,6 +103,7 @@ export default function Footer() {
             </Stack>
           </Box>
         </Box>
+        <div className="sectionDivider">
         <Box
           sx={{
             display: "flex",
@@ -117,7 +120,8 @@ export default function Footer() {
             sx={{
               display: "flex",
               gap: "1vw",
-              alignItems: "center",
+              // justifyContent: "center",
+              // alignItems: "center",
               mt: 2,
             }}
           >
@@ -135,6 +139,7 @@ export default function Footer() {
           <Box
             sx={{
               display: "flex",
+              justifyContent: "start",
               gap: "1vw",
               alignItems: "center",
             }}
@@ -205,18 +210,21 @@ export default function Footer() {
             </div>
           </Typography>
         </Box>
+        </div>
+        
       </Box>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          pt: { xs: 4, sm: 8 },
+          textAlign: "center",
+          justifyContent: "center",
+          pt: { xs: 4, sm: 2 },
           width: "100%",
           borderTop: "1px solid",
           borderColor: "divider",
         }}
       >
-        <div>
+        <div clas>
           <Link color="text.secondary" href="#">
             Privacy Policy
           </Link>
