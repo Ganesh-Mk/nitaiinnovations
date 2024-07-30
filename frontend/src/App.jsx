@@ -12,6 +12,7 @@ import Home from "./Pages/Home";
 import CloudService from "./Pages/CloudService";
 import CyberSecurity from "./Pages/CyberSecurity";
 import AIML from "./Pages/AIML";
+import ContactUsComp from "./Components/ContactUsComp";
 
 export default function App() {
   const [mode, setMode] = React.useState("light");
@@ -29,6 +30,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/contactUs" element={<ContactUsComp />} />
           <Route path="/cyberSecurity" element={<CyberSecurity />} />
           <Route path="/cloudService" element={<CloudService />} />
           <Route path="/AIML" element={<AIML />} />

@@ -128,7 +128,7 @@ function Navbar({ mode, toggleColorMode }) {
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
 
               <Link
-                to="/"
+                to="/contactUs"
                 state={{ scrollTo: "contactUsSection" }}
                 className="navItems"
               >
