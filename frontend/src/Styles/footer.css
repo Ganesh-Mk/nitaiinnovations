@@ -1,0 +1,19 @@
+.divider {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* gap: 1rem; */
+   
+
+}
+.divide {
+    display: flex;
+    /* border: 2px solid red; */
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 640px) {
+    .divider {
+
+    }
+}
