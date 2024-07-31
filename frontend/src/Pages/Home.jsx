@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import Divider from "@mui/material/Divider";
 import Hero from "../Components/Hero";
 import ProductsAndSolutions from "../Components/ProductsAndSolutions";
-import Footer from "../Components/Footer";
 import AboutUsComp from "../Components/AboutUsComp";
+import DividerLine from "../Components/DividerLine";
 import ContactUsComp from "../Components/ContactUsComp";
 
 import { useLocation } from "react-router-dom";
@@ -33,17 +32,16 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Divider />
+      <DividerLine />
 
       <AboutUsComp />
-      <Divider />
+      <DividerLine />
 
       <ProductsAndSolutions />
-      <Divider />
+      <DividerLine />
 
       <ContactUsComp />
-      <Divider />
-
+      <DividerLine />
     </>
   );
 }

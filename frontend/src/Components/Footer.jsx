@@ -1,20 +1,7 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
-
-import FacebookIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/X";
 import "../Styles/footer.css";
-import { Box, Container, Stack, Typography } from "@mui/material";
-
-const logoStyle = {
-  width: "70px",
-  marginBottom: "1vw",
-  height: "auto",
-};
+import { Box, Container, Typography } from "@mui/material";
 
 function Copyright() {
   return (
@@ -37,11 +24,12 @@ export default function Footer() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: { xs: 4, sm: 8 },
-        py: { xs: 8, sm: 10 },
+        gap: { xs: 4, sm: 2 },
+        py: { xs: 8, sm: 4 },
         textAlign: { xs: "center", sm: "left" },
       }}
     >
+      <img src="/images/nitaiLogo.png" alt="logo" />
       <Box
         sx={{
           display: "flex",
@@ -52,78 +40,64 @@ export default function Footer() {
         }}
       >
         <Box
+          className="sectionDivider"
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-            minWidth: { xs: "100%", sm: "40%" },
-            mb: { xs: 4, sm: 0 },
+            display: " grid",
+            gap: "1rem",
+            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" },
           }}
         >
-          <div className="footerPart1">
-            <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
-              <div className="sectionLogo">
-                <Box sx={{ ml: { xs: 0, sm: "-15px" } }}>
-                  <img
-                    src={"/images/nitaiLogo.png"}
-                    style={logoStyle}
-                    alt="logo of sitemark"
-                  />
-                </Box>
-              </div>
-            
-              <Typography variant="body2" fontWeight={600} gutterBottom>
-                ABOUT NITAI INNOVATIONS
-              </Typography>
-              <Typography variant="body2" color="text.secondary" mb={2}>
+          <Box
+            sx={{
+              display: "grid",
+              flexDirection: "column",
+              gap: 1,
+              marginRight: { xs: 0, sm: "2rem" },
+              mb: { xs: 4, sm: 0 },
+            }}
+          >
+            <Typography variant="h5" marginTop={7} color="#0959AA">
+              ABOUT NITAI INNOVATIONS
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                gap: "1vw",
+                mt: 2,
+              }}
+            >
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontWeight={600}
+              >
                 We are a passionate and dedicated team of professionals with a
                 mission to make a difference in the world of Information
                 Technology
               </Typography>
-              <Stack direction="row" spacing={1} useFlexGap>
-                <TextField
-                  id="outlined-basic"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  fullWidth
-                  aria-label="Enter your email address"
-                  placeholder="Your email address"
-                  inputProps={{
-                    autoComplete: "off",
-                    "aria-label": "Enter your email address",
-                  }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ flexShrink: 0 }}
-                >
-                  Subscribe
-                </Button>
-              </Stack>
             </Box>
-          </div>
-        </Box>
-        <div className="sectionDivider">
+          </Box>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               gap: 1,
-              marginRight: { xs: 0, sm: "5rem" },
+              marginRight: { xs: 0, sm: "2rem" },
               mb: { xs: 4, sm: 0 },
             }}
           >
-            <Typography variant="h5" marginTop={7} color="#0959AA">
+            <Typography
+              variant="h5"
+              sx={{ textAlign: "center" }}
+              marginTop={7}
+              color="#0959AA"
+            >
               COMPANY OFFICE
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 gap: "1vw",
-                // justifyContent: "center",
-                // alignItems: "center",
                 mt: 2,
               }}
             >
@@ -149,11 +123,13 @@ export default function Footer() {
                 alignItems: "center",
               }}
             >
-              <img
-                style={{ width: "20px", height: "20px" }}
-                src="/images/gmail.png"
-                alt=""
-              />
+              <Box sx={{ marginRight: { xs: "2rem", sm: "0" } }}>
+                <img
+                  style={{ width: "20px", height: "20px" }}
+                  src="/images/gmail.png"
+                  alt=""
+                />
+              </Box>
               <Typography
                 variant="body2"
                 color="text.secondary"
@@ -180,7 +156,7 @@ export default function Footer() {
               color="#0959AA"
               sx={{ textAlign: "center" }}
             >
-              Business Hours
+              BUSINESS HOURS
             </Typography>
             <Typography
               variant="body2"
@@ -225,7 +201,7 @@ export default function Footer() {
               </div>
             </Typography>
           </Box>
-        </div>
+        </Box>
       </Box>
       <Box
         sx={{

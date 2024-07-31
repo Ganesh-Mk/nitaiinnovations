@@ -32,7 +32,7 @@ export default function App() {
           <Route path="/cloudService" element={<CloudService />} />
           <Route path="/AIML" element={<AIML />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </Router>
     </ThemeProvider>
   );

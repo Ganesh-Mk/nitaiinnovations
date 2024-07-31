@@ -82,7 +82,7 @@ export default function Hero() {
                 }}
               />
               <Button variant="contained" color="primary">
-                Start now
+                Register now
               </Button>
             </Stack>
             <Typography

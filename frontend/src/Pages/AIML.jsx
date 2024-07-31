@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 
 import Features from "../Components/Features";
-
 import FeatureMainSection from "../Components/FeatureMainSection";
 import { AIFeatures } from "../Data/AIFeaturesData";
 import { MLFeatures } from "../Data/MLFeaturesData";
 import "../Styles/index.css";
-import { Box } from "@mui/material";
 
 function AIML() {
   useEffect(() => {

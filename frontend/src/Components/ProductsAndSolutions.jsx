@@ -21,7 +21,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const items = [
   {
-    icon: <ViewQuiltRounded />,
+    icon: <EdgesensorHighRounded />,
     title: "Cyber Security - Penetration Testing",
     link: "/cyberSecurity",
     description:
@@ -30,7 +30,7 @@ const items = [
     imageDark: 'url("images/cs1.png")',
   },
   {
-    icon: <EdgesensorHighRounded />,
+    icon: <ViewQuiltRounded />,
     title: "Cloud Services",
     link: "/cloudService",
     description:

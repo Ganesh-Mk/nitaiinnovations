@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "../Styles/index.css";
 
-import { alpha, Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Features from "../Components/Features";
 import FeatureMainSection from "../Components/FeatureMainSection";
 import { AWSFeatures } from "../Data/AWSFeaturesData";

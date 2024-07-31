@@ -1,16 +1,6 @@
 import "../Styles/index.css";
 import { useEffect } from "react";
-import {
-  alpha,
-  Box,
-  Container,
-  Stack,
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import DividerLine from "../Components/DividerLine";
 import FeatureMainSection from "../Components/FeatureMainSection";
 import Features from "../Components/Features";
