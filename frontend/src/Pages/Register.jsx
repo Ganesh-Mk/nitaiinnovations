@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
+
 export default function Register() {
   const [username, setusername] = useState("");
   const [firstName, setfirstName] = useState("");
@@ -6,7 +9,7 @@ export default function Register() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-
+  const navigate = useNavigate();
 
   const registerUser = (e) => {
     e.preventDefault()
@@ -15,6 +18,15 @@ export default function Register() {
       alert("Passwords do not match")
       return;
     }
+
+    axios.post('http://localhost:3000/registerUser',{
+      username, firstName, lastName, email, password
+    })
+    .then(res => {
+      console.log(res.data);
+      navigate("/login")
+    })
+    .catch(err => console.log(err))
   }
 
   return (

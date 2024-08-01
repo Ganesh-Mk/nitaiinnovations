@@ -1,5 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios"
 export default function Login() {
+  const [email, setemail] = useState("")
+  const [password, setpassword] = useState("")
+
+  const loginUser = (e) => {
+    e.preventDefault()
+    axios.post("http://localhost:3000/loginUser", {
+      email, password
+    })
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => console.log(err))
+  }
+  
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="mx-auto w-full max-w-md space-y-6 rounded-lg bg-card p-6 shadow-lg">
@@ -19,6 +34,8 @@ export default function Login() {
             </label>
             <input
               id="email"
+              value={email}
+              onChange={(e) => setemail(e.target.value)}
               type="email"
               autoComplete="email"
               className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -36,6 +53,8 @@ export default function Login() {
             <input
               id="password"
               type="password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
               autoComplete="current-password"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               required
@@ -45,6 +64,7 @@ export default function Login() {
         <div className="flex flex-col gap-2">
           <button
             type="submit"
+            onClick={loginUser}
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Login
