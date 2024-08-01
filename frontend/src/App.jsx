@@ -12,6 +12,8 @@ import CloudService from "./Pages/CloudService";
 import CyberSecurity from "./Pages/CyberSecurity";
 import AIML from "./Pages/AIML";
 import Footer from "./Components/Footer";
+import Register from "./Pages/Register";
+import Login from "./Pages/Login";
 
 export default function App() {
   const [mode, setMode] = React.useState("light");
@@ -31,6 +33,8 @@ export default function App() {
           <Route path="/cyberSecurity" element={<CyberSecurity />} />
           <Route path="/cloudService" element={<CloudService />} />
           <Route path="/AIML" element={<AIML />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </Router>
