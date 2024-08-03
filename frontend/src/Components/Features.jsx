@@ -89,7 +89,7 @@ export default function Features({ data, imageURL = "", number = false }) {
               <AccordionDetails>
                 <Box
                   variant="p"
-                  color="grey.500"
+                  color="text.secondary"
                   sx={{
                     maxWidth: { sm: "100%", md: "70%" },
                     textIndent: "3rem",

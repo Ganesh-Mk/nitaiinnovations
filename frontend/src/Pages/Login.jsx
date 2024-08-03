@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { storeName, storeEmail } from "../Store/userSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const userStore = useSelector((state) => state.user);
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -16,8 +20,13 @@ export default function Login() {
       .then((res) => {
         if (res.data.status === "ok") {
           alert("Login successful");
+          localStorage.setItem("isLogin", true);
+
+          console.log(res.data);
+
+          dispatch(storeName(res.data.name));
+          dispatch(storeEmail(res.data.email));
         }
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };

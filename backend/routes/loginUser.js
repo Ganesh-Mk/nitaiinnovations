@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
           },
           "#secretKey123"
         );
-        res.status(200).send("Login successful");
+        res.send(user);
       } else {
         res.status(400).send("Invalid username or password");
       }

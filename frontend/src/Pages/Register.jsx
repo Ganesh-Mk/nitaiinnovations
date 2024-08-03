@@ -36,7 +36,6 @@ export default function Register() {
       })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem("isRegister", "true");
         navigate("/login");
       })
       .catch((err) => {

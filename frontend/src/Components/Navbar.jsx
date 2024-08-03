@@ -144,6 +144,26 @@ function Navbar({ mode, toggleColorMode }) {
               >
                 Contact Us
               </Button>
+              <Button
+                color="primary"
+                variant="outlined"
+                size="small"
+                component={Link}
+                to="/register"
+                onClick={() => toggleDrawer(false)}
+              >
+                Register
+              </Button>
+              <Button
+                color="primary"
+                variant="outlined"
+                size="small"
+                component={Link}
+                to="/login"
+                onClick={() => toggleDrawer(false)}
+              >
+                Login
+              </Button>
             </Box>
             <Box sx={{ display: { sm: "", md: "none" } }}>
               <Button
@@ -175,7 +195,7 @@ function Navbar({ mode, toggleColorMode }) {
                     <ToggleColorMode
                       mode={mode}
                       toggleColorMode={toggleColorMode}
-                    />  
+                    />
                   </Box>
                   <Link
                     to="/"

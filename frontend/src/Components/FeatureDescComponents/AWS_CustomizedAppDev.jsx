@@ -6,7 +6,7 @@ function AWS_CustomizedAppDev() {
     <>
       <Typography
         variant="p"
-        color="grey.500"
+        color="text.secondary"
         sx={{
           maxWidth: "100%",
           textIndent: "3rem",
