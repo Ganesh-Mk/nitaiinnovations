@@ -175,7 +175,7 @@ function Navbar({ mode, toggleColorMode }) {
                     <ToggleColorMode
                       mode={mode}
                       toggleColorMode={toggleColorMode}
-                    />
+                    />  
                   </Box>
                   <Link
                     to="/"

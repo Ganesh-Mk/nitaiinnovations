@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import axios from "axios"
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [username, setusername] = useState("");
@@ -12,22 +12,38 @@ export default function Register() {
   const navigate = useNavigate();
 
   const registerUser = (e) => {
-    e.preventDefault()
-    console.log(username, firstName, lastName, email, password, confirmPassword);
-    if(password !== confirmPassword){
-      alert("Passwords do not match")
+    e.preventDefault();
+    console.log(
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword
+    );
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
       return;
     }
 
-    axios.post('http://localhost:3000/registerUser',{
-      username, firstName, lastName, email, password
-    })
-    .then(res => {
-      console.log(res.data);
-      navigate("/login")
-    })
-    .catch(err => console.log(err))
-  }
+    axios
+      .post("http://localhost:3000/registerUser", {
+        username,
+        firstName,
+        lastName,
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("isRegister", "true");
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        localStorage.setItem("isRegister", "false");
+      });
+  };
 
   return (
     <div className="flex pt-[8rem] min-h-screen items-center justify-center bg-background">
@@ -162,7 +178,7 @@ export default function Register() {
               href="#"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-              Login
+              <Link to="/login">Login</Link>
             </a>
           </div>
         </div>
