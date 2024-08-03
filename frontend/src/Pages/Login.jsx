@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 export default function Login() {
-  const [email, setemail] = useState("")
-  const [password, setpassword] = useState("")
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
   const loginUser = (e) => {
-    e.preventDefault()
-    axios.post("http://localhost:3000/loginUser", {
-      email, password
-    })
-    .then(res => {
-      console.log(res.data);
-    })
-    .catch(err => console.log(err))
-  }
-  
+    e.preventDefault();
+    axios
+      .post("http://localhost:3000/loginUser", {
+        email,
+        password,
+      })
+      .then((res) => {
+        if (res.data.status === "ok") {
+          alert("Login successful");
+        }
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="mx-auto w-full max-w-md space-y-6 rounded-lg bg-card p-6 shadow-lg">

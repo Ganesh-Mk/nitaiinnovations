@@ -5,12 +5,12 @@ export default function MLFeature_modelDescription() {
   return (
     <>
       <Typography
-        variant="body1"
-        gutterBottom
-        color="text.secondary"
+        variant="p"
+        color="grey.500"
         sx={{
           maxWidth: "100%",
           textIndent: "3rem",
+          fontWeight: "500",
         }}
       >
         {`We integrate machine learning models into existing infrastructure to maximize
@@ -26,12 +26,12 @@ export default function MLFeature_modelDescription() {
       </Typography>
       <br />
       <Typography
-        variant="body1"
-        gutterBottom
-        color="text.secondary"
+        variant="p"
+        color="grey.500"
         sx={{
           maxWidth: "100%",
           textIndent: "3rem",
+          fontWeight: "500",
         }}
       >
         {`By integrating these techniques into tailored machine learning strategies, our team

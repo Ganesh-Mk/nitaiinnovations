@@ -87,17 +87,17 @@ export default function Features({ data, imageURL = "", number = false }) {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography
-                  variant="body1"
-                  gutterBottom
-                  color="text.secondary"
+                <Box
+                  variant="p"
+                  color="grey.500"
                   sx={{
                     maxWidth: { sm: "100%", md: "70%" },
                     textIndent: "3rem",
+                    fontWeight: "500",
                   }}
                 >
                   {item.description}
-                </Typography>
+                </Box>
               </AccordionDetails>
             </Accordion>
           ))}

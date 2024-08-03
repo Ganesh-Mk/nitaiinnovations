@@ -18,9 +18,6 @@ export default function Home() {
     if (location.state?.scrollTo) {
       const offset =
         location.state.scrollTo === "productsAndSolutionSection" ? 0 : -120;
-
-      console.log(offset);
-
       scroller.scrollTo(location.state.scrollTo, {
         smooth: true,
         duration: 500,

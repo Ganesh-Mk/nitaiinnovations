@@ -130,17 +130,13 @@ export default function Footer() {
                   alt=""
                 />
               </Box>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                fontWeight={600}
+
+              <a
+                href="mailto:hr@nitaiinnovations.com"
+                style={{ textDecoration: "none", textTransform: "none" }}
               >
-                <a href="mailto:hr@nitaiinnovations.com">
-                  <p style={{ textDecoration: "none", textTransform: "none" }}>
-                    hr@nitaiinnovations.com
-                  </p>
-                </a>
-              </Typography>
+                hr@nitaiinnovations.com
+              </a>
             </Box>
           </Box>
           <Box
@@ -167,39 +163,30 @@ export default function Footer() {
               Our support available to help you 24 hours a day, seven days a
               week.
             </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              fontWeight={600}
-              sx={{ textAlign: "center", mt: 2 }}
-            >
-              <div className="divide">
-                <p>Monday-Friday:</p>
-                <p>9am to 5pm</p>
-              </div>
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              fontWeight={600}
-              sx={{ textAlign: "center" }}
-            >
-              <div className="divide">
-                <p>Saturday:</p>
-                <p>10am to 2pm</p>
-              </div>
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              fontWeight={600}
-              sx={{ textAlign: "center" }}
-            >
-              <div className="divide">
-                <p>Sunday:</p>
-                <p>Closed</p>
-              </div>
-            </Typography>
+            <Box>
+              <Typography variant="body2" color="text.secondary">
+                Monday-Friday:
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                9am to 5pm
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2" color="text.secondary">
+                Monday-Friday:
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                9am to 5pm
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2" color="text.secondary">
+                Monday-Friday:
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                9am to 5pm
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -214,7 +201,7 @@ export default function Footer() {
           borderColor: "divider",
         }}
       >
-        <div clas>
+        <div>
           <Link color="text.secondary" href="#">
             Privacy Policy
           </Link>

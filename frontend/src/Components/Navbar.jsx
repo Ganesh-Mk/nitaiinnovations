@@ -133,20 +133,17 @@ function Navbar({ mode, toggleColorMode }) {
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
 
-              <Link
+              <Button
+                color="primary"
+                variant="outlined"
+                size="small"
+                component={Link}
                 to="/"
                 state={{ scrollTo: "contactUsSection" }}
-                className="navItems"
+                onClick={() => toggleDrawer(false)}
               >
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  size="small"
-                  component="a"
-                >
-                  Contact Us
-                </Button>
-              </Link>
+                Contact Us
+              </Button>
             </Box>
             <Box sx={{ display: { sm: "", md: "none" } }}>
               <Button
@@ -228,23 +225,17 @@ function Navbar({ mode, toggleColorMode }) {
 
                   <Divider />
                   <br />
-                  <Link
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    size="small"
+                    component={Link}
                     to="/"
                     state={{ scrollTo: "contactUsSection" }}
-                    className="navItems"
-                    onClick={toggleDrawer(false)}
+                    onClick={() => toggleDrawer(false)}
                   >
-                    <MenuItem>
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        size="small"
-                        component="a"
-                      >
-                        Contact Us
-                      </Button>
-                    </MenuItem>
-                  </Link>
+                    Contact Us
+                  </Button>
                   <div
                     style={{
                       height: "50%",

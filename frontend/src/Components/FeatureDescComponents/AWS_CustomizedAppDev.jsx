@@ -5,10 +5,13 @@ function AWS_CustomizedAppDev() {
   return (
     <>
       <Typography
-        variant="body1"
-        gutterBottom
-        color="text.secondary"
-        sx={{ maxWidth: { sm: "100%", md: "70%" } }}
+        variant="p"
+        color="grey.500"
+        sx={{
+          maxWidth: "100%",
+          textIndent: "3rem",
+          fontWeight: "500",
+        }}
       >
         Our expert team of AWS developers and programmers specializes in
         building serverless applications using Amazon Web Services (AWS). By
