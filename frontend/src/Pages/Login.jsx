@@ -19,7 +19,7 @@ export default function Login() {
     console.log("Login button clicked");
 
     axios
-      .post(`${BACKEND_URL}/loginUser`, {
+      .post(`${BACKEND_URL}loginUser`, {
         email,
         password,
       })

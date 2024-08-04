@@ -12,7 +12,7 @@ function CreateBlog() {
 
   useEffect(() => {
     axios
-      .get(`${BACKEND_URL}/allBlogs`)
+      .get(`${BACKEND_URL}allBlogs`)
       .then((res) => {
         setBlogs(res.data);
         console.log(res.data);
