@@ -1,8 +1,21 @@
 const mongoose = require("mongoose");
 
+const blogSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  desc: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+});
+
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    userName: {
       type: String,
       required: true,
       unique: true,
@@ -22,7 +35,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      match: [/.+@.+\..+/, "Please enter a valid email address"],
     },
     password: {
       type: String,
@@ -32,6 +44,7 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    blogs: [blogSchema],
   },
   {
     timestamps: true,

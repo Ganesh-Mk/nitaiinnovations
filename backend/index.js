@@ -9,6 +9,9 @@ const registerUser = require("./routes/registerUser");
 const loginUser = require("./routes/loginUser");
 const mainPage = require("./routes/mainPage");
 const allUser = require("./routes/allUser");
+const createBlog = require("./routes/createBlog");
+const clearAllUser = require("./routes/clearAllUser");
+const allBlogs = require("./routes/allBlogs");
 
 const app = express();
 app.use(cors());
@@ -26,9 +29,12 @@ mongoose
 
 app.use("/registerUser", registerUser);
 app.use("/loginUser", loginUser);
+app.use("/createBlog", createBlog);
 
 app.use("/", mainPage);
 app.use("/allUser", allUser);
+app.use("/clearAllUser", clearAllUser);
+app.use("/allBlogs", allBlogs);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`));

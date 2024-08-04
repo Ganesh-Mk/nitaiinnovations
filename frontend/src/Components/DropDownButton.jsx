@@ -25,7 +25,7 @@ export default function DropDownButton({ toggleDrawer }) {
   };
 
   return (
-    <div>
+    <>
       <IconButton
         aria-label="more"
         id="long-button"
@@ -59,6 +59,6 @@ export default function DropDownButton({ toggleDrawer }) {
           <MenuItem onClick={handleItemClick("/AIML")}>AI & ML</MenuItem>
         </Link>
       </Menu>
-    </div>
+    </>
   );
 }

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Users = require("../models/users");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
@@ -12,16 +11,13 @@ router.post("/", async (req, res) => {
     if (user) {
       const match = await bcrypt.compare(password, user.password);
       if (match) {
-        const token = jwt.sign(
-          {
-            name: user.name,
-            email: user.email,
-          },
-          "#secretKey123"
-        );
-        res.json({ status: "ok", name: user.name, email: user.email, token });
+        res
+          .status(200)
+          .json({ status: "ok", name: user.userName, email: user.email });
       } else {
-        res.status(400).json({ status: "error", error: "Invalid username or password" });
+        res
+          .status(400)
+          .json({ status: "error", error: "Invalid email or password" });
       }
     } else {
       res.status(400).json({ status: "error", error: "User not found" });

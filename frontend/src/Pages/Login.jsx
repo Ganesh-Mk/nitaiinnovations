@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { storeName, storeEmail } from "../Store/userSlice";
 
 export default function Login() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -22,12 +24,11 @@ export default function Login() {
       .then((res) => {
         console.log("Response received from backend:", res);
         if (res.data.status === "ok") {
-          alert("Login successful");
           localStorage.setItem("isLogin", true);
 
-          console.log("Login successful data:", res.data);
           dispatch(storeName(res.data.name));
           dispatch(storeEmail(res.data.email));
+          navigate("/");
         } else {
           alert("Login failed: " + res.data.error);
         }

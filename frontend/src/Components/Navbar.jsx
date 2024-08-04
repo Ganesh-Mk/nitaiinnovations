@@ -110,10 +110,14 @@ function Navbar({ mode, toggleColorMode }) {
                     </Typography>
                   </MenuItem>
                 </Link>
+
                 <Link
                   to="/"
                   state={{ scrollTo: "productsAndSolutionSection" }}
                   className="navItems"
+                  sx={{
+                    display: "flex",
+                  }}
                 >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
                     <Typography variant="body2" color="text.primary">
@@ -122,6 +126,24 @@ function Navbar({ mode, toggleColorMode }) {
                   </MenuItem>
                 </Link>
                 <DropDownButton toggleDrawer={toggleDrawer} />
+                <Link
+                  to="/"
+                  state={{ scrollTo: "contactUsSection" }}
+                  className="navItems"
+                >
+                  <MenuItem sx={{ ml: 1, py: "6px", px: "12px" }}>
+                    <Typography variant="body2" color="text.primary">
+                      Contact Us
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                <Link to="/blogs" className="navItems">
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Typography variant="body2" color="text.primary">
+                      Blogs
+                    </Typography>
+                  </MenuItem>
+                </Link>
               </Box>
             </Box>
             <Box
@@ -133,17 +155,6 @@ function Navbar({ mode, toggleColorMode }) {
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
 
-              <Button
-                color="primary"
-                variant="outlined"
-                size="small"
-                component={Link}
-                to="/"
-                state={{ scrollTo: "contactUsSection" }}
-                onClick={() => toggleDrawer(false)}
-              >
-                Contact Us
-              </Button>
               <Button
                 color="primary"
                 variant="outlined"
@@ -163,6 +174,16 @@ function Navbar({ mode, toggleColorMode }) {
                 onClick={() => toggleDrawer(false)}
               >
                 Login
+              </Button>
+              <Button
+                color="primary"
+                variant="outlined"
+                size="small"
+                component={Link}
+                to="/account"
+                onClick={() => toggleDrawer(false)}
+              >
+                Account
               </Button>
             </Box>
             <Box sx={{ display: { sm: "", md: "none" } }}>

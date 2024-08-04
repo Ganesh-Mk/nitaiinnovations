@@ -14,6 +14,9 @@ import AIML from "./Pages/AIML";
 import Footer from "./Components/Footer";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
+import Blogs from "./Pages/Blogs";
+import CreateBlog from "./Pages/CreateBlog";
+import Account from "./Pages/Accout";
 
 export default function App() {
   const [mode, setMode] = React.useState("light");
@@ -35,6 +38,9 @@ export default function App() {
           <Route path="/AIML" element={<AIML />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/createBlog" element={<CreateBlog />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
         <Footer />
       </Router>

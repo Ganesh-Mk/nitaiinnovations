@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const [username, setusername] = useState("");
+  const [userName, setuserName] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
@@ -13,22 +13,18 @@ export default function Register() {
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log(
-      username,
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword
-    );
     if (password !== confirmPassword) {
       alert("Passwords do not match");
+      return;
+    }
+    if (/.+@.+\..+/.test(email) === false) {
+      alert("Invalid Email");
       return;
     }
 
     axios
       .post("http://localhost:3000/registerUser", {
-        username,
+        userName,
         firstName,
         lastName,
         email,
@@ -36,11 +32,12 @@ export default function Register() {
       })
       .then((res) => {
         console.log(res.data);
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("email", email);
         navigate("/login");
       })
       .catch((err) => {
         console.log("Hello" + err);
-        localStorage.setItem("isRegister", "false");
       });
   };
 
@@ -94,17 +91,17 @@ export default function Register() {
           </div>
           <div className="space-y-2">
             <label
-              htmlFor="username"
+              htmlFor="userName"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              Username
+              UserName
             </label>
             <input
-              id="username"
-              value={username}
-              onChange={(e) => setusername(e.target.value)}
+              id="userName"
+              value={userName}
+              onChange={(e) => setuserName(e.target.value)}
               type="text"
-              autoComplete="username"
+              autoComplete="userName"
               className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="johndoe"
               required
