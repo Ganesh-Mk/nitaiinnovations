@@ -22,7 +22,7 @@ function CreateBlog() {
     e.preventDefault();
 
     axios
-      .post(`${BACKEND_URL}createBlog`, {
+      .post(`${BACKEND_URL}/createBlog`, {
         username: localStorage.getItem("username"),
         email: localStorage.getItem("email"),
         title,
