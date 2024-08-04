@@ -16,13 +16,18 @@ const allBlogs = require("./routes/allBlogs");
 const app = express();
 
 // CORS configuration
-app.use(
-  cors({
-    origin: "https://nitaiinnovations.vercel.app", // Allow requests from this origin
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-  })
-);
+const corsOptions = {
+  origin: "https://codebrowebsite.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+app.use((err, req, res, next) => {
+  res.header("Access-Control-Allow-Origin", corsOptions.origin);
+  res.status(err.status || 500);
+  res.json({ error: err.message });
+});
 
 // Middleware
 app.use(express.json()); // Replaces bodyParser.json()
