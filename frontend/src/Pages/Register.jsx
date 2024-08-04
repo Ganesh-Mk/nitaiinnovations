@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const [username, setusername] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
@@ -23,7 +25,7 @@ export default function Register() {
     }
 
     axios
-      .post("http://localhost:3000/registerUser", {
+      .post(`${BACKEND_URL}/registerUser`, {
         username: username.trim(),
         firstName: firstName.trim(),
         lastName: lastName.trim(),

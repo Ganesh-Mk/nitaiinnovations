@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { storeName, storeEmail } from "../Store/userSlice";
 
 export default function Login() {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setemail] = useState("");
@@ -17,7 +19,7 @@ export default function Login() {
     console.log("Login button clicked");
 
     axios
-      .post("http://localhost:3000/loginUser", {
+      .post(`${BACKEND_URL}/loginUser`, {
         email,
         password,
       })
