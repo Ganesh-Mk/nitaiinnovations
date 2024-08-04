@@ -12,23 +12,29 @@ export default function Login() {
 
   const loginUser = (e) => {
     e.preventDefault();
+    console.log("Login button clicked");
+
     axios
       .post("http://localhost:3000/loginUser", {
         email,
         password,
       })
       .then((res) => {
+        console.log("Response received from backend:", res);
         if (res.data.status === "ok") {
           alert("Login successful");
           localStorage.setItem("isLogin", true);
 
-          console.log(res.data);
-
+          console.log("Login successful data:", res.data);
           dispatch(storeName(res.data.name));
           dispatch(storeEmail(res.data.email));
+        } else {
+          alert("Login failed: " + res.data.error);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error("Error during login request:", err);
+      });
   };
 
   return (

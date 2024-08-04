@@ -39,7 +39,7 @@ export default function Register() {
         navigate("/login");
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Hello" + err);
         localStorage.setItem("isRegister", "false");
       });
   };

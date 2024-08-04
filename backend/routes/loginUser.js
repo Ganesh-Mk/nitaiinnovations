@@ -19,16 +19,16 @@ router.post("/", async (req, res) => {
           },
           "#secretKey123"
         );
-        res.send(user);
+        res.json({ status: "ok", name: user.name, email: user.email, token });
       } else {
-        res.status(400).send("Invalid username or password");
+        res.status(400).json({ status: "error", error: "Invalid username or password" });
       }
     } else {
-      res.status(400).send("User not found");
+      res.status(400).json({ status: "error", error: "User not found" });
     }
   } catch (err) {
     console.log(err);
-    res.json({ status: "error", error: "Invalid username or password" });
+    res.status(500).json({ status: "error", error: "Server error" });
   }
 });
 
