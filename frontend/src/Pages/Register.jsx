@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const [userName, setuserName] = useState("");
+  const [username, setusername] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
@@ -24,20 +24,23 @@ export default function Register() {
 
     axios
       .post("http://localhost:3000/registerUser", {
-        userName,
-        firstName,
-        lastName,
-        email,
+        username: username.trim(),
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
         password,
       })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem("userName", userName);
+        localStorage.setItem("username", username);
         localStorage.setItem("email", email);
         navigate("/login");
       })
       .catch((err) => {
-        console.log("Hello" + err);
+        console.log(
+          "Error during registration:",
+          err.response ? err.response.data : err.message
+        );
       });
   };
 
@@ -91,17 +94,17 @@ export default function Register() {
           </div>
           <div className="space-y-2">
             <label
-              htmlFor="userName"
+              htmlFor="username"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              UserName
+              username
             </label>
             <input
-              id="userName"
-              value={userName}
-              onChange={(e) => setuserName(e.target.value)}
+              id="username"
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
               type="text"
-              autoComplete="userName"
+              autoComplete="username"
               className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="johndoe"
               required

@@ -4,12 +4,12 @@ const User = require("../models/users");
 const Blogs = require("../models/blogs");
 
 route.post("/", async (req, res) => {
-  const { userName, title, email, desc } = req.body;
+  const { username, title, email, desc } = req.body;
 
   try {
     // adding blog to user blogs collection
     const user = await User.findOneAndUpdate(
-      { userName },
+      { username },
       { $push: { blogs: { title, desc } } },
       { new: true, runValidators: true }
     );
@@ -20,7 +20,7 @@ route.post("/", async (req, res) => {
 
     // adding user blog to all blogs collection
     await Blogs.create({
-      userName,
+      username,
       email,
       title,
       desc,

@@ -48,6 +48,7 @@ function CreateBlog() {
       <Box
         sx={{
           display: "grid",
+          width: "100%",
           gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" },
           gap: "1rem",
         }}
@@ -65,7 +66,7 @@ function CreateBlog() {
               }}
             >
               <Typography variant="h6" gutterBottom>
-                {blog.userName}
+                {blog.username}
               </Typography>
               <Typography variant="body2" gutterBottom>
                 {blog.email}

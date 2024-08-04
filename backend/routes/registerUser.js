@@ -4,13 +4,13 @@ const Users = require("../models/users");
 const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
-  const { userName, firstName, lastName, email, password } = req.body;
+  const { username, firstName, lastName, email, password } = req.body;
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const user = await Users.create({
-      userName,
+      username,
       firstName,
       lastName,
       email,
@@ -19,10 +19,11 @@ router.post("/", async (req, res) => {
 
     res.status(201).send(user);
   } catch (err) {
-    console.log(err);
-    res
-      .status(400)
-      .json({ status: "error", error: "Duplicate userName or email" });
+    console.log("Error during user registration:", err);
+    res.status(400).json({
+      status: "error",
+      error: err.message || "Duplicate username or email",
+    });
   }
 });
 

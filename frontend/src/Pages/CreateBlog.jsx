@@ -23,7 +23,7 @@ function CreateBlog() {
 
     axios
       .post(`${BACKEND_URL}/createBlog`, {
-        userName: localStorage.getItem("userName"),
+        username: localStorage.getItem("username"),
         email: localStorage.getItem("email"),
         title,
         desc,

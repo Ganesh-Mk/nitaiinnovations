@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
       if (match) {
         res
           .status(200)
-          .json({ status: "ok", name: user.userName, email: user.email });
+          .json({ status: "ok", name: user.username, email: user.email });
       } else {
         res
           .status(400)
