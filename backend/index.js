@@ -23,11 +23,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use((err, req, res, next) => {
-  res.header("Access-Control-Allow-Origin", corsOptions.origin);
-  res.status(err.status || 500);
-  res.json({ error: err.message });
-});
+app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
 
 // Middleware
 app.use(express.json()); // Replaces bodyParser.json()
@@ -54,6 +50,15 @@ app.use("/allUser", allUser);
 app.use("/clearAllUser", clearAllUser);
 app.use("/allBlogs", allBlogs);
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  res.header("Access-Control-Allow-Origin", corsOptions.origin);
+  res.status(err.status || 500);
+  res.json({ error: err.message });
+});
+
 // Start server
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
+
+module.exports = app;
