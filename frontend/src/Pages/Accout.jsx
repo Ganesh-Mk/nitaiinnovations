@@ -1,5 +1,9 @@
 import { Typography, Box } from "@mui/material";
 import React from "react";
+import UserAccount from "../Components/UserAccount";
+import SearchBar from "../Components/SearchBar";
+import Posts from "../Components/Posts";
+import "../Styles/account.css";
 
 function Accout() {
   return (
@@ -11,7 +15,23 @@ function Accout() {
         height: "100vh",
       }}
     >
-      <Typography>Account Page</Typography>
+      <div className="accountMain">
+        <div className="accountLeft">
+          <UserAccount/>
+        </div>
+        <div className="accountRight">
+          <div className="accountRightTop">
+            <SearchBar/>
+          </div>
+          <div className="accountRightBottom">
+            <Posts/>
+            <Posts/>
+            <Posts/>
+            <Posts/>
+            <Posts/>
+          </div>
+        </div>
+      </div>
     </Box>
   );
 }

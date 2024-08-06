@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.accountMain {
+    min-width: 90vh;
+    position: relative;
+    top: 6vh;
+    display: flex;
+    justify-content: space-between;
+}
+.accountRight {
+    /* border: 2px solid rgb(191, 19, 145); */
+    height: 88vh;
+    width: 80vw;
+}
+.accountRightTop {
+    /* border: 2px solid rgb(26, 14, 163); */
+    padding: .5rem;
+
+}
+.accountRightBottom {
+    border: 3px solid rgb(119, 122, 119);
+    border-radius: 1rem;
+    padding: .5rem;
+    height: 79.3vh;
+    overflow-y: scroll;
+
+}
+.accountRightBottom::-webkit-scrollbar {
+    width: 12px; /* Width of the entire scrollbar */
+    
+}
+  
+  .accountRightBottom::-webkit-scrollbar-track {
+    background: transparent; /* Color of the scrollbar track */
+    border-radius: 10px; /* Rounded corners for the track */
+  }
+  
+  .accountRightBottom::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 3px solid #f1f1f1; /* Space around the thumb */
+  }
+  
+  .accountRightBottom::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the thumb when hovered */
+  }
+  .accountRightBottom::-webkit-scrollbar-button {
+    display: none;
+  }
+  
+  /* Custom scrollbar for Firefox */
+  .accountRightBottom {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #888 #f1f1f1; /* Color of the thumb and track */
+  }
+
