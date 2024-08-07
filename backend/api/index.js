@@ -20,6 +20,7 @@ const corsOptions = {
   origin: "https://nitaiinnovations.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200, // For legacy browser support
 };
 
 app.use(cors(corsOptions));
@@ -35,9 +36,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    process.env.MONGODB_URL
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
