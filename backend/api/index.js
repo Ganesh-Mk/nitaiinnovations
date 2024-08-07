@@ -42,6 +42,9 @@ mongoose
   .catch((err) => console.log(err));
 
 // Routes with /api prefix
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 app.use("/api/registerUser", registerUser);
 app.use("/api/loginUser", loginUser);
 app.use("/api/createBlog", createBlog);
