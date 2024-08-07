@@ -2,6 +2,7 @@ import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { format } from "date-fns";
+import FeatureMainSection from "../Components/FeatureMainSection";
 import { Link } from "react-router-dom";
 
 function CreateBlog() {
@@ -33,15 +34,30 @@ function CreateBlog() {
         padding: "2rem",
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
+        width: "100%",
+        backgroundImage:
+          theme.palette.mode === "light"
+            ? "linear-gradient(180deg, #CEE5FD, #FFF)"
+            : `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`,
+        backgroundSize: "100% 10%",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <Typography variant="h2" sx={{ marginTop: "7rem" }}>
+      <Typography
+        variant="h1"
+        sx={{
+          textAlign: "center",
+          display: "flex",
+          fontSize: { xs: "2.5rem", md: "3rem" },
+          flexDirection: { xs: "column", md: "row" },
+          alignSelf: "center",
+          marginTop: "7rem",
+        }}
+      >
         All Blogs
       </Typography>
       <Link to="/createBlog">
-        <Button variant="outlined" sx={{ marginTop: "1rem" }}>
-          Create your blog
-        </Button>
+        <Button variant="outlined">Create your blog</Button>
       </Link>
 
       <Box
