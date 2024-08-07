@@ -8,27 +8,41 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 function CreateBlog() {
   const navigate = useNavigate();
   const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  const [title, setTitle] = React.useState("");
-  const [desc, setDesc] = React.useState("");
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [image, setimage] = useState(null);
 
   function createBlog(e) {
     e.preventDefault();
 
+    if (title.trim() === "" || desc.trim() === "") {
+      alert("Please enter title and description");
+      return;
+    }
+
+    let formData = new FormData();
+
+    formData.append("username", localStorage.getItem("username"));
+    formData.append("email", localStorage.getItem("email"));
+    formData.append("title", title);
+    formData.append("desc", desc);
+    formData.append("image", image);
+
     axios
-      .post(`${BACKEND_URL}/createBlog`, {
-        username: localStorage.getItem("username"),
-        email: localStorage.getItem("email"),
-        title,
-        desc,
+      .post(`${BACKEND_URL}/createBlog`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((res) => {
+        console.log(res);
         setTitle("");
         setDesc("");
         navigate("/blogs");
@@ -69,6 +83,7 @@ function CreateBlog() {
       <br />
       <Typography variant="h2">Create Blog</Typography>
       <br />
+      <Input type="file" onChange={(e) => setimage(e.target.files[0])} />
       <Input
         placeholder="Enter Blog Title"
         sx={inputStyles}

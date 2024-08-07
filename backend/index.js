@@ -12,6 +12,7 @@ const allUser = require("./routes/allUser");
 const createBlog = require("./routes/createBlog");
 const clearAllUser = require("./routes/clearAllUser");
 const allBlogs = require("./routes/allBlogs");
+const clearAllBlogs = require("./routes/clearAllBlogs");
 
 const app = express();
 
@@ -26,6 +27,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+app.use("/uploads", express.static("uploads"));
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
 
@@ -51,6 +53,7 @@ app.use("/loginUser", loginUser);
 app.use("/createBlog", createBlog);
 app.use("", mainPage);
 app.use("/allUser", allUser);
+app.use("/clearAllBlogs", clearAllBlogs);
 app.use("/clearAllUser", clearAllUser);
 app.use("/allBlogs", allBlogs);
 

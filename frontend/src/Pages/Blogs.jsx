@@ -15,7 +15,6 @@ function CreateBlog() {
       .get(`${BACKEND_URL}/allBlogs`)
       .then((res) => {
         setBlogs(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -91,14 +90,19 @@ function CreateBlog() {
                 </Typography>
               </Box>
               <Divider />
-              <Box
-                sx={{
-                  height: "15rem",
+              <img
+                src={`${BACKEND_URL}/${blog.imageUrl}`}
+                style={{
+                  height: "16rem",
                   width: "100%",
                   borderRadius: "2rem",
-                  border: "1px solid black",
+                  boxShadow: theme.shadows[1],
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  backgroundRepeat: "no-repeat",
                 }}
-              ></Box>
+                alt=""
+              />
               <Box>
                 <Typography variant="h5" sx={{ mb: 2 }}>
                   {blog.title}
