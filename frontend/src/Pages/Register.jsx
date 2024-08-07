@@ -25,7 +25,7 @@ export default function Register() {
     }
 
     axios
-      .post(`${BACKEND_URL}/api/registerUser`, {
+      .post(`${BACKEND_URL}/registerUser`, {
         username: username.trim(),
         firstName: firstName.trim(),
         lastName: lastName.trim(),

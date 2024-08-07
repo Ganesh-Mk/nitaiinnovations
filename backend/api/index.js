@@ -50,13 +50,13 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.use("/api/registerUser", registerUser);
-app.use("/api/loginUser", loginUser);
-app.use("/api/createBlog", createBlog);
-app.use("/api", mainPage);
-app.use("/api/allUser", allUser);
-app.use("/api/clearAllUser", clearAllUser);
-app.use("/api/allBlogs", allBlogs);
+app.use("/registerUser", registerUser);
+app.use("/loginUser", loginUser);
+app.use("/createBlog", createBlog);
+app.use("/", mainPage);
+app.use("/allUser", allUser);
+app.use("/clearAllUser", clearAllUser);
+app.use("/allBlogs", allBlogs);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
