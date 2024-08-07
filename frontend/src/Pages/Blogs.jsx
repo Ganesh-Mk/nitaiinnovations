@@ -65,20 +65,54 @@ function CreateBlog() {
                 color: theme.palette.text.primary,
               }}
             >
-              <Typography variant="h6" gutterBottom>
-                {blog.username}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                {blog.email}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                {format(new Date(blog.createdAt), "d MMM yyyy")}
-              </Typography>
-              <Divider sx={{ my: 1 }} />
-              <Typography variant="h5" gutterBottom>
-                {blog.title}
-              </Typography>
-              <Typography variant="body1">{blog.desc}</Typography>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "1rem",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      height: "3rem",
+                      width: "3rem",
+                      borderRadius: "100rem",
+                      border: "1px solid black",
+                    }}
+                  ></Box>
+                  <Box>
+                    <Typography variant="h6">{blog.username}</Typography>
+                    <Typography variant="body2">{blog.email}</Typography>
+                  </Box>
+                </Box>
+                <Typography variant="body2">
+                  {format(new Date(blog.createdAt), "d MMM yyyy")}
+                </Typography>
+              </Box>
+              <Divider />
+              <Box
+                sx={{
+                  height: "15rem",
+                  width: "100%",
+                  borderRadius: "2rem",
+                  border: "1px solid black",
+                }}
+              ></Box>
+              <Box>
+                <Typography variant="h5" sx={{ mb: 2 }}>
+                  {blog.title}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    maxHeight: "7rem",
+                    overflowY: "scroll",
+                  }}
+                >
+                  {blog.desc}
+                </Typography>
+              </Box>
             </Box>
           ))}
       </Box>
@@ -92,8 +126,8 @@ const blogCardStyle = (theme) => ({
   gap: "1rem",
   border: `1px solid ${theme.palette.divider}`,
   padding: "1rem",
-  borderRadius: "8px",
-  boxShadow: theme.shadows[3],
+  borderRadius: "1.5rem",
+  boxShadow: theme.shadows[2],
   transition: "transform 0.3s ease, box-shadow 0.3s ease",
 });
 
