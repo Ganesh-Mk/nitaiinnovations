@@ -5,13 +5,13 @@ const path = require("path");
 require("dotenv").config();
 
 // Import routes
-const registerUser = require("./routes/registerUser");
-const loginUser = require("./routes/loginUser");
-const mainPage = require("./routes/mainPage");
-const allUser = require("./routes/allUser");
-const createBlog = require("./routes/createBlog");
-const clearAllUser = require("./routes/clearAllUser");
-const allBlogs = require("./routes/allBlogs");
+const registerUser = require("../routes/registerUser");
+const loginUser = require("../routes/loginUser");
+const mainPage = require("../routes/mainPage");
+const allUser = require("../routes/allUser");
+const createBlog = require("../routes/createBlog");
+const clearAllUser = require("../routes/clearAllUser");
+const allBlogs = require("../routes/allBlogs");
 
 const app = express();
 
@@ -36,7 +36,7 @@ app.set("views", path.join(__dirname, "views"));
 // Connect to MongoDB
 mongoose
   .connect(
-    process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/nitaiInnovationsDB"
+    process.env.MONGODB_URL
   )
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
