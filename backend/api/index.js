@@ -13,7 +13,7 @@ const createBlog = require("../routes/createBlog");
 const clearAllUser = require("../routes/clearAllUser");
 const allBlogs = require("../routes/allBlogs");
 
-const app = express();
+const app = express();  
 
 // CORS configuration
 const corsOptions = {
