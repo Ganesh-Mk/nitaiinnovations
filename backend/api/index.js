@@ -18,14 +18,14 @@ const app = express();
 // CORS configuration
 const corsOptions = {
   origin: "https://nitaiinnovations.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // If you need to send cookies or HTTP authentication
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
-
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
+app.options("*", cors(corsOptions));  // Handle preflight requests for all routes
 
 app.use((err, req, res, next) => {
   res.header("Access-Control-Allow-Origin", corsOptions.origin);
