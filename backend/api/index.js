@@ -23,9 +23,15 @@ const corsOptions = {
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
+
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
 
+app.use((err, req, res, next) => {
+  res.header("Access-Control-Allow-Origin", corsOptions.origin);
+  res.status(err.status || 500);
+  res.json({ error: err.message });
+});
 // Middleware
 app.use(express.json()); // Replaces bodyParser.json()
 app.use(express.urlencoded({ extended: true })); // Replaces bodyParser.urlencoded()
