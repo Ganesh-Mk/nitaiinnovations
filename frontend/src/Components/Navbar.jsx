@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux"; // Import useSelector
 import "../Styles/navbar.css";
 
 import Box from "@mui/material/Box";
@@ -17,6 +18,9 @@ import DropDownButton from "./DropDownButton";
 
 function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
+  // Access the storeRegisterRecord state
+  const isRegistered = useSelector((state) => state.user.isRegistered);
+  const isLoggedin = useSelector((state) => state.user.isLoggedin);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -155,36 +159,43 @@ function Navbar({ mode, toggleColorMode }) {
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
 
-              <Button
-                color="primary"
-                variant="outlined"
-                size="small"
-                component={Link}
-                to="/register"
-                onClick={() => toggleDrawer(false)}
-              >
-                Register
-              </Button>
-              <Button
-                color="primary"
-                variant="outlined"
-                size="small"
-                component={Link}
-                to="/login"
-                onClick={() => toggleDrawer(false)}
-              >
-                Login
-              </Button>
-              <Button
-                color="primary"
-                variant="outlined"
-                size="small"
-                component={Link}
-                to="/account"
-                onClick={() => toggleDrawer(false)}
-              >
-                Account
-              </Button>
+              {/* Conditionally render the Register button */}
+              {!isRegistered && (
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  size="small"
+                  component={Link}
+                  to="/register"
+                  onClick={() => toggleDrawer(false)}
+                >
+                  Register
+                </Button>
+              )}
+              {!isLoggedin && (
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  size="small"
+                  component={Link}
+                  to="/login"
+                  onClick={() => toggleDrawer(false)}
+                >
+                  Login
+                </Button>
+              )}
+              {(isRegistered || isLoggedin) && (
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  size="small"
+                  component={Link}
+                  to="/account"
+                  onClick={() => toggleDrawer(false)}
+                >
+                  Account
+                </Button>
+              )}
             </Box>
             <Box sx={{ display: { sm: "", md: "none" } }}>
               <Button

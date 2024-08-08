@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  storeEmail,
+  storeName,
+  storeusername,
+  storeRegisterRecord,
+  storeLoggedinRecord
+} from "../Store/userSlice";
 
 export default function Register() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -12,6 +20,7 @@ export default function Register() {
   const [password, setpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const registerUser = (e) => {
     e.preventDefault();
@@ -36,7 +45,13 @@ export default function Register() {
         console.log(res.data);
         localStorage.setItem("username", username);
         localStorage.setItem("email", email);
-        navigate("/login");
+
+        dispatch(storeusername(username));
+        dispatch(storeName(`${firstName} ${lastName}`));
+        dispatch(storeEmail(email));
+        dispatch(storeRegisterRecord(true)); // Set isRegistered to true
+        dispatch(storeLoggedinRecord(true)); 
+        navigate("/");
       })
       .catch((err) => {
         console.log(
