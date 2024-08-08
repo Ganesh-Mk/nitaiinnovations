@@ -2,7 +2,7 @@ import React from "react";
 import { Element } from "react-scroll";
 import { Typography } from "@mui/material";
 
-import "../Styles/aboutUsComp.css";
+import "../Styles/aboutUsComp.css"; 
 
 function AboutUsComp() {
   return (

@@ -15,7 +15,7 @@ const allBlogs = require("../routes/allBlogs");
 
 const app = express();  
 
-// CORS configuration
+// CORS configuration 
 const allowedOrigins = ['http://localhost:5173', 'https://nitaiinnovations.vercel.app'];
 const corsOptions = {
   origin: allowedOrigins,
