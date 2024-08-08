@@ -2,15 +2,20 @@ const express = require("express");
 const route = express.Router();
 const User = require("../models/users");
 const Blogs = require("../models/blogs");
+const multer = require("multer");
 
-route.post("/", async (req, res) => {
+const upload = multer({ dest: "uploads/" });
+
+route.post("/", upload.single("image"), async (req, res) => {
   const { username, title, email, desc } = req.body;
+  const imageUrl = req.file?.path || "";
+  console.log("imageUrl: ", imageUrl);
 
   try {
-    // adding blog to user blogs collection
+    // Adding blog to user blogs collection
     const user = await User.findOneAndUpdate(
       { username },
-      { $push: { blogs: { title, desc } } },
+      { $push: { blogs: { title, desc, imageUrl } } },
       { new: true, runValidators: true }
     );
 
@@ -18,15 +23,16 @@ route.post("/", async (req, res) => {
       return res.status(404).send({ message: "User not found" });
     }
 
-    // adding user blog to all blogs collection
+    // Adding user blog to all blogs collection
     await Blogs.create({
       username,
       email,
       title,
       desc,
+      imageUrl,
     });
-
-    res.status(200).send(user);
+    const blogs = await Blogs.find();
+    res.status(200).send({ user, blogs });
   } catch (err) {
     console.log(err);
     res.status(500).send({ message: "Internal Server Error" });
