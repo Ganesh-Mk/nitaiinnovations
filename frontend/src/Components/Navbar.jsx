@@ -15,16 +15,21 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
 import DropDownButton from "./DropDownButton";
+import { storeLoggedinRecord } from "../Store/userSlice";
 
 function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
   // Access the storeRegisterRecord state
-  const isRegistered = useSelector((state) => state.user.isRegistered);
   const isLoggedin = useSelector((state) => state.user.isLoggedin);
+  const isLogin = localStorage.getItem("isLogin");
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+
+  React.useEffect(() => {
+    console.log("user is logged in:", isLoggedin);
+  }, [isLoggedin, storeLoggedinRecord, isLoggedin]);
 
   return (
     <div>
@@ -160,31 +165,31 @@ function Navbar({ mode, toggleColorMode }) {
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
 
               {/* Conditionally render the Register button */}
-              {(isLoggedin)&& (
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  size="small"
-                  component={Link}
-                  to="/register"
-                  onClick={() => toggleDrawer(false)}
-                >
-                  Register
-                </Button>
+              {!(isLoggedin || isLogin === 'true') && (
+                <>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    size="small"
+                    component={Link}
+                    to="/register"
+                    onClick={() => toggleDrawer(false)}
+                  >
+                    Register
+                  </Button>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    size="small"
+                    component={Link}
+                    to="/login"
+                    onClick={() => toggleDrawer(false)}
+                  >
+                    Login
+                  </Button>
+                </>
               )}
-              {(isLoggedin) && (
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  size="small"
-                  component={Link}
-                  to="/login"
-                  onClick={() => toggleDrawer(false)}
-                >
-                  Login
-                </Button>
-              )}
-              {(!isLoggedin) && (
+              {(isLoggedin || isLogin === 'true') && (
                 <Button
                   color="primary"
                   variant="outlined"
@@ -315,5 +320,6 @@ function Navbar({ mode, toggleColorMode }) {
     </div>
   );
 }
+
 
 export default Navbar;

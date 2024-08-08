@@ -44,6 +44,7 @@ export default function Register() {
         console.log(res.data);
         localStorage.setItem("username", username);
         localStorage.setItem("email", email);
+        localStorage.setItem("isLogin", true);
 
         dispatch(storeusername(username));
         dispatch(storeName(`${firstName} ${lastName}`));

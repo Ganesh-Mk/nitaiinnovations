@@ -7,7 +7,7 @@ import {
   storeEmail,
   storeName,
   storeusername,
-  storeLoggedinRecord
+  storeLoggedinRecord,
 } from "../Store/userSlice";
 
 export default function Login() {
@@ -36,6 +36,8 @@ export default function Login() {
           dispatch(storeEmail(res.data.email));
           dispatch(storeusername(res.data.username));
           dispatch(storeLoggedinRecord(true));
+          localStorage.setItem("isLogin", true);
+
           navigate("/");
         } else {
           alert("Login failed: " + res.data.error);
