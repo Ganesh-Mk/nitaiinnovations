@@ -32,8 +32,6 @@ export default function Login() {
         console.log("Response received from backend:", res);
         if (res.data.status === "ok") {
           localStorage.setItem("isLogin", true);
-
-
           dispatch(storeName(res.data.name));
           dispatch(storeEmail(res.data.email));
           dispatch(storeusername(res.data.username));
