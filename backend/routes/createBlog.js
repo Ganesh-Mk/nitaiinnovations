@@ -8,7 +8,7 @@ const upload = multer({ dest: "uploads/" });
 
 route.post("/", upload.single("image"), async (req, res) => {
   const { username, title, email, desc } = req.body;
-  const imageUrl = req.file.path;
+  const imageUrl = req.file?.path || "";
   console.log("imageUrl: ", imageUrl);
 
   try {

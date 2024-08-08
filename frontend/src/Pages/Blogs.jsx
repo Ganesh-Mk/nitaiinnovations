@@ -1,8 +1,20 @@
-import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Input,
+  Typography,
+  useTheme,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import axios from "axios";
-import React, { useEffect } from "react";
 import { format } from "date-fns";
-import FeatureMainSection from "../Components/FeatureMainSection";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
 
 function CreateBlog() {
@@ -10,12 +22,25 @@ function CreateBlog() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const [blogs, setBlogs] = React.useState([]);
+  const [filter, setFilter] = React.useState("");
+  const [filteredBlogs, setFilteredBlogs] = React.useState([]);
+
+  const changeFilter = (e) => {
+    setFilter(e.target.value);
+
+    if (e.target.value === "newest") {
+      setFilteredBlogs([...blogs]);
+    } else if (e.target.value === "oldest") {
+      setFilteredBlogs([...blogs].reverse());
+    }
+  };
 
   useEffect(() => {
     axios
       .get(`${BACKEND_URL}/allBlogs`)
       .then((res) => {
         setBlogs(res.data);
+        setFilteredBlogs(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -43,32 +68,98 @@ function CreateBlog() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <Typography
-        variant="h1"
+      <Box
         sx={{
-          textAlign: "center",
-          display: "flex",
-          fontSize: { xs: "2.5rem", md: "3rem" },
-          flexDirection: { xs: "column", md: "row" },
-          alignSelf: "center",
+          display: "grid",
+          placeItems: "center",
+          gridTemplateAreas: {
+            xs: `
+        "title"
+        "createBlog"
+        "search"
+        "filter"
+      `,
+            md: `
+        "createBlog title search filter"
+      `,
+          },
+          gridTemplateColumns: {
+            xs: "1fr",
+            md: "auto 1fr auto auto",
+          },
+          gridTemplateRows: {
+            xs: "auto auto auto auto",
+            md: "auto",
+          },
+          gap: "1rem",
+          alignItems: "center",
+          width: "100%",
           marginTop: "7rem",
+          marginBottom: "2rem",
         }}
       >
-        All Blogs
-      </Typography>
-      <Link to="/createBlog">
-        <Button variant="outlined">Create your blog</Button>
-      </Link>
+        <Link to="/createBlog" style={{ gridArea: "createBlog" }}>
+          <Button sx={{ width: "13rem" }} variant="outlined">
+            Create your blog
+          </Button>
+        </Link>
+
+        <Typography
+          variant="h1"
+          sx={{
+            gridArea: "title",
+            textAlign: "center",
+            fontSize: { xs: "2.5rem", md: "3rem" },
+          }}
+        >
+          All Blogs
+        </Typography>
+
+        <Input
+          type="search"
+          sx={{
+            gridArea: "search",
+            width: { xs: "90%", md: 300 },
+            marginTop: { xs: 3, md: 0 },
+          }}
+          placeholder="Search Blogs"
+        />
+
+        <FormControl
+          sx={{
+            gridArea: "filter",
+            marginTop: { xs: 2, md: 0 },
+            width: { xs: "90%", md: 150 },
+          }}
+          size="small"
+        >
+          <InputLabel id="demo-select-small-label">Filter</InputLabel>
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            value={filter}
+            label="Filter"
+            onChange={changeFilter}
+          >
+            <MenuItem value={"newest"}>Newest</MenuItem>
+            <MenuItem value={"oldest"}>Oldest</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
       <Box
         sx={{
           display: "grid",
           width: "100%",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" },
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "1fr 1fr",
+            md: "1fr 1fr 1fr",
+          },
           gap: "1rem",
         }}
       >
-        {blogs
+        {filteredBlogs
           .slice()
           .reverse()
           .map((blog) => (
@@ -101,24 +192,25 @@ function CreateBlog() {
                     <Typography variant="body2">{blog.email}</Typography>
                   </Box>
                 </Box>
+
                 <Typography variant="body2">
                   {format(new Date(blog.createdAt), "d MMM yyyy")}
                 </Typography>
               </Box>
               <Divider />
-              <img
-                src={`${BACKEND_URL}/${blog.imageUrl}`}
-                style={{
-                  height: "16rem",
-                  width: "100%",
-                  borderRadius: "2rem",
-                  boxShadow: theme.shadows[1],
-                  objectFit: "cover",
-                  objectPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-                alt=""
-              />
+              {blog.imageUrl && (
+                <img
+                  src={`${BACKEND_URL}/${blog.imageUrl}`}
+                  style={{
+                    maxHeight: "20rem",
+                    width: "100%",
+                    borderRadius: "2rem",
+                    boxShadow: theme.shadows[1],
+                    background: `url(${BACKEND_URL}/${blog.imageUrl}) center/cover no-repeat`,
+                  }}
+                  alt="Blog image"
+                />
+              )}
               <Box>
                 <Typography variant="h5" sx={{ mb: 2 }}>
                   {blog.title}
