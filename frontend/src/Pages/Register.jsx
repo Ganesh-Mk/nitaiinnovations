@@ -6,7 +6,6 @@ import {
   storeEmail,
   storeName,
   storeusername,
-  storeRegisterRecord,
   storeLoggedinRecord
 } from "../Store/userSlice";
 
@@ -48,8 +47,7 @@ export default function Register() {
 
         dispatch(storeusername(username));
         dispatch(storeName(`${firstName} ${lastName}`));
-        dispatch(storeEmail(email));
-        dispatch(storeRegisterRecord(true)); // Set isRegistered to true
+        dispatch(storeEmail(email));// Set isRegistered to true
         dispatch(storeLoggedinRecord(true)); 
         navigate("/");
       })

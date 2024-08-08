@@ -4,7 +4,6 @@ const initialState = {
   username: "",
   name: "",
   email: "",
-  isRegistered: false,
   isLoggedin: false,
 };
 
@@ -18,9 +17,6 @@ export const userSlice = createSlice({
     storeName: (state, action) => {
       state.name = action.payload;
     },
-    storeRegisterRecord: (state, action) => {
-      state.isRegistered = action.payload;
-    },
     storeLoggedinRecord: (state, action) => {
       state.isLoggedin = action.payload;
     },
@@ -30,5 +26,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { storeName, storeEmail,storeRegisterRecord, storeusername, storeLoggedinRecord } = userSlice.actions;
+export const { storeName, storeEmail, storeusername, storeLoggedinRecord } = userSlice.actions;
 export default userSlice.reducer;

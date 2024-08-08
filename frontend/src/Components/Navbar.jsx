@@ -160,7 +160,7 @@ function Navbar({ mode, toggleColorMode }) {
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
 
               {/* Conditionally render the Register button */}
-              {!isRegistered && (
+              {(isLoggedin)&& (
                 <Button
                   color="primary"
                   variant="outlined"
@@ -172,7 +172,7 @@ function Navbar({ mode, toggleColorMode }) {
                   Register
                 </Button>
               )}
-              {!isLoggedin && (
+              {(isLoggedin) && (
                 <Button
                   color="primary"
                   variant="outlined"
@@ -184,7 +184,7 @@ function Navbar({ mode, toggleColorMode }) {
                   Login
                 </Button>
               )}
-              {(isRegistered || isLoggedin) && (
+              {(!isLoggedin) && (
                 <Button
                   color="primary"
                   variant="outlined"

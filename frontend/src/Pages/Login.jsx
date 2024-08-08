@@ -3,7 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { storeName, storeEmail } from "../Store/userSlice";
+import {
+  storeEmail,
+  storeName,
+  storeusername,
+  storeLoggedinRecord
+} from "../Store/userSlice";
 
 export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -28,8 +33,11 @@ export default function Login() {
         if (res.data.status === "ok") {
           localStorage.setItem("isLogin", true);
 
+
           dispatch(storeName(res.data.name));
           dispatch(storeEmail(res.data.email));
+          dispatch(storeusername(res.data.username));
+          dispatch(storeLoggedinRecord(true));
           navigate("/");
         } else {
           alert("Login failed: " + res.data.error);
