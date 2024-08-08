@@ -22,17 +22,26 @@ function CreateBlog() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const [blogs, setBlogs] = React.useState([]);
-  const [filter, setFilter] = React.useState("");
+  const [filter, setFilter] = React.useState("newest");
   const [filteredBlogs, setFilteredBlogs] = React.useState([]);
 
   const changeFilter = (e) => {
     setFilter(e.target.value);
 
     if (e.target.value === "newest") {
-      setFilteredBlogs([...blogs]);
+      setFilteredBlogs([...filteredBlogs].reverse());
     } else if (e.target.value === "oldest") {
-      setFilteredBlogs([...blogs].reverse());
+      setFilteredBlogs([...filteredBlogs].reverse());
     }
+  };
+
+  const handleSearch = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    setFilteredBlogs(
+      [...filteredBlogs].filter((b) =>
+        b.title.toLowerCase().includes(searchTerm)
+      )
+    );
   };
 
   useEffect(() => {
@@ -122,7 +131,8 @@ function CreateBlog() {
             width: { xs: "90%", md: 300 },
             marginTop: { xs: 3, md: 0 },
           }}
-          placeholder="Search Blogs"
+          placeholder="Search Blogs by Title"
+          onChange={handleSearch}
         />
 
         <FormControl
