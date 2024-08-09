@@ -24,10 +24,19 @@ export default function Login() {
     console.log("Login button clicked");
 
     axios
-      .post(`${BACKEND_URL}/loginUser`, {
-        email,
-        password,
-      })
+      .post(
+        `${BACKEND_URL}/loginUser`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
       .then((res) => {
         console.log("Response received from backend:", res);
         if (res.data.status === "ok") {

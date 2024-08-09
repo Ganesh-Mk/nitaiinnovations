@@ -6,7 +6,7 @@ import {
   storeEmail,
   storeName,
   storeusername,
-  storeLoggedinRecord
+  storeLoggedinRecord,
 } from "../Store/userSlice";
 
 export default function Register() {
@@ -33,13 +33,22 @@ export default function Register() {
     }
 
     axios
-      .post(`${BACKEND_URL}/registerUser`, {
-        username: username.trim(),
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        email: email.trim(),
-        password,
-      })
+      .post(
+        `${BACKEND_URL}/registerUser`,
+        {
+          username: username.trim(),
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("username", username);
@@ -48,8 +57,8 @@ export default function Register() {
 
         dispatch(storeusername(username));
         dispatch(storeName(`${firstName} ${lastName}`));
-        dispatch(storeEmail(email));// Set isRegistered to true
-        dispatch(storeLoggedinRecord(true)); 
+        dispatch(storeEmail(email)); // Set isRegistered to true
+        dispatch(storeLoggedinRecord(true));
         navigate("/");
       })
       .catch((err) => {
