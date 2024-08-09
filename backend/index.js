@@ -45,7 +45,7 @@ mongoose
     process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/nitaiInnovationsDB"
   )
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log("Not Connected to MongoDB: ", err));
 
 // Routes with /api prefix
 app.use("/registerUser", registerUser);
