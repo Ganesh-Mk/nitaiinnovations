@@ -1,66 +1,100 @@
-import { Typography, Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Input,
+  Typography,
+  useTheme,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import axios from "axios";
+import { format } from "date-fns";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Link } from "react-router-dom";
 
-const BlogsComp = () => {
+
+const BlogsComp = ({username, email, title, desc, imageUrl, createdAt}) => {
+  const theme = useTheme();
   return (
-    <Box>
-      <div className="rounded-lg border bg-background p-6 shadow-sm mb-8">
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <h3 className="text-lg font-semibold">
-              Building a Scalable React App
-            </h3>
-            <p className="text-muted-foreground">
-              Learn how to build a scalable React application that can handle
-              high traffic and complex features.
-            </p>
-          </div>
-          <p>
-            In this blog post, we'll dive into the best practices and techniques
-            for building a scalable React application. We'll cover topics such
-            as code organization, state management, performance optimization,
-            and more.
-          </p>
-        </div>
-        <div className="mt-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span>May 15, 2023</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-              />
-            </svg>
-            <span>12 comments</span>
-          </div>
-        </div>
-      </div>
+    <Box
+      sx={{
+        marginBottom: "3rem",
+        width: "72vw",
+        ...blogCardStyle(theme),
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.text.primary,
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "1rem",
+          }}
+        >
+          <Box
+            sx={{
+              height: "3rem",
+              width: "3rem",
+              borderRadius: "100rem",
+              border: "1px solid black",
+            }}
+          ></Box>
+          <Box>
+            <Typography variant="h6">{username}</Typography>
+            <Typography variant="body2">{email}</Typography>
+          </Box>
+        </Box>
+
+        <Typography variant="body2">
+          {createdAt}
+        </Typography>
+      </Box>
+      <Divider />
+        <img
+          src="images/nitaiLogo.png"
+          style={{
+            maxHeight: "20rem",
+            width: "20vw",
+            borderRadius: "2rem",
+            boxShadow: theme.shadows[1],
+            // background: `url(${BACKEND_URL}/${blog.imageUrl}) center/cover no-repeat`,
+          }}
+          alt="Blog image"
+        />
+      <Box>
+        <Typography variant="h5" sx={{ mb: 2 }}>
+          {title}
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            maxHeight: "7rem",
+            overflowY: "scroll",
+          }}
+        >
+          {desc}
+        </Typography>
+      </Box>
     </Box>
   );
 };
+
+const blogCardStyle = (theme) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+  border: `1px solid ${theme.palette.divider}`,
+  padding: "1rem",
+  borderRadius: "1.5rem",
+  boxShadow: theme.shadows[2],
+  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+});
 
 export default BlogsComp;

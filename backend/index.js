@@ -13,6 +13,7 @@ const createBlog = require("./routes/createBlog");
 const clearAllUser = require("./routes/clearAllUser");
 const allBlogs = require("./routes/allBlogs");
 const clearAllBlogs = require("./routes/clearAllBlogs");
+const userData = require("./routes/userData");
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use("/allUser", allUser);
 app.use("/clearAllBlogs", clearAllBlogs);
 app.use("/clearAllUser", clearAllUser);
 app.use("/allBlogs", allBlogs);
+app.use("/getUserData",userData )
 
 // Error handling middleware
 app.use((err, req, res, next) => {
