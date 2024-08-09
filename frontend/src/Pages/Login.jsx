@@ -12,6 +12,8 @@ import {
 
 export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  console.log("Backend URL:", BACKEND_URL);
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,11 +43,12 @@ export default function Login() {
         console.log("Response received from backend:", res);
         if (res.data.status === "ok") {
           localStorage.setItem("isLogin", true);
+          localStorage.setItem("username", res.data.name);
+          localStorage.setItem("email", res.data.email);
           dispatch(storeName(res.data.name));
           dispatch(storeEmail(res.data.email));
           dispatch(storeusername(res.data.username));
           dispatch(storeLoggedinRecord(true));
-          localStorage.setItem("isLogin", true);
 
           navigate("/");
         } else {
