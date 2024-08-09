@@ -18,13 +18,9 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: [
-    "https://nitaiinnovations.vercel.app",
-    "https://nitaiinnovations.vercel.app/",
-    "http://localhost:5173",
-  ], // Allow both origins
+  origin: ["https://nitaiinnovations.vercel.app", "http://localhost:5173"],
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allowedHeaders: ["*"],
 };
 
 app.use("/uploads", express.static("uploads"));
