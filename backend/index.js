@@ -48,10 +48,12 @@ mongoose
   .catch((err) => console.log("Not Connected to MongoDB: ", err));
 
 // Routes with /api prefix
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 app.use("/registerUser", registerUser);
 app.use("/loginUser", loginUser);
 app.use("/createBlog", createBlog);
-app.use("", mainPage);
 app.use("/allUser", allUser);
 app.use("/clearAllBlogs", clearAllBlogs);
 app.use("/clearAllUser", clearAllUser);
