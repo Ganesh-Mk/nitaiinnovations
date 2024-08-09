@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
         name: user.username,
         email: user.email,
         totalPostsLength: user.blogs.length, 
+        allBlogPosts: user.blogs, 
       });
     } else {
       res.send({ message: "User not found" });

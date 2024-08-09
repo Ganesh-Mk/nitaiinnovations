@@ -17,15 +17,21 @@ function Accout() {
   }
 
   useEffect(() => {
+    const userName = localStorage.getItem("username");
+    const userEmail = localStorage.getItem("email");
     axios
-      .get(`${BACKEND_URL}/allBlogs`)
+      .get(`${BACKEND_URL}/getUserData`, {
+        params: { userName, userEmail },
+      })
       .then((res) => {
-        setallBogs(res.data);
+        const { allBlogPosts } = res.data;
+        setallBogs(allBlogPosts);
+        console.log("Successfully get data of user from backend");
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Didn't get data of user from backend", err);
       });
-  }, []);
+  });
   console.log(allBogs);
 
   return (
