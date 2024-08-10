@@ -1,25 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Divider,
-  IconButton,
-  Input,
   Typography,
   useTheme,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
 } from "@mui/material";
-import axios from "axios";
-import { format } from "date-fns";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Link } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
-
-const BlogsComp = ({username, email, title, desc, imageUrl, createdAt}) => {
+const BlogsComp = ({ username, email, title, desc, imageUrl, createdAt }) => {
   const theme = useTheme();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleDialogOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
+
+  const shouldTruncate = desc.length > 100; // Adjust the number as needed
+
   return (
     <Box
       sx={{
@@ -52,22 +64,19 @@ const BlogsComp = ({username, email, title, desc, imageUrl, createdAt}) => {
           </Box>
         </Box>
 
-        <Typography variant="body2">
-          {createdAt}
-        </Typography>
+        <Typography variant="body2">{createdAt}</Typography>
       </Box>
       <Divider />
-        <img
-          src="images/nitaiLogo.png"
-          style={{
-            maxHeight: "20rem",
-            width: "20vw",
-            borderRadius: "2rem",
-            boxShadow: theme.shadows[1],
-            // background: `url(${BACKEND_URL}/${blog.imageUrl}) center/cover no-repeat`,
-          }}
-          alt="Blog image"
-        />
+      <img
+        src="images/nitaiLogo.png"
+        style={{
+          maxHeight: "20rem",
+          width: "20vw",
+          borderRadius: "2rem",
+          boxShadow: theme.shadows[1],
+        }}
+        alt="Blog image"
+      />
       <Box>
         <Typography variant="h5" sx={{ mb: 2 }}>
           {title}
@@ -75,13 +84,56 @@ const BlogsComp = ({username, email, title, desc, imageUrl, createdAt}) => {
         <Typography
           variant="body1"
           sx={{
-            maxHeight: "7rem",
-            overflowY: "scroll",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            WebkitLineClamp: isExpanded ? "none" : 3, // Show 3 lines by default, expand on click
+            wordWrap: "break-word",
+            maxHeight: isExpanded ? "none" : "7rem",
           }}
         >
           {desc}
         </Typography>
+        {shouldTruncate && (
+          <Button
+            onClick={handleDialogOpen}
+            sx={{ textTransform: "none", mt: 1 }}
+            variant="text"
+          >
+            Continue Reading
+          </Button>
+        )}
       </Box>
+
+      {/* Dialog Component */}
+      <Dialog
+        onClose={handleDialogClose}
+        aria-labelledby="customized-dialog-title"
+        open={openDialog}
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          {title}
+          <IconButton
+            aria-label="close"
+            onClick={handleDialogClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography sx={{ wordWrap: "break-word" }} gutterBottom>{desc}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

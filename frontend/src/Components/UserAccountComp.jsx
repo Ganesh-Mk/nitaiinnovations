@@ -59,7 +59,7 @@ const UserAccountComp = () => {
               alt="@shadcn"
               className="w-full h-full object-cover"
             />
-          </div>
+          </div>  
           <div className="grid gap-1 text-center">
             <div className="text-lg font-semibold">{nameOfUser}</div>
             <div className="text-sm text-muted-foreground">{userEmail}</div>
