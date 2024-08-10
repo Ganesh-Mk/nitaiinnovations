@@ -14,6 +14,10 @@ const blogSchema = new mongoose.Schema({
   imageUrl: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const userSchema = new mongoose.Schema(

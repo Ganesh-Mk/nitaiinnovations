@@ -1,4 +1,4 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button, Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -8,14 +8,13 @@ import {
   storeusername,
 } from "../Store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "../Pages/Login";
 import axios from "axios";
+
 const UserAccountComp = () => {
-  const [totalPosts, settotalPosts] = useState("0");
-  const [userEmail, setuserEmail] = useState(""); //email
-  const [nameOfUser, setnameOfUser] = useState(""); //name
+  const [totalPosts, setTotalPosts] = useState("0");
+  const [userEmail, setUserEmail] = useState("");
+  const [nameOfUser, setNameOfUser] = useState("");
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  console.log("Backend URL:", BACKEND_URL);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,16 +26,15 @@ const UserAccountComp = () => {
         params: { userName, userEmail },
       })
       .then((res) => {
-        const { name, email, totalPostsLength } = res.data;
-        setnameOfUser(name);
-        setuserEmail(email);
-        settotalPosts(totalPostsLength);
-        console.log("Successfully get data of user from backend");
+        const { username, email, totalPostsLength } = res.data;
+        setNameOfUser(username);
+        setUserEmail(email);
+        setTotalPosts(totalPostsLength);
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
       });
-  });
+  }, [BACKEND_URL]);
 
   const logoutUser = () => {
     dispatch(storeLoggedinRecord(false));
@@ -49,41 +47,76 @@ const UserAccountComp = () => {
 
     navigate("/");
   };
+
   return (
-    <Box>
-      <div className="fixed left-0 top-0 h-full w-full max-w-[300px] border-r bg-background p-6 md:w-[26vw] mt-[6rem]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-20 w-20 rounded-full overflow-hidden">
-            <img
-              src="images/nitaiLogo.png"
-              alt="@shadcn"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="grid gap-1 text-center">
-            <div className="text-lg font-semibold">{nameOfUser}</div>
-            <div className="text-sm text-muted-foreground">{userEmail}</div>
-            <div className="text-sm text-muted-foreground">
-              <span className="font-medium">{totalPosts}</span> Posts
-            </div>
-          </div>
-          <div className="mt-auto flex w-full flex-col gap-2">
-            <Link to="/createBlog">
-            <button className="inline-flex w-[100%] bg-slate-400 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-              Create Blog
-            </button>
-            </Link>
-            
-            <button
-              onClick={logoutUser}
-              className="inline-flex bg-slate-600 items-center justify-center rounded-md border border-muted px-4 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-muted focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+    <Box
+      sx={{
+        maxWidth: 300,
+        height: "80vh",
+        borderRight: "1px solid",
+        borderColor: "divider",
+        backgroundColor: "background.paper",
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        paddingTop: "6rem",
+        "@media (max-width: 600px)": {
+          maxWidth: "100%",
+          position: "relative",
+          borderRight: "none",
+          borderBottom: "1px solid",
+          borderColor: "divider",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <Avatar src="images/nitaiLogo.png" sx={{ width: 80, height: 80 }} />
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h4">{nameOfUser}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            {userEmail}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            <strong>{totalPosts}</strong> Posts
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            marginTop: "auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          <Link to="/createBlog" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{ width: { xs: "20rem", sm: "13rem" } }}
+              color="primary"
+              fullWidth
             >
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
+              Create Blog
+            </Button>
+          </Link>
+          <Button
+            onClick={logoutUser}
+            variant="outlined"
+            color="secondary"
+            fullWidth
+          >
+            Logout
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 };
+
 export default UserAccountComp;

@@ -17,6 +17,7 @@ import { alpha } from "@mui/material/styles";
 import { format } from "date-fns";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
+import BlogsComp from "../Components/BlogsComp";
 
 function CreateBlog() {
   const theme = useTheme();
@@ -173,70 +174,17 @@ function CreateBlog() {
         {filteredBlogs
           .slice()
           .reverse()
-          .map((blog) => (
-            <Box
-              key={blog._id}
-              sx={{
-                ...blogCardStyle(theme),
-                backgroundColor: theme.palette.background.paper,
-                color: theme.palette.text.primary,
-              }}
-            >
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "1rem",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      height: "3rem",
-                      width: "3rem",
-                      borderRadius: "100rem",
-                      border: "1px solid black",
-                    }}
-                  ></Box>
-                  <Box>
-                    <Typography variant="h6">{blog.username}</Typography>
-                    <Typography variant="body2">{blog.email}</Typography>
-                  </Box>
-                </Box>
-
-                <Typography variant="body2">
-                  {format(new Date(blog.createdAt), "d MMM yyyy")}
-                </Typography>
-              </Box>
-              <Divider />
-              {blog.imageUrl && (
-                <img
-                  src={`${BACKEND_URL}/${blog.imageUrl}`}
-                  style={{
-                    maxHeight: "20rem",
-                    width: "100%",
-                    borderRadius: "2rem",
-                    boxShadow: theme.shadows[1],
-                    background: `url(${BACKEND_URL}/${blog.imageUrl}) center/cover no-repeat`,
-                  }}
-                  alt="Blog image"
-                />
-              )}
-              <Box>
-                <Typography variant="h5" sx={{ mb: 2 }}>
-                  {blog.title}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    maxHeight: "7rem",
-                    overflowY: "scroll",
-                  }}
-                >
-                  {blog.desc}
-                </Typography>
-              </Box>
-            </Box>
+          .map((blog, i) => (
+            <BlogsComp
+              key={i}
+              blogKey={i}
+              username={blog.username}
+              email={blog.email}
+              title={blog.title}
+              desc={blog.desc}
+              imageUrl={blog.imageUrl}
+              createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
+            />
           ))}
       </Box>
     </Box>

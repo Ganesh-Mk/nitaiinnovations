@@ -9,10 +9,10 @@ router.get("/", async (req, res) => {
 
     if (user) {
       res.send({
-        name: user.username,
+        username: user.username,
         email: user.email,
-        totalPostsLength: user.blogs.length, 
-        allBlogPosts: user.blogs, 
+        totalPostsLength: user.blogs.length,
+        allBlogPosts: user.blogs,
       });
     } else {
       res.send({ message: "User not found" });
