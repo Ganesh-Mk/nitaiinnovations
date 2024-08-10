@@ -14,13 +14,14 @@ const clearAllUser = require("./routes/clearAllUser");
 const allBlogs = require("./routes/allBlogs");
 const clearAllBlogs = require("./routes/clearAllBlogs");
 const userData = require("./routes/userData");
+const editBlog = require("./routes/editBlog");
 
 const app = express();
 
 // CORS configuration
 const corsOptions = {
   origin: ["https://nitaiinnovations.vercel.app", "http://localhost:5173"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["*"],
 };
 
@@ -56,6 +57,8 @@ app.use("/clearAllBlogs", clearAllBlogs);
 app.use("/clearAllUser", clearAllUser);
 app.use("/allBlogs", allBlogs);
 app.use("/getUserData",userData )
+app.use("/editBlog", editBlog);
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

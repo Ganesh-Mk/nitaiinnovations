@@ -15,6 +15,7 @@ const blogsSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
   desc: {
     type: String,

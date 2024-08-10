@@ -29,6 +29,36 @@ function EditBlog() {
 
   function editBlog() {
     // Get username and this specific blog info to target in backend
+    const userName = localStorage.getItem("username");
+    const userEmail = localStorage.getItem("email");
+    const currentTitle = JSON.parse(localStorage.getItem("currentBlog") || "{}").title;
+    const currentDesc = JSON.parse(localStorage.getItem("currentBlog") || "{}").desc;
+    if(title === "" || desc === "") {
+      alert("Please enter title and description");
+      return;
+    }
+    if(title === currentTitle && desc === currentDesc) {
+      alert("No changes made");
+      return;
+    }
+    axios
+      .patch(`${BACKEND_URL}/editBlog`, {
+        // Notice the trailing slash
+        username: userName,
+        email: userEmail,
+        changetitle: title,
+        currentTitle: currentTitle, 
+        changedesc: desc,
+        changeimage: image,
+      })
+      .then((res) => {
+        console.log("Successfully edit blog in backend: ", res.data);
+        navigate("/account");
+      })
+      .catch((err) => {
+        console.log("Didn't edit blog in backend: ", err);
+      });
+
     // update in backend
     // navigate to account page
   }
