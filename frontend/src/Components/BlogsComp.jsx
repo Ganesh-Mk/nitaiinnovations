@@ -1,21 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  Input,
-  Typography,
-  useTheme,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
-import axios from "axios";
+import { Box, Divider, Typography, useTheme, IconButton } from "@mui/material";
 import { format } from "date-fns";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Link } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const BlogsComp = ({
   blogKey,
@@ -28,7 +16,21 @@ const BlogsComp = ({
   isAccountBlog = false,
 }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+  function editBlog() {
+    console.log("from account page: ", title, desc, imageUrl);
+    let blogInfo = {
+      title: title,
+      desc: desc,
+      imageUrl: imageUrl,
+    };
+    localStorage.setItem("currentBlog", JSON.stringify(blogInfo));
+
+    navigate("/editBlog");
+  }
 
   return (
     <Box
@@ -41,34 +43,55 @@ const BlogsComp = ({
     >
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         {!isAccountBlog && (
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "1rem",
+              }}
+            >
+              <Box
+                sx={{
+                  height: "3rem",
+                  width: "3rem",
+                  borderRadius: "100rem",
+                  border: "1px solid black",
+                }}
+              ></Box>
+
+              <Box>
+                <Typography variant="h6">
+                  {username}
+                  {console.log("username: ", username)}
+                </Typography>
+                <Typography variant="body2">{email}</Typography>
+              </Box>
+            </Box>
+
+            <Typography variant="body2">
+              {format(new Date(createdAt), "d MMM yyyy")}
+            </Typography>
+          </>
+        )}
+
+        {isAccountBlog && (
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              gap: "1rem",
+              alignItems: "center",
+              width: "100%",
             }}
           >
-            <Box
-              sx={{
-                height: "3rem",
-                width: "3rem",
-                borderRadius: "100rem",
-                border: "1px solid black",
-              }}
-            ></Box>
-
-            <Box>
-              <Typography variant="h6">
-                {username}
-                {console.log("username: ", username)}
-              </Typography>
-              <Typography variant="body2">{email}</Typography>
-            </Box>
+            <Typography variant="body2">
+              Date: {format(new Date(createdAt), "d MMM yyyy")}
+            </Typography>
+            <IconButton aria-label="edit" onClick={editBlog}>
+              <EditIcon />
+            </IconButton>
           </Box>
         )}
-        <Typography variant="body2">
-          {format(new Date(createdAt), "d MMM yyyy")}
-        </Typography>
       </Box>
 
       <Divider />

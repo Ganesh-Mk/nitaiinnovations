@@ -17,6 +17,7 @@ import Login from "./Pages/Login";
 import Blogs from "./Pages/Blogs";
 import CreateBlog from "./Pages/CreateBlog";
 import Account from "./Pages/Accout";
+import EditBlog from "./Pages/EditBlog";
 
 export default function App() {
   const [mode, setMode] = React.useState("light");
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/createBlog" element={<CreateBlog />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/editBlog" element={<EditBlog />} />
         </Routes>
         {/* <Footer /> */}
       </Router>
