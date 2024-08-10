@@ -36,14 +36,15 @@ function Accout() {
 
   return (
     <Box>
-      <div className="flex min-h-screen w-full mt-[6rem]">
+      <div className="flex min-h-screen w-full">
         <UserAccountComp />
-        <div className="max-w-full overflow-auto p-6 md:ml-[22vw]">
+        <div className="max-w-full overflow-auto p-6">
           <div
-            className="flex-col fixed overflow-auto"
+            className="flex-col overflow-auto"
             style={{
               border: "1px solid grey",
-              height: "82vh",
+              marginTop: "5rem",
+              height: "100vh",
               borderRadius: "2rem",
             }}
           >

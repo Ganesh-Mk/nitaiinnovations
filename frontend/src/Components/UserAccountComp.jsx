@@ -51,7 +51,7 @@ const UserAccountComp = () => {
   };
   return (
     <Box>
-      <div className="fixed left-0 top-0 h-full w-full max-w-[300px] border-r bg-background p-6 md:w-[26vw] mt-[6rem]">
+      <div className="h-[100vh] w-full max-w-[300px] border-r bg-background p-6 md:w-[26vw] mt-[6rem]">
         <div className="flex flex-col items-center gap-4">
           <div className="h-20 w-20 rounded-full overflow-hidden">
             <img

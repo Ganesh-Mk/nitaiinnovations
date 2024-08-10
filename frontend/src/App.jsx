@@ -42,7 +42,7 @@ export default function App() {
           <Route path="/createBlog" element={<CreateBlog />} />
           <Route path="/account" element={<Account />} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </ThemeProvider>
   );
