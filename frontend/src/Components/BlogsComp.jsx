@@ -39,8 +39,8 @@ const BlogsComp = ({
         color: theme.palette.text.primary,
       }}
     >
-      {!isAccountBlog && (
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        {!isAccountBlog && (
           <Box
             sx={{
               display: "flex",
@@ -65,12 +65,11 @@ const BlogsComp = ({
               <Typography variant="body2">{email}</Typography>
             </Box>
           </Box>
-
-          <Typography variant="body2">
-            {format(new Date(createdAt), "d MMM yyyy")}
-          </Typography>
-        </Box>
-      )}
+        )}
+        <Typography variant="body2">
+          {format(new Date(createdAt), "d MMM yyyy")}
+        </Typography>
+      </Box>
 
       <Divider />
       {imageUrl && (

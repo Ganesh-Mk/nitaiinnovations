@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Divider,
-  IconButton,
   Input,
   Typography,
   useTheme,
@@ -15,7 +13,6 @@ import {
 import axios from "axios";
 import { alpha } from "@mui/material/styles";
 import { format } from "date-fns";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
 import BlogsComp from "../Components/BlogsComp";
 
@@ -23,27 +20,30 @@ function CreateBlog() {
   const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  const [blogs, setBlogs] = React.useState([]);
-  const [filter, setFilter] = React.useState("newest");
-  const [filteredBlogs, setFilteredBlogs] = React.useState([]);
+  const [blogs, setBlogs] = useState([]);
+  const [filter, setFilter] = useState("newest");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const applyFilters = (blogs) => {
+    let filtered = blogs.filter((b) =>
+      b.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (filter === "newest") {
+      filtered = filtered.slice().reverse();
+    } else if (filter === "oldest") {
+      filtered = filtered;
+    }
+
+    return filtered;
+  };
 
   const changeFilter = (e) => {
     setFilter(e.target.value);
-
-    if (e.target.value === "newest") {
-      setFilteredBlogs([...filteredBlogs].reverse());
-    } else if (e.target.value === "oldest") {
-      setFilteredBlogs([...filteredBlogs].reverse());
-    }
   };
 
   const handleSearch = (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    setFilteredBlogs(
-      [...filteredBlogs].filter((b) =>
-        b.title.toLowerCase().includes(searchTerm)
-      )
-    );
+    setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
@@ -51,21 +51,18 @@ function CreateBlog() {
       .get(`${BACKEND_URL}/allBlogs`)
       .then((res) => {
         setBlogs(res.data);
-        setFilteredBlogs(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [BACKEND_URL]);
+
+  const filteredBlogs = applyFilters(blogs);
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
+        display: "grid",
         gap: "2rem",
         padding: "2rem",
         backgroundColor: theme.palette.background.default,
@@ -171,35 +168,39 @@ function CreateBlog() {
           gap: "1rem",
         }}
       >
-        {filteredBlogs
-          .slice()
-          .reverse()
-          .map((blog, i) => (
-            <BlogsComp
-              key={i}
-              blogKey={i}
-              username={blog.username}
-              email={blog.email}
-              title={blog.title}
-              desc={blog.desc}
-              imageUrl={blog.imageUrl}
-              createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
-            />
-          ))}
+        {filteredBlogs.length === 0 && (
+          <Box
+            sx={{
+              width: "93vw",
+              display: "grid",
+              placeItems: "center",
+              marginTop: "3rem",
+            }}
+          >
+            <Typography
+              variant="h3"
+              color="#0959AA"
+              sx={{ textAlign: "center" }}
+            >
+              No Blogs Found
+            </Typography>
+          </Box>
+        )}
+        {filteredBlogs.map((blog, i) => (
+          <BlogsComp
+            key={i}
+            blogKey={i}
+            username={blog.username}
+            email={blog.email}
+            title={blog.title}
+            desc={blog.desc}
+            imageUrl={blog.imageUrl}
+            createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
+          />
+        ))}
       </Box>
     </Box>
   );
 }
-
-const blogCardStyle = (theme) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "1rem",
-  border: `1px solid ${theme.palette.divider}`,
-  padding: "1rem",
-  borderRadius: "1.5rem",
-  boxShadow: theme.shadows[2],
-  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-});
 
 export default CreateBlog;
