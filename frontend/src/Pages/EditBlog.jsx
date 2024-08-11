@@ -90,6 +90,7 @@ function EditBlog() {
         flexDirection: "column",
         padding: { xs: "0 2rem", sm: "0 20rem" },
         gap: "2rem",
+        marginBottom: "5rem",
       }}
     >
       <Typography variant="h2" mt={"5rem"}>

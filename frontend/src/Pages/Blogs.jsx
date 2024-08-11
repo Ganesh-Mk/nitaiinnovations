@@ -24,6 +24,11 @@ function CreateBlog() {
   const [filter, setFilter] = useState("newest");
   const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   const applyFilters = (blogs) => {
     let filtered = blogs.filter((b) =>
       b.title.toLowerCase().includes(searchTerm.toLowerCase())

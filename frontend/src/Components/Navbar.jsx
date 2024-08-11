@@ -14,27 +14,15 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
 import DropDownButton from "./DropDownButton";
-import {
-  storeLoggedinRecord,
-  storeEmail,
-  storeusername,
-} from "../Store/userSlice";
 
 function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
-  // Access the storeRegisterRecord state
   const isLoggedin = useSelector((state) => state.user.isLoggedin);
   const isLogin = localStorage.getItem("isLogin");
-  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-
-  React.useEffect(() => {
-    console.log("Reload");
-    
-  }, [storeLoggedinRecord]);
 
   return (
     <div>

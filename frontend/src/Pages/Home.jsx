@@ -38,7 +38,6 @@ export default function Home() {
       <DividerLine />
 
       <ContactUsComp />
-      <DividerLine />
     </>
   );
 }

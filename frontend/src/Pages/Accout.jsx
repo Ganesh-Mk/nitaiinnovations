@@ -19,13 +19,16 @@ function Accout() {
       .then((res) => {
         const { allBlogPosts } = res.data;
         setallBogs(allBlogPosts);
-        console.log("Successfully get data of user from backend");
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
       });
   }, []);
-  console.log(allBogs);
+
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Box

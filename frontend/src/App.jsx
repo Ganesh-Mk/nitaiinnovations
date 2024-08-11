@@ -44,7 +44,7 @@ export default function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/editBlog" element={<EditBlog />} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </ThemeProvider>
   );

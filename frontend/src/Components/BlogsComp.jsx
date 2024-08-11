@@ -21,7 +21,6 @@ const BlogsComp = ({
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   function editBlog() {
-    console.log("from account page: ", title, desc, imageUrl);
     let blogInfo = {
       title: title,
       desc: desc,
@@ -61,10 +60,7 @@ const BlogsComp = ({
               ></Box>
 
               <Box>
-                <Typography variant="h6">
-                  {username}
-                  {console.log("username: ", username)}
-                </Typography>
+                <Typography variant="h6">{username}</Typography>
                 <Typography variant="body2">{email}</Typography>
               </Box>
             </Box>

@@ -5,10 +5,10 @@ import { alpha } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -62,39 +62,47 @@ export default function Hero() {
               knowledge and tools to navigate the ever-evolving cybersecurity
               landscape.
             </Typography>
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              alignSelf="center"
-              spacing={1}
-              useFlexGap
-              sx={{ pt: 2, width: { xs: "100%", sm: "auto" } }}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignSelf: "center",
+                textAlign: "center",
+                gap: "1rem",
+                marginTop: "1rem",
+              }}
             >
-              <TextField
-                id="outlined-basic"
-                hiddenLabel
-                size="small"
-                variant="outlined"
-                aria-label="Enter your email address"
-                placeholder="Your email address"
-                inputProps={{
-                  autoComplete: "off",
-                  "aria-label": "Enter your email address",
-                }}
-              />
-              <Button variant="contained" color="primary">
-                Register now
-              </Button>
-            </Stack>
-            <Typography
-              variant="caption"
-              textAlign="center"
-              sx={{ opacity: 0.8 }}
-            >
-              By clicking &quot;Start now&quot; you agree to our&nbsp;
-              <Link href="#" color="primary">
-                Terms & Conditions
+              {localStorage.getItem("isLogin") == "true" ? (
+                <Link to="/createBlog">
+                  <Button
+                    sx={{ width: { xs: "15rem", md: "auto" } }}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Create Blog
+                  </Button>
+                </Link>
+              ) : (
+                <Link to="/register">
+                  <Button
+                    sx={{ width: { xs: "15rem", md: "auto" } }}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Register Now
+                  </Button>
+                </Link>
+              )}
+              <Link to="/" state={{ scrollTo: "contactUsSection" }}>
+                <Button
+                  sx={{ width: { xs: "15rem", md: "auto" } }}
+                  variant="outlined"
+                  color="primary"
+                >
+                  Contact Us
+                </Button>
               </Link>
-            </Typography>
+            </Box>
           </Stack>
         </Container>
       </Box>
