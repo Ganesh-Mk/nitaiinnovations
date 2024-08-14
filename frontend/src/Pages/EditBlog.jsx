@@ -18,7 +18,7 @@ function EditBlog() {
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     const blog = JSON.parse(localStorage.getItem("currentBlog") || "{}");
@@ -59,8 +59,6 @@ function EditBlog() {
         console.log("Didn't edit blog in backend: ", err);
       });
 
-    // update in backend
-    // navigate to account page
   }
 
   function resetBlog() {

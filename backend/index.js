@@ -15,6 +15,7 @@ const allBlogs = require("./routes/allBlogs");
 const clearAllBlogs = require("./routes/clearAllBlogs");
 const userData = require("./routes/userData");
 const editBlog = require("./routes/editBlog");
+const updateUser = require("./routes/updateUser")
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use("/clearAllUser", clearAllUser);
 app.use("/allBlogs", allBlogs);
 app.use("/getUserData",userData )
 app.use("/editBlog", editBlog);
+app.use("/updateUser", updateUser);
 
 
 // Error handling middleware

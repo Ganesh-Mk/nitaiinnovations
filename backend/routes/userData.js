@@ -9,6 +9,8 @@ router.get("/", async (req, res) => {
 
     if (user) {
       res.send({
+        firstName: user.firstName,
+        lastName: user.lastName,
         username: user.username,
         email: user.email,
         totalPostsLength: user.blogs.length,
