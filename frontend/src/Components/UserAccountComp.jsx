@@ -105,6 +105,15 @@ const UserAccountComp = () => {
               Create Blog
             </Button>
           </Link>
+          <Link to="/editProfile" style={{ textDecoration: "none" }}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            fullWidth
+          >
+            Edit Profile
+          </Button>
+          </Link>
           <Button
             onClick={logoutUser}
             variant="outlined"

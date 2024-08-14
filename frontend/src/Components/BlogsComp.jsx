@@ -114,6 +114,7 @@ const BlogsComp = ({
           sx={{
             maxHeight: "7rem",
             overflowY: "scroll",
+            wordWrap: "break-word",
           }}
         >
           {desc}
