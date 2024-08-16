@@ -27,17 +27,55 @@ function EditBlog() {
     setImage(blog.image);
   }, []);
 
+  function deleteBlog() {
+    const userEmail = localStorage.getItem("email");
+    const currentTitle = JSON.parse(
+      localStorage.getItem("currentBlog") || "{}"
+    ).title;
+  
+    const confirmDeletion = window.confirm(
+      `Are you sure you want to delete the blog titled "${currentTitle}"? This action cannot be undone.`
+    );
+  
+    if (!confirmDeletion) {
+      return; // If the user cancels, exit the function without deleting
+    }
+  
+    axios
+      .delete(`${BACKEND_URL}/deleteBlog`, {
+        data: {
+          email: userEmail,
+          title: currentTitle,
+        },
+      })
+      .then((res) => {
+        console.log("Successfully deleted blog in backend: ", res.data);
+        navigate("/account");
+      })
+      .catch((err) => {
+        console.log("Failed to delete blog in backend: ", err);
+      });
+  }
+  
+
   function editBlog() {
     // Get username and this specific blog info to target in backend
     const userName = localStorage.getItem("username");
     const userEmail = localStorage.getItem("email");
-    const currentTitle = JSON.parse(localStorage.getItem("currentBlog") || "{}").title;
-    const currentDesc = JSON.parse(localStorage.getItem("currentBlog") || "{}").desc;
-    if(title === "" || desc === "") {
+    const currentTitle = JSON.parse(
+      localStorage.getItem("currentBlog") || "{}"
+    ).title;
+    const currentDesc = JSON.parse(
+      localStorage.getItem("currentBlog") || "{}"
+    ).desc;
+    const currentImageUrl = JSON.parse(
+      localStorage.getItem("currentBlog") || "{}"
+    ).imageUrl;
+    if (title === "" || desc === "") {
       alert("Please enter title and description");
       return;
     }
-    if(title === currentTitle && desc === currentDesc) {
+    if (title === currentTitle && desc === currentDesc && image === currentImageUrl) {
       alert("No changes made");
       return;
     }
@@ -47,7 +85,7 @@ function EditBlog() {
         username: userName,
         email: userEmail,
         changetitle: title,
-        currentTitle: currentTitle, 
+        currentTitle: currentTitle,
         changedesc: desc,
         changeimage: image,
       })
@@ -58,7 +96,6 @@ function EditBlog() {
       .catch((err) => {
         console.log("Didn't edit blog in backend: ", err);
       });
-
   }
 
   function resetBlog() {
@@ -148,6 +185,12 @@ function EditBlog() {
           style={fileInputStyles}
         />
       </label>
+      <Button
+        sx={{ width: "100%", border: "3px solid lightblue" }}
+        onClick={deleteBlog}
+      >
+        Delete Blog
+      </Button>
       <Box
         sx={{
           display: "grid",

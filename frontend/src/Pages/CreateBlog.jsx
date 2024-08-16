@@ -44,13 +44,16 @@ function CreateBlog() {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log("then", res);
         setTitle("");
         setDesc("");
         navigate("/blogs");
       })
       .catch((err) => {
-        console.log(err);
+        if(err.response.data.message === "Blog title already exists for this user") {
+          alert("Blog is title already exists");
+        }
+        console.log("ctach", err);
       });
   }
 

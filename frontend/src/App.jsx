@@ -19,7 +19,6 @@ import CreateBlog from "./Pages/CreateBlog";
 import Account from "./Pages/Accout";
 import EditBlog from "./Pages/EditBlog";
 import EditProfile from "./Pages/EditProfile";
-
 export default function App() {
   const [mode, setMode] = React.useState("light");
   const LPtheme = createTheme(getLPTheme(mode));
