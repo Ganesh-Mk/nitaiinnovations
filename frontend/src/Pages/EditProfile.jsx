@@ -1,61 +1,79 @@
-import React, { useEffect, useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import { Box, Button } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { styled } from "@mui/material/styles";
-import Badge from "@mui/material/Badge";
+import {
+  Box,
+  Button,
+  Input,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
-import { storeusername, storeEmail } from "../Store/userSlice";
 import { useDispatch } from "react-redux";
+import { storeusername, storeEmail } from "../Store/userSlice";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    "&::after": {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      borderRadius: "50%",
-      animation: "ripple 1.2s infinite ease-in-out",
-      border: "1px solid currentColor",
-      content: '""',
-    },
-  },
-  "@keyframes ripple": {
-    "0%": {
-      transform: "scale(.8)",
-      opacity: 1,
-    },
-    "100%": {
-      transform: "scale(2.4)",
-      opacity: 0,
-    },
-  },
-}));
-
-const SmallAvatar = styled(Avatar)(({ theme }) => ({
-  width: 30,
-  height: 30,
-  border: `2px solid ${theme.palette.background.paper}`,
-}));
-
-export default function EditProfile() {
-  const username = localStorage.getItem("username");
+function EditBlog() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  const [usersname, setusersname] = useState(localStorage.getItem("username"));
+
+  const [username, setusername] = useState(localStorage.getItem("username"));
   const [usersemail, setusersemail] = useState(localStorage.getItem("email"));
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [originalData, setoriginalData] = useState({});
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const [image, setImage] = useState("");
+
+  const submitChangedData = () => {
+    if (firstName === "" || lastName === "" || usersemail === "") {
+      alert("Please fill all the fields");
+      return;
+    }
+    if (
+      firstName !== originalData.firstName ||
+      lastName !== originalData.lastName ||
+      usersemail !== originalData.email
+    ) {
+      console.log("Updating  frontend");
+      let formData = new FormData();
+      formData.append("username", localStorage.getItem("username"));
+      formData.append("email", localStorage.getItem("email"));
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("email", usersemail);
+      formData.append("image", image);
+
+      axios
+        .patch(`${BACKEND_URL}/updateUser`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log("Successfully update user in backend: ", res.data);
+          setfirstName(res.data.firstName);
+          setlastName(res.data.lastName);
+          setusersemail(res.data.email);
+          localStorage.setItem("username", res.data.username);
+          localStorage.setItem("email", res.data.email);
+          dispatch(storeusername(res.data.username));
+          dispatch(storeEmail(res.data.email));
+          navigate("/account");
+        })
+        .catch((err) => {
+          console.log("Error in updating user in backend: ", err);
+        });
+    }
+  };
+
+  const resetUsersData = () => {
+    setfirstName(originalData.firstName);
+    setlastName(originalData.lastName);
+    setusersemail(originalData.email);
+  };
 
   useEffect(() => {
     axios
@@ -77,45 +95,32 @@ export default function EditProfile() {
       });
   }, [storeusername]);
 
-  const resetUsersData = () => {
-    setfirstName(originalData.firstName);
-    setlastName(originalData.lastName);
-    setusersemail(originalData.email);
+  const inputStyles = {
+    InputLabelProps: {
+      sx: { fontSize: "1.2rem" }, // Adjust the font size of the label
+    },
+    InputProps: {
+      sx: { fontSize: "1.4rem" }, // Adjust the font size of the value
+    },
   };
 
-  const submitChangedData = () => {
-    if (firstName === "" || lastName === "" || usersemail === "") {
-      alert("Please fill all the fields");
-      return;
-    }
-    if (
-      firstName !== originalData.firstName ||
-      lastName !== originalData.lastName ||
-      usersemail !== originalData.email
-    ) {
-      axios
-        .patch(`${BACKEND_URL}/updateUser`, {
-          userName: localStorage.getItem("username"),
-          userEmail: localStorage.getItem("email"),
-          firstName: firstName,
-          lastName: lastName,
-          email: usersemail,
-        })
-        .then((res) => {
-          console.log("Successfully update user in backend: ", res.data);
-          setfirstName(res.data.firstName);
-          setlastName(res.data.lastName);
-          setusersemail(res.data.email);
-          localStorage.setItem("username", res.data.username);
-          localStorage.setItem("email", res.data.email);
-          dispatch(storeusername(res.data.username));
-          dispatch(storeEmail(res.data.email));
-          navigate("/account");
-        })
-        .catch((err) => {
-          console.log("Error in updating user in backend: ", err);
-        });
-    }
+  const fileInputStyles = {
+    display: "none",
+  };
+
+  const fileInputLabelStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.palette.mode === "dark" ? "#333" : "#f5f5f5",
+    border: "1px solid #ccc",
+    cursor: "pointer",
+    fontSize: "1rem",
+    fontWeight: "400",
+    color: theme.palette.mode === "dark" ? "#fff" : "#000",
+    height: "10rem",
+    width: "10rem",
+    borderRadius: "100rem",
   };
 
   return (
@@ -128,95 +133,99 @@ export default function EditProfile() {
         flexDirection: "column",
         padding: { xs: "0 2rem", sm: "0 20rem" },
         gap: "2rem",
+        marginBottom: "5rem",
       }}
     >
-      <div
-        style={{
+      <Typography variant="h2" mt={"6rem"}>
+        Edit Profile
+      </Typography>
+      <label htmlFor="file-upload" style={fileInputLabelStyles}>
+        {image ? image.name : "Select profile image"}
+        <Input
+          id="file-upload"
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          style={fileInputStyles}
+        />
+      </label>
+
+      <TextField
+        sx={{ width: "100%" }}
+        disabled
+        id="standard-disabled"
+        label="Username"
+        value={username} // Changed from defaultValue to value
+        variant="standard"
+        {...inputStyles}
+      />
+
+      <Box
+        sx={{
           display: "grid",
-          width: "20rem",
-          placeItems: "center",
+          width: "100%",
+          gridTemplateColumns: "1fr 1fr",
           gap: "2rem",
-          border: "3px solid grey",
-          padding: "2rem",
-          borderRadius: "1rem",
-          backgroundColor: "#E0E5B6",
         }}
       >
-        <Stack direction="row" spacing={2}>
-          <Badge
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            sx={{ cursor: "pointer" }}
-            badgeContent={
-              <SmallAvatar>
-                <EditRoundedIcon fontSize="small" />
-              </SmallAvatar>
-            }
-          >
-            <Avatar
-              sx={{ width: 65, height: 65 }}
-              alt="Travis Howard"
-              src="/static/images/avatar/2.jpg"
-            />
-          </Badge>
-        </Stack>
-
-        <TextField
-          sx={{ width: "100%" }}
-          disabled
-          id="standard-disabled"
-          label="Username"
-          value={usersname} // Changed from defaultValue to value
-          variant="standard"
-        />
         <TextField
           sx={{ width: "100%" }}
           id="standard-required"
           label="First Name"
-          value={firstName} // Changed from defaultValue to value
-          onChange={(e) => setfirstName(e.target.value)} // Optional: to allow editing
+          value={firstName}
+          onChange={(e) => setfirstName(e.target.value)}
           variant="standard"
+          {...inputStyles}
         />
         <TextField
           sx={{ width: "100%" }}
           id="standard-required"
           label="Last Name"
-          value={lastName} // Changed from defaultValue to value
-          onChange={(e) => setlastName(e.target.value)} // Optional: to allow editing
+          value={lastName}
+          onChange={(e) => setlastName(e.target.value)}
           variant="standard"
+          {...inputStyles}
         />
-        <TextField
-          sx={{ width: "100%" }}
-          id="standard-required"
-          label="Email"
-          onChange={(e) => setusersemail(e.target.value)}
-          value={usersemail} // Changed from defaultValue to value
-          variant="standard"
-        />
+      </Box>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "1rem",
-          }}
+      <TextField
+        sx={{ width: "100%" }}
+        id="standard-required"
+        label="Email"
+        fontSize="5rem"
+        onChange={(e) => setusersemail(e.target.value)}
+        value={usersemail}
+        variant="standard"
+        type="email"
+        {...inputStyles}
+      />
+
+      <Box
+        sx={{
+          display: "grid",
+          placeItems: "center",
+          width: { xs: "100%", sm: "100%" },
+          gap: "2rem",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{ width: "100%" }}
+          onClick={submitChangedData}
         >
-          <Button
-            onClick={submitChangedData}
-            variant="contained"
-            sx={{ width: "100%" }}
-          >
-            Submit
-          </Button>
-          <Button
-            onClick={resetUsersData}
-            variant="outlined"
-            sx={{ width: "100%" }}
-          >
-            Reset
-          </Button>
-        </div>
-      </div>
+          Submit
+        </Button>
+        <Button
+          variant="outlined"
+          sx={{ width: "100%" }}
+          onClick={resetUsersData}
+        >
+          Reset
+        </Button>
+      </Box>
     </Box>
   );
 }
+
+export default EditBlog;
