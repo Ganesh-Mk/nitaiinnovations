@@ -1,17 +1,14 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import UserAccountComp from "../Components/UserAccountComp";
 import BlogsComp from "../Components/BlogsComp";
 import axios from "axios";
 import { format } from "date-fns";
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import { Link } from "react-router-dom";
 
-function Account() {
+function Accout() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [allBlogs, setAllBlogs] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const blogsPerPage = 20;
 
   useEffect(() => {
     const userName = localStorage.getItem("username");
@@ -34,16 +31,6 @@ function Account() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Calculate the blogs to display based on the current page
-  const indexOfLastBlog = currentPage * blogsPerPage;
-  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
-  const currentBlogs = allBlogs.slice().reverse().slice(indexOfFirstBlog, indexOfLastBlog);
-
-  // Handle page change
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-  };
-
   return (
     <Box
       sx={{
@@ -62,6 +49,30 @@ function Account() {
         <Typography variant="h2" color="#0959AA" sx={{ textAlign: "center" }}>
           My Blogs
         </Typography>
+
+        {allBlogs?.length === 0 && (
+          <Box
+            sx={{ display: "grid", placeItems: "center", marginTop: "10rem" }}
+          >
+            <Typography
+              variant="h5"
+              color="color.secondary"
+              sx={{ textAlign: "center" }}
+            >
+              No blogs found
+            </Typography>
+            <Link to="/createBlog" style={{ textDecoration: "none" }}>
+              <Button
+                variant="outlined"
+                sx={{ width: { xs: "20rem", sm: "13rem" }, marginTop: "1rem" }}
+                color="primary"
+                fullWidth
+              >
+                Create your first Blog
+              </Button>
+            </Link>
+          </Box>
+        )}
         <Box
           sx={{
             display: "grid",
@@ -76,31 +87,26 @@ function Account() {
             overflowX: "hidden",
           }}
         >
-          {currentBlogs.map((blog, index) => (
-            <BlogsComp
-              key={index}
-              isAccountBlog={true}
-              blogKey={index}
-              username={blog.username}
-              email={blog.email}
-              title={blog.title}
-              desc={blog.desc}
-              imageUrl={blog.imageUrl}
-              createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
-            />
-          ))}
+          {allBlogs?.length &&
+            allBlogs
+              .slice()
+              .reverse()
+              .map((blog, index) => (
+                <BlogsComp
+                  key={index}
+                  isAccountBlog={true}
+                  blogKey={index}
+                  username={blog.username}
+                  email={blog.email}
+                  title={blog.title}
+                  desc={blog.desc}
+                  imageUrl={blog.imageUrl}
+                  createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
+                />
+              ))}
         </Box>
-        <Stack spacing={2} sx={{ marginTop: "1rem", alignItems: "center" }}>
-          <Pagination
-            count={Math.ceil(allBlogs.length / blogsPerPage)}
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
-        </Stack>
       </Box>
     </Box>
   );
 }
-
-export default Account;
+export default Accout;

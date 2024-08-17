@@ -1,5 +1,12 @@
-import React, { useEffect } from "react";
-import { Box, Divider, Typography, useTheme, IconButton } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Divider,
+  Typography,
+  useTheme,
+  IconButton,
+  Button,
+} from "@mui/material";
 import { format } from "date-fns";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +27,15 @@ const BlogsComp = ({
   const navigate = useNavigate();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+  const [showFullText, setShowFullText] = useState(false);
+
+  const handleReadMore = () => {
+    setShowFullText((prev) => !prev);
+  };
+
+  const truncatedText =
+    desc.length > 200 && !showFullText ? `${desc.slice(0, 200)}...` : desc;
+
   function editBlog() {
     let blogInfo = {
       title: title,
@@ -27,7 +43,6 @@ const BlogsComp = ({
       imageUrl: imageUrl,
     };
     localStorage.setItem("currentBlog", JSON.stringify(blogInfo));
-
     navigate("/editBlog");
   }
 
@@ -97,9 +112,11 @@ const BlogsComp = ({
             src={`${BACKEND_URL}/${imageUrl}`}
             style={{
               height: "100%",
+              maxHeight: "18rem",
               width: "80%",
+              objectFit: "contain",
               borderRadius: ".5rem",
-              background: `url(${BACKEND_URL}/${imageUrl}) center/cover no-repeat`,
+              background: `url(${BACKEND_URL}\\${imageUrl}) center/cover no-repeat`,
             }}
             alt="Blog image"
           />
@@ -112,13 +129,22 @@ const BlogsComp = ({
         <Typography
           variant="body1"
           sx={{
-            maxHeight: "7rem",
-            overflowY: "scroll",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: showFullText ? "none" : 4,
+            overflow: "hidden",
             wordWrap: "break-word",
+            maxHeight: showFullText ? "8rem" : "auto", // Set max height when expanded
+            overflowY: showFullText ? "auto" : "hidden", // Enable vertical scrollbar when expanded
           }}
         >
-          {desc}
+          {truncatedText}
         </Typography>
+        {desc.length > 200 && (
+          <Button onClick={handleReadMore} sx={{ mt: 1 }}>
+            {showFullText ? "Read Less" : "Read More"}
+          </Button>
+        )}
       </Box>
     </Box>
   );
@@ -133,6 +159,7 @@ const blogCardStyle = (theme) => ({
   borderRadius: "1.5rem",
   boxShadow: theme.shadows[2],
   transition: "transform 0.3s ease, box-shadow 0.3s ease",
+  height: "auto",
 });
 
 export default BlogsComp;
