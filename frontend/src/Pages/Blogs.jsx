@@ -15,6 +15,8 @@ import { alpha } from "@mui/material/styles";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import BlogsComp from "../Components/BlogsComp";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 function CreateBlog() {
   const theme = useTheme();
@@ -23,9 +25,10 @@ function CreateBlog() {
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState("newest");
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 20;
 
   useEffect(() => {
-    // Scroll to top when the component mounts
     window.scrollTo(0, 0);
   }, []);
 
@@ -36,8 +39,6 @@ function CreateBlog() {
 
     if (filter === "newest") {
       filtered = filtered.slice().reverse();
-    } else if (filter === "oldest") {
-      filtered = filtered;
     }
 
     return filtered;
@@ -62,12 +63,21 @@ function CreateBlog() {
       });
   }, [BACKEND_URL]);
 
-  const filteredBlogs = applyFilters(blogs);
+  // Handle pagination
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = applyFilters(blogs).slice(indexOfFirstBlog, indexOfLastBlog);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+    window.scrollTo(0, 0); // Scroll to top when changing pages
+  };
 
   return (
     <Box
       sx={{
-        display: "grid",
+        display: "flex",
+        flexDirection: "column",
         gap: "2rem",
         padding: "2rem",
         backgroundColor: theme.palette.background.default,
@@ -87,14 +97,14 @@ function CreateBlog() {
           placeItems: "center",
           gridTemplateAreas: {
             xs: `
-        "title"
-        "createBlog"
-        "search"
-        "filter"
-      `,
+              "title"
+              "createBlog"
+              "search"
+              "filter"
+            `,
             md: `
-        "createBlog title search filter"
-      `,
+              "createBlog title search filter"
+            `,
           },
           gridTemplateColumns: {
             xs: "1fr",
@@ -173,7 +183,7 @@ function CreateBlog() {
           gap: "1rem",
         }}
       >
-        {filteredBlogs.length === 0 && (
+        {currentBlogs.length === 0 && (
           <Box
             sx={{
               width: "93vw",
@@ -191,7 +201,7 @@ function CreateBlog() {
             </Typography>
           </Box>
         )}
-        {filteredBlogs.map((blog, i) => (
+        {currentBlogs.map((blog, i) => (
           <BlogsComp
             key={i}
             blogKey={i}
@@ -204,6 +214,15 @@ function CreateBlog() {
           />
         ))}
       </Box>
+
+      <Stack spacing={2} sx={{ marginTop: "2rem", alignItems: "center" }}>
+        <Pagination
+          count={Math.ceil(applyFilters(blogs).length / blogsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </Stack>
     </Box>
   );
 }
