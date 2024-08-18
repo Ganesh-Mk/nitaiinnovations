@@ -1,22 +1,19 @@
 const express = require("express");
 const route = express.Router();
 const Users = require("../models/users");
-const Blogs = require("../models/blogs")
+const Blogs = require("../models/blogs");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
-route.patch("/", async (req, res) => {
+route.patch("/", upload.single("image"), async (req, res) => {
   try {
-    console.log("Request Body:", req.body);
+    const { username, email, changetitle, currentTitle, changedesc } = req.body;
+    const uploadedImage = req.file; // multer processes the file and attaches it to req.file
 
-    const {
-      username,
-      email,
-      changetitle,
-      currentTitle,
-      changedesc,
-      changeimage,
-    } = req.body;
+    console.log("Req Body: ", req.body);
+    console.log("Req File: ", uploadedImage);
 
-    //chnaging in user blogs
+    // Changing in user blogs
     const user = await Users.findOne({ username, email });
 
     if (!user) {
@@ -24,30 +21,35 @@ route.patch("/", async (req, res) => {
         .status(404)
         .json({ status: "error", message: "User not found" });
     }
+
     const blog = user.blogs.find((blog) => blog.title === currentTitle);
     if (!blog) {
-      return res.send({ status: "error", message: "Blog not found" });
+      return res
+        .status(404)
+        .json({ status: "error", message: "Blog not found" });
     }
 
     if (changetitle) blog.title = changetitle;
     if (changedesc) blog.desc = changedesc;
-    if (changeimage) blog.imageUrl = changeimage;
+    if (uploadedImage) blog.imageUrl = uploadedImage.path; // Save the filename to database
     await user.save();
-    
 
-    //changing in all blogs
+    // Changing in all blogs
     const allBlogs = await Blogs.findOne({ title: currentTitle, email });
     if (!allBlogs) {
-      return res.send({ status: "error", message: "Blog not found in all blogs" });
+      return res
+        .status(404)
+        .json({ status: "error", message: "Blog not found in all blogs" });
     }
+
     if (changetitle) allBlogs.title = changetitle;
     if (changedesc) allBlogs.desc = changedesc;
-    if (changeimage) allBlogs.imageUrl = changeimage;
+    if (uploadedImage) allBlogs.imageUrl = uploadedImage.path; // Save the filename to database
     await allBlogs.save();
 
     res.send({ status: "ok", message: "Blog updated successfully" });
   } catch (err) {
-    res.send({ status: "error", message: "Server error: " + err });
+    res.status(500).send({ status: "error", message: "Server error: " + err });
   }
 });
 
