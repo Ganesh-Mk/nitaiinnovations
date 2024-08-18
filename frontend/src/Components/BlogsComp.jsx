@@ -20,6 +20,7 @@ const BlogsComp = ({
   desc,
   imageUrl,
   createdAt,
+  profileImageUrl,
   isAccountBlog = false,
 }) => {
   const theme = useTheme();
@@ -65,14 +66,19 @@ const BlogsComp = ({
                 gap: "1rem",
               }}
             >
-              <Box
-                sx={{
-                  height: "3rem",
-                  width: "3rem",
-                  borderRadius: "100rem",
-                  border: "1px solid black",
-                }}
-              ></Box>
+              <Box sx={{ display: "grid", placeItems: "center" }}>
+                <img
+                  src={`${BACKEND_URL}/${profileImageUrl}`}
+                  style={{
+                    height: "4rem",
+                    width: "4rem",
+                    objectFit: "contain",
+                    borderRadius: "100rem",
+                    background: `url(${BACKEND_URL}\\${profileImageUrl}) center/cover no-repeat`,
+                  }}
+                  alt="Profile image"
+                />
+              </Box>
 
               <Box>
                 <Typography variant="h6">{username}</Typography>

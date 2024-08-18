@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const route = express.Router();
 const Users = require("../models/users");
+const Blogs = require("../models/blogs"); // Import Blogs model
 
 // Configure multer for file upload
 const storage = multer.diskStorage({
@@ -26,6 +27,7 @@ route.patch("/", upload.single("image"), async (req, res) => {
     const user = await Users.findOne({ username, email: originalEmail });
 
     if (user) {
+      // Update user profile details
       user.firstName = firstName;
       user.lastName = lastName;
       user.email = email;
@@ -34,6 +36,13 @@ route.patch("/", upload.single("image"), async (req, res) => {
       }
 
       await user.save();
+
+      // Update the profileImageUrl in all blogs of the user
+      await Blogs.updateMany(
+        { username }, // Find blogs by username
+        { $set: { profileImageUrl } } // Update the profileImageUrl field
+      );
+
       res.status(200).send(user);
     } else {
       res.status(404).send({ status: "error", message: "User not found" });

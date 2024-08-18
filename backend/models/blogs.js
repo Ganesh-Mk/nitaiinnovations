@@ -22,6 +22,10 @@ const blogsSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  profileImageUrl: {
+    type: String,
+    default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+  },
   imageUrl: {
     type: String,
   },

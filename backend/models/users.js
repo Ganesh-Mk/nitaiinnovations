@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema(
     },
     profileImageUrl: {
       type: String,
+      default: "",
     },
     createdAt: {
       type: Date,

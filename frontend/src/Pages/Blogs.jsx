@@ -15,8 +15,8 @@ import { alpha } from "@mui/material/styles";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import BlogsComp from "../Components/BlogsComp";
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 function CreateBlog() {
   const theme = useTheme();
@@ -66,7 +66,10 @@ function CreateBlog() {
   // Handle pagination
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
-  const currentBlogs = applyFilters(blogs).slice(indexOfFirstBlog, indexOfLastBlog);
+  const currentBlogs = applyFilters(blogs).slice(
+    indexOfFirstBlog,
+    indexOfLastBlog
+  );
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -210,6 +213,7 @@ function CreateBlog() {
             title={blog.title}
             desc={blog.desc}
             imageUrl={blog.imageUrl}
+            profileImageUrl={blog.profileImageUrl}
             createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
           />
         ))}

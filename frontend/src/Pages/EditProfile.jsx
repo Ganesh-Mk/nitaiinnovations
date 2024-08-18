@@ -51,6 +51,8 @@ function EditProfile() {
         formData.append("profileImageUrl", originalData.profileImageUrl); // If no new image, keep the old URL
       }
 
+      console.log("edit profile image: ", image);
+
       axios
         .patch(`${BACKEND_URL}/updateUser`, formData, {
           headers: {
