@@ -27,35 +27,35 @@ function EditBlog() {
     setImage(blog.image);
   }, []);
 
-  function deleteBlog() {
-    const userEmail = localStorage.getItem("email");
-    const currentTitle = JSON.parse(
-      localStorage.getItem("currentBlog") || "{}"
-    ).title;
+  // function deleteBlog() {
+  //   const userEmail = localStorage.getItem("email");
+  //   const currentTitle = JSON.parse(
+  //     localStorage.getItem("currentBlog") || "{}"
+  //   ).title;
 
-    const confirmDeletion = window.confirm(
-      `Are you sure you want to delete the blog titled "${currentTitle}"? This action cannot be undone.`
-    );
+  //   const confirmDeletion = window.confirm(
+  //     `Are you sure you want to delete the blog titled "${currentTitle}"? This action cannot be undone.`
+  //   );
 
-    if (!confirmDeletion) {
-      return; // If the user cancels, exit the function without deleting
-    }
+  //   if (!confirmDeletion) {
+  //     return; // If the user cancels, exit the function without deleting
+  //   }
 
-    axios
-      .delete(`${BACKEND_URL}/deleteBlog`, {
-        data: {
-          email: userEmail,
-          title: currentTitle,
-        },
-      })
-      .then((res) => {
-        console.log("Successfully deleted blog in backend: ", res.data);
-        navigate("/account");
-      })
-      .catch((err) => {
-        console.log("Failed to delete blog in backend: ", err);
-      });
-  }
+  //   axios
+  //     .delete(`${BACKEND_URL}/deleteBlog`, {
+  //       data: {
+  //         email: userEmail,
+  //         title: currentTitle,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log("Successfully deleted blog in backend: ", res.data);
+  //       navigate("/account");
+  //     })
+  //     .catch((err) => {
+  //       console.log("Failed to delete blog in backend: ", err);
+  //     });
+  // }
 
   function editBlog() {
     const userName = localStorage.getItem("username");
@@ -195,12 +195,6 @@ function EditBlog() {
           style={fileInputStyles}
         />
       </label>
-      <Button
-        sx={{ width: "100%", border: "3px solid lightblue" }}
-        onClick={deleteBlog}
-      >
-        Delete Blog
-      </Button>
       <Box
         sx={{
           display: "grid",

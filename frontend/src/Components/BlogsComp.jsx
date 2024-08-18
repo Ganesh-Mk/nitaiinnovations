@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Divider,
@@ -12,6 +12,8 @@ import { format } from "date-fns";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 
 const BlogsComp = ({
   blogKey,
@@ -31,6 +33,7 @@ const BlogsComp = ({
 
   const [showFullText, setShowFullText] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [reloadPage, setReloadPage] = useState(false); // State to trigger page reload
 
   const handleReadMore = () => {
     setShowFullText((prev) => !prev);
@@ -52,6 +55,39 @@ const BlogsComp = ({
     localStorage.setItem("currentBlog", JSON.stringify(blogInfo));
     navigate("/editBlog");
   }
+
+  const deleteBlog = () => {
+    const userEmail = localStorage.getItem("email");
+
+    const confirmDeletion = window.confirm(
+      `Are you sure you want to delete the blog titled "${title}"? This action cannot be undone.`
+    );
+
+    if (!confirmDeletion) {
+      return; // If the user cancels, exit the function without deleting
+    }
+
+    axios
+      .delete(`${BACKEND_URL}/deleteBlog`, {
+        data: {
+          email: userEmail,
+          title: title,
+        },
+      })
+      .then((res) => {
+        console.log("Successfully deleted blog in backend: ", res.data);
+        setReloadPage(true); // Trigger page reload on successful deletion
+      })
+      .catch((err) => {
+        console.log("Failed to delete blog in backend: ", err);
+      });
+  };
+
+  useEffect(() => {
+    if (reloadPage) {
+      window.location.reload(); // Reload the page
+    }
+  }, [reloadPage]);
 
   return (
     <Box
@@ -123,9 +159,14 @@ const BlogsComp = ({
             <Typography variant="body2">
               Date: {format(new Date(createdAt), "d MMM yyyy")}
             </Typography>
-            <IconButton aria-label="edit" onClick={editBlog}>
-              <EditIcon />
-            </IconButton>
+            <Box>
+              <IconButton aria-label="edit" onClick={editBlog}>
+                <EditIcon />
+              </IconButton>
+              <IconButton aria-label="edit" onClick={deleteBlog}>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </Box>
         )}
       </Box>
