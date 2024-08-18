@@ -6,6 +6,7 @@ import {
   useTheme,
   IconButton,
   Button,
+  Skeleton,
 } from "@mui/material";
 import { format } from "date-fns";
 import EditIcon from "@mui/icons-material/Edit";
@@ -29,13 +30,18 @@ const BlogsComp = ({
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const [showFullText, setShowFullText] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleReadMore = () => {
     setShowFullText((prev) => !prev);
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   const truncatedText =
-    desc.length > 200 && !showFullText ? `${desc.slice(0, 200)}...` : desc;
+    desc?.length > 200 && !showFullText ? `${desc.slice(0, 200)}...` : desc;
 
   function editBlog() {
     let blogInfo = {
@@ -67,22 +73,35 @@ const BlogsComp = ({
               }}
             >
               <Box sx={{ display: "grid", placeItems: "center" }}>
-                <img
-                  src={`${BACKEND_URL}/${profileImageUrl}`}
-                  style={{
-                    height: "4rem",
-                    width: "4rem",
-                    objectFit: "contain",
-                    borderRadius: "100rem",
-                    background: `url(${BACKEND_URL}\\${profileImageUrl}) center/cover no-repeat`,
-                  }}
-                  alt="Profile image"
-                />
+                {profileImageUrl ? (
+                  <img
+                    src={`${BACKEND_URL}/${profileImageUrl}`}
+                    style={{
+                      height: "4rem",
+                      width: "4rem",
+                      display: imageLoaded ? "block" : "none",
+                      objectFit: "contain",
+                      borderRadius: "100rem",
+                      background: `url(${BACKEND_URL}\\${profileImageUrl}) center/cover no-repeat`,
+                    }}
+                    alt="Profile image"
+                    onLoad={handleImageLoad}
+                  />
+                ) : (
+                  <Skeleton variant="circular" width={64} height={64} />
+                )}
+                {!imageLoaded && (
+                  <Skeleton variant="circular" width={64} height={64} />
+                )}
               </Box>
 
               <Box>
-                <Typography variant="h6">{username}</Typography>
-                <Typography variant="body2">{email}</Typography>
+                <Typography variant="h6">
+                  {username || <Skeleton width={120} />}
+                </Typography>
+                <Typography variant="body2">
+                  {email || <Skeleton width={160} />}
+                </Typography>
               </Box>
             </Box>
 
@@ -112,25 +131,43 @@ const BlogsComp = ({
       </Box>
 
       <Divider />
-      {imageUrl && (
-        <Box sx={{ display: "grid", placeItems: "center" }}>
-          <img
-            src={`${BACKEND_URL}/${imageUrl}`}
-            style={{
-              height: "100%",
-              maxHeight: "18rem",
-              width: "80%",
-              objectFit: "contain",
-              borderRadius: ".5rem",
-              background: `url(${BACKEND_URL}\\${imageUrl}) center/cover no-repeat`,
+      {imageUrl ? (
+        <>
+          {!imageLoaded && (
+            <Skeleton
+              variant="rectangular"
+              width="80%"
+              height="18rem"
+              sx={{ borderRadius: ".5rem", mx: "auto" }}
+            />
+          )}
+          <Box
+            sx={{
+              display: imageLoaded ? "grid" : "none",
+              placeItems: "center",
             }}
-            alt="Blog image"
-          />
-        </Box>
+          >
+            <img
+              src={`${BACKEND_URL}/${imageUrl}`}
+              style={{
+                height: "100%",
+                maxHeight: "18rem",
+                width: "80%",
+                objectFit: "contain",
+                borderRadius: ".5rem",
+                background: `url(${BACKEND_URL}\\${imageUrl}) center/cover no-repeat`,
+              }}
+              alt="Blog image"
+              onLoad={handleImageLoad}
+            />
+          </Box>
+        </>
+      ) : (
+        <></>
       )}
       <Box>
         <Typography variant="h5" sx={{ mb: 2 }}>
-          {title}
+          {title || <Skeleton width="80%" />}
         </Typography>
         <Typography
           variant="body1"
@@ -140,13 +177,13 @@ const BlogsComp = ({
             WebkitLineClamp: showFullText ? "none" : 4,
             overflow: "hidden",
             wordWrap: "break-word",
-            maxHeight: showFullText ? "8rem" : "auto", // Set max height when expanded
-            overflowY: showFullText ? "auto" : "hidden", // Enable vertical scrollbar when expanded
+            maxHeight: showFullText ? "8rem" : "auto",
+            overflowY: showFullText ? "auto" : "hidden",
           }}
         >
-          {truncatedText}
+          {truncatedText || <Skeleton width="100%" height={80} />}
         </Typography>
-        {desc.length > 200 && (
+        {desc?.length > 200 && (
           <Button onClick={handleReadMore} sx={{ mt: 1 }}>
             {showFullText ? "Read Less" : "Read More"}
           </Button>
