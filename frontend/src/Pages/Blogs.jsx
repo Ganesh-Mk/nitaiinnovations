@@ -26,7 +26,7 @@ function CreateBlog() {
   const [filter, setFilter] = useState("newest");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const blogsPerPage = 20;
+  const blogsPerPage = 9;
 
   useEffect(() => {
     window.scrollTo(0, 0);
