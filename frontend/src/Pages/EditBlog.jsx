@@ -32,15 +32,15 @@ function EditBlog() {
     const currentTitle = JSON.parse(
       localStorage.getItem("currentBlog") || "{}"
     ).title;
-  
+
     const confirmDeletion = window.confirm(
       `Are you sure you want to delete the blog titled "${currentTitle}"? This action cannot be undone.`
     );
-  
+
     if (!confirmDeletion) {
       return; // If the user cancels, exit the function without deleting
     }
-  
+
     axios
       .delete(`${BACKEND_URL}/deleteBlog`, {
         data: {
@@ -56,10 +56,8 @@ function EditBlog() {
         console.log("Failed to delete blog in backend: ", err);
       });
   }
-  
 
   function editBlog() {
-    // Get username and this specific blog info to target in backend
     const userName = localStorage.getItem("username");
     const userEmail = localStorage.getItem("email");
     const currentTitle = JSON.parse(
@@ -71,26 +69,38 @@ function EditBlog() {
     const currentImageUrl = JSON.parse(
       localStorage.getItem("currentBlog") || "{}"
     ).imageUrl;
+
     if (title === "" || desc === "") {
       alert("Please enter title and description");
       return;
     }
-    if (title === currentTitle && desc === currentDesc && image === currentImageUrl) {
+    if (
+      title === currentTitle &&
+      desc === currentDesc &&
+      image.name === currentImageUrl
+    ) {
       alert("No changes made");
       return;
     }
+
+    let formData = new FormData();
+    formData.append("username", userName);
+    formData.append("email", userEmail);
+    formData.append("changetitle", title);
+    formData.append("currentTitle", currentTitle);
+    formData.append("changedesc", desc);
+    if (image) {
+      formData.append("image", image); // Make sure the file is sent with the correct key name
+    }
+
     axios
-      .patch(`${BACKEND_URL}/editBlog`, {
-        // Notice the trailing slash
-        username: userName,
-        email: userEmail,
-        changetitle: title,
-        currentTitle: currentTitle,
-        changedesc: desc,
-        changeimage: image,
+      .patch(`${BACKEND_URL}/editBlog`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((res) => {
-        console.log("Successfully edit blog in backend: ", res.data);
+        console.log("Successfully edited blog in backend: ", res.data);
         navigate("/account");
       })
       .catch((err) => {
