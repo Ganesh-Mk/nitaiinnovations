@@ -14,6 +14,7 @@ const UserAccountComp = () => {
   const [totalPosts, setTotalPosts] = useState("0");
   const [userEmail, setUserEmail] = useState("");
   const [nameOfUser, setNameOfUser] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState(""); // New state for profile image
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,10 +27,11 @@ const UserAccountComp = () => {
         params: { userName, userEmail },
       })
       .then((res) => {
-        const { username, email, totalPostsLength } = res.data;
+        const { username, email, totalPostsLength, image } = res.data;
         setNameOfUser(username);
         setUserEmail(email);
         setTotalPosts(totalPostsLength);
+        setProfileImageUrl(image); // Set the profile image URL
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
@@ -77,7 +79,10 @@ const UserAccountComp = () => {
           gap: 2,
         }}
       >
-        <Avatar src="images/nitaiLogo.png" sx={{ width: 80, height: 80 }} />
+        <Avatar
+          src={profileImageUrl ? `${BACKEND_URL}/${profileImageUrl}` : "images/nitaiLogo.png"} // Use profile image if available
+          sx={{ width: 80, height: 80 }}
+        />
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4">{nameOfUser}</Typography>
           <Typography variant="body2" color="text.secondary">

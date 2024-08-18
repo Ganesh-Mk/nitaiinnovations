@@ -13,7 +13,7 @@ import { storeusername, storeEmail } from "../Store/userSlice";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
-function EditBlog() {
+function EditProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -35,16 +35,21 @@ function EditBlog() {
     if (
       firstName !== originalData.firstName ||
       lastName !== originalData.lastName ||
-      usersemail !== originalData.email
+      usersemail !== originalData.email ||
+      image !== originalData.profileImageUrl
     ) {
-      console.log("Updating  frontend");
+      console.log("Updating frontend");
       let formData = new FormData();
-      formData.append("username", localStorage.getItem("username"));
-      formData.append("email", localStorage.getItem("email"));
+      formData.append("username", username);
+      formData.append("originalEmail", originalData.email);
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
       formData.append("email", usersemail);
-      formData.append("image", image);
+      if (image) {
+        formData.append("image", image); // Append the image file
+      } else {
+        formData.append("profileImageUrl", originalData.profileImageUrl); // If no new image, keep the old URL
+      }
 
       axios
         .patch(`${BACKEND_URL}/updateUser`, formData, {
@@ -53,7 +58,7 @@ function EditBlog() {
           },
         })
         .then((res) => {
-          console.log("Successfully update user in backend: ", res.data);
+          console.log("Successfully updated user in backend: ", res.data);
           setfirstName(res.data.firstName);
           setlastName(res.data.lastName);
           setusersemail(res.data.email);
@@ -85,6 +90,7 @@ function EditBlog() {
       })
       .then((res) => {
         console.log("Recieved data from backend: ", res.data);
+        setImage(res.data.profileImageUrl);
         localStorage.setItem("username", res.data.username);
         localStorage.setItem("email", res.data.email);
         setoriginalData(res.data);
@@ -228,4 +234,4 @@ function EditBlog() {
   );
 }
 
-export default EditBlog;
+export default EditProfile;

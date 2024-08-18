@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         username: user.username,
+        image: user.profileImageUrl,
         email: user.email,
         totalPostsLength: user.blogs.length,
         allBlogPosts: user.blogs,

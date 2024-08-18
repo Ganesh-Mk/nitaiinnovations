@@ -51,9 +51,9 @@ function CreateBlog() {
       })
       .catch((err) => {
         if(err.response.data.message === "Blog title already exists for this user") {
-          alert("Blog is title already exists");
+          alert("Blog title is already exists");
         }
-        console.log("ctach", err);
+        console.log("catch block : ", err);
       });
   }
 
