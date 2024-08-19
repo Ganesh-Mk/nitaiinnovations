@@ -251,6 +251,8 @@ function Navbar({ mode, toggleColorMode }) {
                       </Typography>
                     </MenuItem>
                   </Link>
+                  
+                  
                   <Box
                     sx={{
                       display: "flex",
@@ -272,6 +274,18 @@ function Navbar({ mode, toggleColorMode }) {
                     </Link>
                     <DropDownButton toggleDrawer={toggleDrawer} />
                   </Box>
+                  <Link
+                    to="/blogs"
+
+                    className="navItems"
+                    onClick={toggleDrawer(false)}
+                  >
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography variant="body2" color="text.primary">
+                        Blogs
+                      </Typography>
+                    </MenuItem>
+                  </Link>
 
                   <Divider />
                   <br />

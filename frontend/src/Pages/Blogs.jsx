@@ -10,10 +10,11 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { DialogsProvider } from '@toolpad/core/useDialogs';
 import axios from "axios";
 import { alpha } from "@mui/material/styles";
 import { format } from "date-fns";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BlogsComp from "../Components/BlogsComp";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -21,6 +22,7 @@ import Stack from "@mui/material/Stack";
 function CreateBlog() {
   const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate()
 
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState("newest");
@@ -76,6 +78,16 @@ function CreateBlog() {
     window.scrollTo(0, 0); // Scroll to top when changing pages
   };
 
+  const handleCreateBlogClick = () => {
+    const isLoggedIn = localStorage.getItem("isLogin");
+
+    if (isLoggedIn === "true") {
+      navigate("/createBlog");
+    } else {
+      navigate("/register");
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -124,11 +136,13 @@ function CreateBlog() {
           marginBottom: "2rem",
         }}
       >
-        <Link to="/createBlog" style={{ gridArea: "createBlog" }}>
-          <Button sx={{ width: "13rem" }} variant="outlined">
-            Create your blog
-          </Button>
-        </Link>
+        <Button
+          onClick={handleCreateBlogClick}
+          sx={{ width: "13rem", gridArea: "createBlog" }}
+          variant="outlined"
+        >
+          Create your blog
+        </Button>
 
         <Typography
           variant="h1"
@@ -204,6 +218,7 @@ function CreateBlog() {
             </Typography>
           </Box>
         )}
+        <DialogsProvider>
         {currentBlogs.map((blog, i) => (
           <BlogsComp
             key={i}
@@ -217,6 +232,8 @@ function CreateBlog() {
             createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
           />
         ))}
+        </DialogsProvider>
+        
       </Box>
 
       <Stack spacing={2} sx={{ marginTop: "2rem", alignItems: "center" }}>
