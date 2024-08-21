@@ -64,7 +64,7 @@ function ContactUsComp() {
                     type="text"
                     autoComplete="name"
                     required
-                    className="inpts block w-[25vw] h-[2.5vw] p-2 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+                    className="inpts block w-[25vw] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
                     placeholder="Enter your name"
                   />
                 </div>
@@ -81,7 +81,7 @@ function ContactUsComp() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="inpts block w-[25vw] h-[2.5vw] p-2  rounded-md border-2 bg-transparent border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                    className="inpts block w-[25vw] h-[2.5vw] p-4  rounded-md border-2 bg-transparent border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -98,7 +98,7 @@ function ContactUsComp() {
                   name="subject"
                   type="text"
                   required
-                  className="inpts3 block w-[51vw] h-[2.5vw] p-2  rounded-md bg-transparent border-2 border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                  className="inpts3 block w-[51vw] h-[2.5vw] p-4  rounded-md bg-transparent border-2 border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                   placeholder="Enter the subject"
                 />
               </div>
@@ -114,7 +114,7 @@ function ContactUsComp() {
                   name="message"
                   rows={5}
                   required
-                  className="inpts4 block p-2 bg-transparent w-full rounded-md border-2 border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                  className="inpts4 block p-4 bg-transparent w-full rounded-md border-2 border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                   placeholder="Enter your message"
                 />
               </div>

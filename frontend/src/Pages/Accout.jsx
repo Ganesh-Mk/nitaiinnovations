@@ -5,7 +5,7 @@ import BlogsComp from "../Components/BlogsComp";
 import axios from "axios";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import { DialogsProvider } from '@toolpad/core/useDialogs';
+import { DialogsProvider } from "@toolpad/core/useDialogs";
 
 function Accout() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -89,25 +89,24 @@ function Accout() {
           }}
         >
           <DialogsProvider>
-          {allBlogs?.length &&
-            allBlogs
-              .slice()
-              .reverse()
-              .map((blog, index) => (
-                <BlogsComp
-                  key={index}
-                  isAccountBlog={true}
-                  blogKey={index}
-                  username={blog.username}
-                  email={blog.email}
-                  title={blog.title}
-                  desc={blog.desc}
-                  imageUrl={blog.imageUrl}
-                  createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
-                />
-              ))}
+            {allBlogs?.length > 0 &&
+              allBlogs
+                .slice()
+                .reverse()
+                .map((blog, index) => (
+                  <BlogsComp
+                    key={index}
+                    isAccountBlog={true}
+                    blogKey={index}
+                    username={blog.username}
+                    email={blog.email}
+                    title={blog.title}
+                    desc={blog.desc}
+                    imageUrl={blog.imageUrl}
+                    createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
+                  />
+                ))}
           </DialogsProvider>
-          
         </Box>
       </Box>
     </Box>

@@ -4,6 +4,7 @@ import "./Styles/index.css";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import getLPTheme from "./Components/getLPTheme";
 
 import Navbar from "./Components/Navbar";
@@ -19,9 +20,11 @@ import CreateBlog from "./Pages/CreateBlog";
 import Account from "./Pages/Accout";
 import EditBlog from "./Pages/EditBlog";
 import EditProfile from "./Pages/EditProfile";
+
 export default function App() {
-  const [mode, setMode] = React.useState("light");
-  const LPtheme = createTheme(getLPTheme(mode));
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [mode, setMode] = React.useState(isMobile ? "dark" : "light");
+  const LPtheme = React.useMemo(() => createTheme(getLPTheme(mode)), [mode]);
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === "dark" ? "light" : "dark"));

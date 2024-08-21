@@ -93,7 +93,7 @@ export default function Register() {
                 onChange={(e) => setfirstName(e.target.value)}
                 type="text"
                 autoComplete="given-name"
-                className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="inpts block w-[15vw] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
                 placeholder="John"
                 required
               />
@@ -111,7 +111,7 @@ export default function Register() {
                 value={lastName}
                 onChange={(e) => setlastName(e.target.value)}
                 autoComplete="family-name"
-                className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="inpts block w-[15vw] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
                 placeholder="Doe"
                 required
               />
@@ -130,7 +130,7 @@ export default function Register() {
               onChange={(e) => setusername(e.target.value)}
               type="text"
               autoComplete="username"
-              className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
               placeholder="johndoe"
               required
             />
@@ -148,8 +148,8 @@ export default function Register() {
               onChange={(e) => setemail(e.target.value)}
               type="email"
               autoComplete="email"
-              className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="m@example.com"
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+              placeholder="johnDoe@example.com"
               required
             />
           </div>
@@ -166,7 +166,7 @@ export default function Register() {
               onChange={(e) => setpassword(e.target.value)}
               type="password"
               autoComplete="new-password"
-              className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
               required
             />
           </div>
@@ -183,7 +183,7 @@ export default function Register() {
               value={confirmPassword}
               onChange={(e) => setconfirmPassword(e.target.value)}
               autoComplete="new-password"
-              className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
               required
             />
           </div>

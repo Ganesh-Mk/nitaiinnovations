@@ -14,7 +14,6 @@ export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   console.log("Backend URL:", BACKEND_URL);
 
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setemail] = useState("");
@@ -83,8 +82,8 @@ export default function Login() {
               onChange={(e) => setemail(e.target.value)}
               type="email"
               autoComplete="email"
-              className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="m@example.com"
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+              placeholder="johnDoe@example.com"
               required
             />
           </div>
@@ -101,7 +100,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setpassword(e.target.value)}
               autoComplete="current-password"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
               required
             />
           </div>

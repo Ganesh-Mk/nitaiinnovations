@@ -14,11 +14,21 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
 import DropDownButton from "./DropDownButton";
+import { storeLoggedinRecord } from "../Store/userSlice";
 
 function Navbar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
+  const [showAccountBtn, setShowAccountBtn] = React.useState(false);
   const isLoggedin = useSelector((state) => state.user.isLoggedin);
   const isLogin = localStorage.getItem("isLogin");
+
+  React.useEffect(() => {
+    if (isLoggedin) {
+      setShowAccountBtn(true);
+    } else {
+      setShowAccountBtn(false);
+    }
+  }, [storeLoggedinRecord]);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -158,7 +168,7 @@ function Navbar({ mode, toggleColorMode }) {
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
 
               {/* Conditionally render the Register button */}
-              {!(isLoggedin || isLogin === "true") && (
+              {!(showAccountBtn || isLogin === "true") && (
                 <>
                   <Button
                     color="primary"
@@ -182,7 +192,7 @@ function Navbar({ mode, toggleColorMode }) {
                   </Button>
                 </>
               )}
-              {(isLoggedin || isLogin === "true") && (
+              {(showAccountBtn || isLogin === "true") && (
                 <Button
                   color="primary"
                   variant="outlined"
@@ -251,8 +261,7 @@ function Navbar({ mode, toggleColorMode }) {
                       </Typography>
                     </MenuItem>
                   </Link>
-                  
-                  
+
                   <Box
                     sx={{
                       display: "flex",
@@ -276,7 +285,6 @@ function Navbar({ mode, toggleColorMode }) {
                   </Box>
                   <Link
                     to="/blogs"
-
                     className="navItems"
                     onClick={toggleDrawer(false)}
                   >
@@ -302,7 +310,7 @@ function Navbar({ mode, toggleColorMode }) {
                     Contact Us
                   </Button>
                   <br />
-                  {!(isLoggedin || isLogin === "true") && (
+                  {!(showAccountBtn || isLogin === "true") && (
                     <>
                       <Button
                         color="primary"
@@ -332,7 +340,7 @@ function Navbar({ mode, toggleColorMode }) {
                     </>
                   )}
                   <br />
-                  {(isLoggedin || isLogin === "true") && (
+                  {(showAccountBtn || isLogin === "true") && (
                     <Button
                       color="primary"
                       variant="outlined"
