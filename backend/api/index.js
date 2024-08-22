@@ -7,7 +7,6 @@ require("dotenv").config();
 // Import routes
 const registerUser = require("./routes/registerUser");
 // const loginUser = require("./routes/loginUser");
-// const allUser = require("./routes/allUser");
 // const createBlog = require("./routes/createBlog");
 // const allBlogs = require("./routes/allBlogs");
 // const userData = require("./routes/userData");
@@ -48,10 +47,12 @@ mongoose
 app.get("/", (req, res) => {
   res.render("index");
 });
+app.get("/hello", (req, res) => {
+  res.send("Hello Bro");
+});
 app.use("/registerUser", registerUser);
 // app.use("/loginUser", loginUser);
 // app.use("/createBlog", createBlog);
-// app.use("/allUser", allUser);
 // app.use("/allBlogs", allBlogs);
 // app.use("/getUserData", userData);
 // app.use("/editBlog", editBlog);
