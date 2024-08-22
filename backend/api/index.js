@@ -39,16 +39,16 @@ const app = express();
 // app.set("views", path.join(__dirname, "views"));
 
 // Connect to MongoDB
-// mongoose
-//   .connect(
-//     process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/nitaiInnovationsDB"
-//   )
-//   .then(() => console.log("Connected to MongoDB"))
-//   .catch((err) => console.log("Not Connected to MongoDB: ", err));
+mongoose
+  .connect(
+    process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/nitaiInnovationsDB"
+  )
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.log("Not Connected to MongoDB: ", err));
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Hello World Bro");
+  res.send("Hello World Bro 2");
 });
 // app.use("/registerUser", registerUser);
 // app.use("/loginUser", loginUser);
