@@ -136,9 +136,9 @@ const BlogsComp = ({
                   ) : (
                     <Skeleton variant="circular" width={64} height={64} />
                   )}
-                  {!imageLoaded && (
+                  {/* {!imageLoaded && (
                     <Skeleton variant="circular" width={64} height={64} />
-                  )}
+                  )} */}
                 </Box>
 
                 <Box>

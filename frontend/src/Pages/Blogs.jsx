@@ -10,7 +10,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { DialogsProvider } from '@toolpad/core/useDialogs';
+import { DialogsProvider } from "@toolpad/core/useDialogs";
 import axios from "axios";
 import { alpha } from "@mui/material/styles";
 import { format } from "date-fns";
@@ -22,7 +22,7 @@ import Stack from "@mui/material/Stack";
 function CreateBlog() {
   const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState("newest");
@@ -55,10 +55,12 @@ function CreateBlog() {
   };
 
   useEffect(() => {
+    console.log(`${BACKEND_URL}/allBlogs`);
     axios
       .get(`${BACKEND_URL}/allBlogs`)
       .then((res) => {
         setBlogs(res.data);
+        console.log("allblogs: ", res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -219,21 +221,20 @@ function CreateBlog() {
           </Box>
         )}
         <DialogsProvider>
-        {currentBlogs.map((blog, i) => (
-          <BlogsComp
-            key={i}
-            blogKey={i}
-            username={blog.username}
-            email={blog.email}
-            title={blog.title}
-            desc={blog.desc}
-            imageUrl={blog.imageUrl}
-            profileImageUrl={blog.profileImageUrl}
-            createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
-          />
-        ))}
+          {currentBlogs.map((blog, i) => (
+            <BlogsComp
+              key={i}
+              blogKey={i}
+              username={blog.username}
+              email={blog.email}
+              title={blog.title}
+              desc={blog.desc}
+              imageUrl={blog.imageUrl}
+              profileImageUrl={blog.profileImageUrl}
+              createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
+            />
+          ))}
         </DialogsProvider>
-        
       </Box>
 
       <Stack spacing={2} sx={{ marginTop: "2rem", alignItems: "center" }}>
