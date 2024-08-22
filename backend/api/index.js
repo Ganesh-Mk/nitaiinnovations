@@ -20,23 +20,23 @@ require("dotenv").config();
 const app = express();
 
 // CORS configuration
-// const corsOptions = {
-//   origin: ["https://nitaiinnovations.vercel.app", "http://localhost:5173"],
-//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-//   allowedHeaders: ["Content-Type", "Authorization"], // Specify headers you expect
-// };
+const corsOptions = {
+  origin: ["https://nitaiinnovations.vercel.app", "http://localhost:5173"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify headers you expect
+};
 
-// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-// app.use(cors(corsOptions));
-// app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
 
 // Middleware
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// // View engine setup
-// app.set("view engine", "ejs");
-// app.set("views", path.join(__dirname, "views"));
+// View engine setup
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 // Connect to MongoDB
 mongoose
