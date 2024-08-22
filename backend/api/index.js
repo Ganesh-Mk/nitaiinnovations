@@ -16,6 +16,7 @@ require("dotenv").config();
 // const editBlog = require("../routes/editBlog");
 // const updateUser = require("../routes/updateUser");
 // const deleteBlog = require("../routes/deleteBlog");
+const mainPage = require("./routes/mainPage");
 
 const app = express();
 
@@ -48,8 +49,9 @@ mongoose
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Hello World Bro 2");
+  res.render("index");
 });
+
 // app.use("/registerUser", registerUser);
 // app.use("/loginUser", loginUser);
 // app.use("/createBlog", createBlog);
