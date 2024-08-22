@@ -22,8 +22,8 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  // origin: ["https://nitaiinnovations.vercel.app", "http://localhost:5173"],
-  origin: ["http://localhost:5173"],
+  origin: ["https://nitaiinnovations.vercel.app", "http://localhost:5173"],
+  // origin: ["http://localhost:5173"],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["*"],
 };
@@ -42,8 +42,11 @@ app.set("views", path.join(__dirname, "views"));
 
 // Connect to MongoDB
 mongoose
+  // .connect(
+  //   process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/nitaiInnovationsDB"
+  // )
   .connect(
-    process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/nitaiInnovationsDB"
+    "mongodb+srv://nitaiInnovations:nitaiInnovations@nitaiinnovationscluster.387zbcy.mongodb.net/nitaiInnovationsDB"
   )
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Not Connected to MongoDB: ", err));
@@ -77,7 +80,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const port = process.env.PORT || 3000;
+const port = 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
 module.exports = app;
