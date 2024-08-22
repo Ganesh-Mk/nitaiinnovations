@@ -10,9 +10,9 @@ const loginUser = require("./routes/loginUser");
 // const createBlog = require("./routes/createBlog");
 const allBlogs = require("./routes/allBlogs");
 const userData = require("./routes/userData");
-// const editBlog = require("./routes/editBlog");
-// const updateUser = require("./routes/updateUser");
-// const deleteBlog = require("./routes/deleteBlog");
+const editBlog = require("./routes/editBlog");
+const updateUser = require("./routes/updateUser");
+const deleteBlog = require("./routes/deleteBlog");
 
 const app = express();
 
@@ -22,12 +22,9 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"], // Specify headers you expect
 };
+app.use(cors(corsOptions));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
-
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -55,9 +52,9 @@ app.use("/loginUser", loginUser);
 // app.use("/createBlog", createBlog);
 app.use("/allBlogs", allBlogs);
 app.use("/getUserData", userData);
-// app.use("/editBlog", editBlog);
-// app.use("/updateUser", updateUser);
-// app.use("/deleteBlog", deleteBlog);
+app.use("/editBlog", editBlog);
+app.use("/updateUser", updateUser);
+app.use("/deleteBlog", deleteBlog);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
