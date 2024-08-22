@@ -5,18 +5,18 @@ const path = require("path");
 require("dotenv").config();
 
 // Import routes
-const registerUser = require("./routes/registerUser");
-const loginUser = require("./routes/loginUser");
-const mainPage = require("./routes/mainPage");
-const allUser = require("./routes/allUser");
-const createBlog = require("./routes/createBlog");
-const clearAllUser = require("./routes/clearAllUser");
-const allBlogs = require("./routes/allBlogs");
-const clearAllBlogs = require("./routes/clearAllBlogs");
-const userData = require("./routes/userData");
-const editBlog = require("./routes/editBlog");
-const updateUser = require("./routes/updateUser");
-const deleteBlog = require("./routes/deleteBlog");
+const registerUser = require("../routes/registerUser");
+const loginUser = require("../routes/loginUser");
+const mainPage = require("../routes/mainPage");
+const allUser = require("../routes/allUser");
+const createBlog = require("../routes/createBlog");
+const clearAllUser = require("../routes/clearAllUser");
+const allBlogs = require("../routes/allBlogs");
+const clearAllBlogs = require("../routes/clearAllBlogs");
+const userData = require("../routes/userData");
+const editBlog = require("../routes/editBlog");
+const updateUser = require("../routes/updateUser");
+const deleteBlog = require("../routes/deleteBlog");
 
 const app = express();
 
