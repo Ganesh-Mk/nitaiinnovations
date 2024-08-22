@@ -48,6 +48,11 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Not Connected to MongoDB: ", err));
 
+app.use((err, req, res, next) => {
+  console.log("Error from backend bro: ");
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 // Routes with /api prefix
 app.get("/", (req, res) => {
   res.send("Hello World!");
