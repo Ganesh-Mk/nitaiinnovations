@@ -52,7 +52,6 @@ app.use("/registerUser", registerUser);
 app.use("/loginUser", loginUser);
 app.use("/createBlog", createBlog);
 app.use("/allUser", allUser);
-app.use("/clearAllUser", clearAllUser);
 app.use("/allBlogs", allBlogs);
 app.use("/getUserData", userData);
 app.use("/editBlog", editBlog);
