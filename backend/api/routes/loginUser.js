@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Users = require("../models/users");
+const Users = require("../../models/users");
 const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
   try {
-    console.log("Request Body:", req.body); 
+    console.log("Request Body:", req.body);
     const { email, password } = req.body;
     const user = await Users.findOne({ email });
 
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
           .json({ status: "error", error: "Invalid email or password" });
       }
     } else {
-      res.status(400).json({message: "User not found"});
+      res.status(400).json({ message: "User not found" });
     }
   } catch (err) {
     console.log(err);

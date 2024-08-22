@@ -5,17 +5,17 @@ const path = require("path");
 require("dotenv").config();
 
 // Import routes
-// const registerUser = require("../routes/registerUser");
-// const loginUser = require("../routes/loginUser");
-// const allUser = require("../routes/allUser");
-// const createBlog = require("../routes/createBlog");
-// const clearAllUser = require("../routes/clearAllUser");
-// const allBlogs = require("../routes/allBlogs");
-// const clearAllBlogs = require("../routes/clearAllBlogs");
-// const userData = require("../routes/userData");
-// const editBlog = require("../routes/editBlog");
-// const updateUser = require("../routes/updateUser");
-// const deleteBlog = require("../routes/deleteBlog");
+const registerUser = require("./routes/registerUser");
+const loginUser = require("./routes/loginUser");
+const allUser = require("./routes/allUser");
+const createBlog = require("./routes/createBlog");
+const clearAllUser = require("./routes/clearAllUser");
+const allBlogs = require("./routes/allBlogs");
+const clearAllBlogs = require("./routes/clearAllBlogs");
+const userData = require("./routes/userData");
+const editBlog = require("./routes/editBlog");
+const updateUser = require("./routes/updateUser");
+const deleteBlog = require("./routes/deleteBlog");
 const mainPage = require("./routes/mainPage");
 
 const app = express();
@@ -52,17 +52,17 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// app.use("/registerUser", registerUser);
-// app.use("/loginUser", loginUser);
-// app.use("/createBlog", createBlog);
-// app.use("/allUser", allUser);
-// app.use("/clearAllBlogs", clearAllBlogs);
-// app.use("/clearAllUser", clearAllUser);
-// app.use("/allBlogs", allBlogs);
-// app.use("/getUserData", userData);
-// app.use("/editBlog", editBlog);
-// app.use("/updateUser", updateUser);
-// app.use("/deleteBlog", deleteBlog);
+app.use("/registerUser", registerUser);
+app.use("/loginUser", loginUser);
+app.use("/createBlog", createBlog);
+app.use("/allUser", allUser);
+app.use("/clearAllBlogs", clearAllBlogs);
+app.use("/clearAllUser", clearAllUser);
+app.use("/allBlogs", allBlogs);
+app.use("/getUserData", userData);
+app.use("/editBlog", editBlog);
+app.use("/updateUser", updateUser);
+app.use("/deleteBlog", deleteBlog);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

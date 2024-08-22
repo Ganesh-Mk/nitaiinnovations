@@ -1,7 +1,7 @@
 const express = require("express");
 const route = express.Router();
-const Users = require("../models/users");
-const Blogs = require("../models/blogs");
+const Users = require("../../models/users");
+const Blogs = require("../../models/blogs");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
