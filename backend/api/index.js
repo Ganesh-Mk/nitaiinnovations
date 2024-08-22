@@ -6,14 +6,14 @@ require("dotenv").config();
 
 // Import routes
 const registerUser = require("./routes/registerUser");
-const loginUser = require("./routes/loginUser");
-const allUser = require("./routes/allUser");
-const createBlog = require("./routes/createBlog");
-const allBlogs = require("./routes/allBlogs");
-const userData = require("./routes/userData");
-const editBlog = require("./routes/editBlog");
-const updateUser = require("./routes/updateUser");
-const deleteBlog = require("./routes/deleteBlog");
+// const loginUser = require("./routes/loginUser");
+// const allUser = require("./routes/allUser");
+// const createBlog = require("./routes/createBlog");
+// const allBlogs = require("./routes/allBlogs");
+// const userData = require("./routes/userData");
+// const editBlog = require("./routes/editBlog");
+// const updateUser = require("./routes/updateUser");
+// const deleteBlog = require("./routes/deleteBlog");
 
 const app = express();
 
@@ -49,14 +49,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 app.use("/registerUser", registerUser);
-app.use("/loginUser", loginUser);
-app.use("/createBlog", createBlog);
-app.use("/allUser", allUser);
-app.use("/allBlogs", allBlogs);
-app.use("/getUserData", userData);
-app.use("/editBlog", editBlog);
-app.use("/updateUser", updateUser);
-app.use("/deleteBlog", deleteBlog);
+// app.use("/loginUser", loginUser);
+// app.use("/createBlog", createBlog);
+// app.use("/allUser", allUser);
+// app.use("/allBlogs", allBlogs);
+// app.use("/getUserData", userData);
+// app.use("/editBlog", editBlog);
+// app.use("/updateUser", updateUser);
+// app.use("/deleteBlog", deleteBlog);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
