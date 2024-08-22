@@ -5,17 +5,17 @@ const path = require("path");
 require("dotenv").config();
 
 // Import routes
-const registerUser = require("../routes/registerUser");
-const loginUser = require("../routes/loginUser");
-const allUser = require("../routes/allUser");
-const createBlog = require("../routes/createBlog");
-const clearAllUser = require("../routes/clearAllUser");
-const allBlogs = require("../routes/allBlogs");
-const clearAllBlogs = require("../routes/clearAllBlogs");
-const userData = require("../routes/userData");
-const editBlog = require("../routes/editBlog");
-const updateUser = require("../routes/updateUser");
-const deleteBlog = require("../routes/deleteBlog");
+// const registerUser = require("../routes/registerUser");
+// const loginUser = require("../routes/loginUser");
+// const allUser = require("../routes/allUser");
+// const createBlog = require("../routes/createBlog");
+// const clearAllUser = require("../routes/clearAllUser");
+// const allBlogs = require("../routes/allBlogs");
+// const clearAllBlogs = require("../routes/clearAllBlogs");
+// const userData = require("../routes/userData");
+// const editBlog = require("../routes/editBlog");
+// const updateUser = require("../routes/updateUser");
+// const deleteBlog = require("../routes/deleteBlog");
 
 const app = express();
 
@@ -31,12 +31,12 @@ const app = express();
 // app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
-// View engine setup
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+// // View engine setup
+// app.set("view engine", "ejs");
+// app.set("views", path.join(__dirname, "views"));
 
 // Connect to MongoDB
 // mongoose
@@ -50,17 +50,17 @@ app.set("views", path.join(__dirname, "views"));
 app.get("/", (req, res) => {
   res.send("Hello World Bro");
 });
-app.use("/registerUser", registerUser);
-app.use("/loginUser", loginUser);
-app.use("/createBlog", createBlog);
-app.use("/allUser", allUser);
-app.use("/clearAllBlogs", clearAllBlogs);
-app.use("/clearAllUser", clearAllUser);
-app.use("/allBlogs", allBlogs);
-app.use("/getUserData", userData);
-app.use("/editBlog", editBlog);
-app.use("/updateUser", updateUser);
-app.use("/deleteBlog", deleteBlog);
+// app.use("/registerUser", registerUser);
+// app.use("/loginUser", loginUser);
+// app.use("/createBlog", createBlog);
+// app.use("/allUser", allUser);
+// app.use("/clearAllBlogs", clearAllBlogs);
+// app.use("/clearAllUser", clearAllUser);
+// app.use("/allBlogs", allBlogs);
+// app.use("/getUserData", userData);
+// app.use("/editBlog", editBlog);
+// app.use("/updateUser", updateUser);
+// app.use("/deleteBlog", deleteBlog);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
