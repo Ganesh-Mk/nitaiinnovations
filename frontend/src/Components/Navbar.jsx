@@ -121,7 +121,6 @@ function Navbar({ mode, toggleColorMode }) {
                     </Typography>
                   </MenuItem>
                 </Link>
-
                 <Link
                   to="/"
                   state={{ scrollTo: "productsAndSolutionSection" }}

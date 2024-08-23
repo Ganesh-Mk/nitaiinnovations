@@ -4,6 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 
 export default function DropDownButton({ toggleDrawer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,15 +18,8 @@ export default function DropDownButton({ toggleDrawer }) {
     setAnchorEl(null);
   };
 
-  const handleItemClick = (path) => {
-    return () => {
-      toggleDrawer(false)();
-      handleClose();
-    };
-  };
-
   return (
-    <>
+    <Box>
       <IconButton
         aria-label="more"
         id="long-button"
@@ -42,23 +36,42 @@ export default function DropDownButton({ toggleDrawer }) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        PaperProps={{
+          onMouseLeave: handleClose,
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
       >
         <Link to="/cyberSecurity" style={{ textDecoration: "none" }}>
-          <MenuItem onClick={handleItemClick("/cyberSecurity")}>
-            Cyber Security
+          <MenuItem onClick={handleClose}>
+            <Typography variant="p" color="text.primary">
+              Cyber Security
+            </Typography>
           </MenuItem>
         </Link>
 
         <Link to="/cloudService" style={{ textDecoration: "none" }}>
-          <MenuItem onClick={handleItemClick("/cloudService")}>
-            Cloud Services
+          <MenuItem onClick={handleClose}>
+            <Typography variant="p" color="text.primary">
+              Cloud Services
+            </Typography>
           </MenuItem>
         </Link>
 
         <Link to="/AIML" style={{ textDecoration: "none" }}>
-          <MenuItem onClick={handleItemClick("/AIML")}>AI & ML</MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Typography variant="p" color="text.primary">
+              AI & ML
+            </Typography>
+          </MenuItem>
         </Link>
       </Menu>
-    </>
+    </Box>
   );
 }
