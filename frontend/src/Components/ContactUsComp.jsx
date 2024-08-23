@@ -1,12 +1,24 @@
 import { useState, useEffect } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Element } from "react-scroll";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+function SetView({ coords }) {
+  const map = useMap();
+  useEffect(() => {
+    map.setView(coords, 15); // Adjust zoom level here
+  }, [coords, map]);
+  return null;
+}
 
 function ContactUsComp() {
   useEffect(() => {
     // Scroll to top when the component mounts
     window.scrollTo(0, 0);
   }, []);
+  const coords = [15.452990963271466, 75.01120148913052];
 
   // Define state variables for the form inputs
   const [name, setName] = useState("");
@@ -132,21 +144,50 @@ function ContactUsComp() {
         </Box>
 
         {/* Right Side: Map */}
-        <Box
-          sx={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
-            padding: "1rem",
-            height: "27rem",
-            boxSizing: "border-box",
-          }}
-        >
-          {/* Replace with your map component */}
-          <Typography variant="h6">Map goes here</Typography>
+        <Box>
+          <Box
+            sx={{ display: "flex", flexDirection: "column", height: "22rem" }}
+          >
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#f5f5f5",
+                borderRadius: "8px",
+                padding: "1rem",
+                boxSizing: "border-box",
+                background: "transparent",
+              }}
+            >
+              <MapContainer style={{ height: "100%", width: "100%" }}>
+                <TileLayer
+                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                  attribution='&copy; <a href="https://www.esri.com">Esri</a> contributors'
+                />
+                <SetView coords={coords} />
+                <Marker
+                  position={coords}
+                  icon={L.icon({
+                    iconUrl: "../../public/images/mapPointer.png", // Google Maps location icon URL
+                    iconSize: [50, 50], // Size of the icon
+                    iconAnchor: [10, 32], // Anchor point of the icon
+                    popupAnchor: [1, -34], // Popup anchor relative to the icon anchor
+                  })}
+                >
+                  <Popup>Location</Popup>
+                </Marker>
+              </MapContainer>
+            </Box>
+          </Box>
+          <Box sx={{ padding: "1rem" }}>
+            <Typography variant="h2">Address:</Typography>
+            <Typography variant="p">
+              Ramnagar, 1st main, 7th cross,odugoudar building, Dharwad 580001
+              KA, INDIA.
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Element>
