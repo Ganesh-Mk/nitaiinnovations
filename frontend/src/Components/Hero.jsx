@@ -46,15 +46,23 @@ export default function Hero() {
                 flexDirection: { xs: "column", md: "row" },
                 alignSelf: "center",
                 textAlign: "center",
-                fontSize: "clamp(3.5rem, 10vw, 4rem)",
+                fontFamily: "Times New Roman !important",
+                fontWeight: "bold !important",
+                fontSize: { xs: "2.8rem !important", md: "4rem !important" },
+                marginBottom: "2rem",
               }}
             >
-              Nitai Innovations
+              NITAI INNOVATIONS
             </Typography>
             <Typography
               textAlign="center"
               color="text.secondary"
-              sx={{ alignSelf: "center", width: { sm: "100%", md: "80%" } }}
+              variant="h2"
+              sx={{
+                alignSelf: "center",
+                width: { sm: "100%", md: "80%" },
+                fontFamily: "Tinos",
+              }}
             >
               Welcome to Our Organization! We are passionate about protecting
               your digital life from threats and ensuring your online safety.
@@ -75,7 +83,10 @@ export default function Hero() {
               {localStorage.getItem("isLogin") == "true" ? (
                 <Link to="/createBlog">
                   <Button
-                    sx={{ width: { xs: "15rem", md: "auto" } }}
+                    sx={{
+                      fontFamily: "Tinos !important",
+                      width: { xs: "15rem", md: "auto" },
+                    }}
                     variant="contained"
                     color="primary"
                   >

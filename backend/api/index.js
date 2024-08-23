@@ -7,10 +7,10 @@ require("dotenv").config();
 // Import routes
 const registerUser = require("./routes/registerUser");
 const loginUser = require("./routes/loginUser");
-// const createBlog = require("./routes/createBlog");
+const createBlog = require("./routes/createBlog");
 const allBlogs = require("./routes/allBlogs");
 const userData = require("./routes/userData");
-// const editBlog = require("./routes/editBlog");
+const editBlog = require("./routes/editBlog");
 const updateUser = require("./routes/updateUser");
 const deleteBlog = require("./routes/deleteBlog");
 
@@ -49,10 +49,10 @@ app.get("/hello", (req, res) => {
 });
 app.use("/registerUser", registerUser);
 app.use("/loginUser", loginUser);
-// app.use("/createBlog", createBlog);
+app.use("/createBlog", createBlog);
 app.use("/allBlogs", allBlogs);
 app.use("/getUserData", userData);
-// app.use("/editBlog", editBlog);
+app.use("/editBlog", editBlog);
 app.use("/updateUser", updateUser);
 app.use("/deleteBlog", deleteBlog);
 

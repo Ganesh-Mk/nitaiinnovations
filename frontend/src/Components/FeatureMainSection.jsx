@@ -40,20 +40,22 @@ function FeatureMainSection({
               flexDirection: { xs: "column", md: "row" },
               alignSelf: "center",
               gap: 1,
+              color: (theme) =>
+                theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
             }}
           >
             {title}
           </Typography>
 
           <Typography
-            variant="h6"
+            variant="h2"
             color="text.secondary"
             sx={{ textAlign: "center" }}
           >
             {subTitle}
           </Typography>
           <Typography
-            variant="body1"
+            variant="p"
             color="text.secondary"
             sx={{
               textAlign: "center",

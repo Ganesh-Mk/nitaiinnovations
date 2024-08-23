@@ -25,7 +25,7 @@ const items = [
     title: "Cyber Security - Penetration Testing",
     link: "/cyberSecurity",
     description:
-      "Through real-time online connections with existing and potential customers, a company can convey information regarding its brand, product and service.",
+      "Connect with customers in real-time to share brand, product, and service information.",
     imageLight: 'url("images/cs1.png")',
     imageDark: 'url("images/cs1.png")',
   },
@@ -34,7 +34,7 @@ const items = [
     title: "Cloud Services",
     link: "/cloudService",
     description:
-      "We follow a sophisticated agile approach that guarantees swift delivery and precise development. Our AWS experts make businesses go places with custom-built, scalable, and innovative digital solutions.",
+      "Our agile approach ensures fast delivery with custom-built, scalable digital solutions.",
     imageLight: 'url("images/aws1.png") ',
     imageDark: 'url("images/aws1.png")',
   },
@@ -43,7 +43,7 @@ const items = [
     title: "AI & ML",
     link: "/AIML",
     description:
-      "This item could let users know the product is available on all platforms, such as web, mobile, and desktop.",
+      "Inform users that the product is available across web, mobile, and desktop platforms.",
     imageLight: 'url("images/ai1.png")',
     imageDark: 'url("images/ai1.png")',
   },
@@ -61,22 +61,19 @@ export default function ProductsAndSolutions() {
   return (
     <Element name="productsAndSolutionSection">
       <Container id="features" sx={{ py: { xs: 8, sm: 16 } }}>
+        <Typography
+          variant="h1"
+          color="text.primary"
+          sx={{ textAlign: "center", marginBottom: "2rem" }}
+        >
+          Products and Solutions
+        </Typography>
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
-            <div>
-              <Typography
-                component="h2"
-                variant="h4"
-                color="text.primary"
-                sx={{ textAlign: "center" }}
-              >
-                Products and Solutions
-              </Typography>
-            </div>
             <Grid
               container
               item
-              gap={1}
+              gap={2}
               sx={{
                 display: { xs: "flex", sm: "none" },
                 flexWrap: { xs: "wrap", sm: "none" },
@@ -87,9 +84,10 @@ export default function ProductsAndSolutions() {
               {items.map(({ title }, index) => (
                 <Chip
                   key={index}
-                  label={title}
+                  label={<Typography variant="h2">{title}</Typography>}
                   onClick={() => handleItemClick(index)}
                   sx={{
+                    padding: "1.5rem 1rem",
                     borderColor: (theme) => {
                       if (theme.palette.mode === "light") {
                         return selectedItemIndex === index
@@ -137,24 +135,21 @@ export default function ProductsAndSolutions() {
               <Box sx={{ px: 2, pb: 2 }}>
                 <Typography
                   color="text.primary"
-                  variant="h6"
+                  variant="h2"
                   fontWeight="bold"
                   sx={{ mt: 2 }}
                 >
                   {selectedFeature.title}
                 </Typography>
-                <Typography
-                  color="text.secondary"
-                  variant="body2"
-                  sx={{ my: 0.5 }}
-                >
+                <Typography color="text.secondary" variant="p" sx={{ my: 0.5 }}>
                   {selectedFeature.description}
                 </Typography>
+                <br />
                 <Link
                   component={RouterLink} // Use React Router Link here
                   to={selectedFeature.link} // Set the `to` prop
                   color="primary"
-                  variant="h6"
+                  variant="h2"
                   fontWeight="bold"
                   sx={{
                     mt: 2,
@@ -236,23 +231,21 @@ export default function ProductsAndSolutions() {
                     <Box sx={{ textTransform: "none" }}>
                       <Typography
                         color="text.primary"
-                        variant="body2"
+                        variant="h2"
                         fontWeight="bold"
+                        sx={{ marginBottom: "1rem" }}
                       >
                         {title}
                       </Typography>
-                      <Typography
-                        color="text.secondary"
-                        variant="body2"
-                        sx={{ my: 0.5 }}
-                      >
+                      <Typography color="text.secondary" variant="p">
                         {description}
                       </Typography>
+                      <br />
                       <Link
                         component={RouterLink} // Use React Router Link here
                         to={link} // Set the `to` prop
                         color="primary"
-                        variant="body2"
+                        variant="p"
                         fontWeight="bold"
                         sx={{
                           display: "inline-flex",

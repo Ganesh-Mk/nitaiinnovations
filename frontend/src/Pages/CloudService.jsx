@@ -40,7 +40,14 @@ function CloudService() {
         }}
       >
         <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
-          <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
+          <Typography
+            variant="h4"
+            sx={{
+              textAlign: "center",
+              color: (theme) =>
+                theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+            }}
+          >
             Comprehensive range of AWS development services:
           </Typography>
           <Typography

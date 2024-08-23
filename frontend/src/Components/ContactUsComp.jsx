@@ -26,25 +26,21 @@ function ContactUsComp() {
           <div className="mainConatiner">
             <div className="contactHead">
               <Typography
-                variant="h6"
-                color="#0959AA"
-                sx={{ textAlign: "center", marginTop: "6.5rem" }}
+                variant="h2"
+                sx={{
+                  textAlign: "center",
+                  marginTop: "6.5rem",
+                  color: (theme) =>
+                    theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+                }}
               >
                 KEEP IN TOUCH
               </Typography>
               <Typography
-                variant="h2"
-                color="#0959AA"
+                variant="h1"
                 sx={{ textAlign: "center", marginTop: "0rem" }}
               >
                 Contact Us
-              </Typography>
-              <Typography
-                variant="h5"
-                color="#0959AA"
-                sx={{ textAlign: "center", marginTop: "2rem" }}
-              >
-                Fill out the form below and you will hear from us shortly.
               </Typography>
             </div>
           </div>

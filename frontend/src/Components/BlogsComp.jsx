@@ -142,16 +142,17 @@ const BlogsComp = ({
                 </Box>
 
                 <Box>
-                  <Typography variant="h6">
+                  <Typography variant="p">
                     {username || <Skeleton width={120} />}
-                  </Typography>
-                  <Typography variant="body2">
+                  </Typography>{" "}
+                  <br />
+                  <Typography variant="p" color="text.secondary">
                     {email || <Skeleton width={160} />}
                   </Typography>
                 </Box>
               </Box>
 
-              <Typography variant="body2">
+              <Typography variant="h6">
                 {format(new Date(createdAt), "d MMM yyyy")}
               </Typography>
             </>
@@ -166,7 +167,7 @@ const BlogsComp = ({
                 width: "100%",
               }}
             >
-              <Typography variant="body2">
+              <Typography variant="h6">
                 Date: {format(new Date(createdAt), "d MMM yyyy")}
               </Typography>
               <Box>
@@ -217,11 +218,14 @@ const BlogsComp = ({
           <></>
         )}
         <Box>
-          <Typography variant="h5" sx={{ mb: 2 }}>
+          <Typography
+            variant="h2"
+            sx={{ mb: 2, fontSize: "1.8rem !important" }}
+          >
             {title || <Skeleton width="80%" />}
           </Typography>
           <Typography
-            variant="body1"
+            variant="p"
             sx={{
               display: "-webkit-box",
               WebkitBoxOrient: "vertical",

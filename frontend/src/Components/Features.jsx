@@ -13,7 +13,14 @@ export default function Features({ data, imageURL = "", number = false }) {
   return (
     <>
       <div style={{ display: "grid", placeItems: "center" }}>
-        <Typography variant="h3" color="#0959AA" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h1"
+          sx={{
+            textAlign: "center",
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
+        >
           {data.title}
         </Typography>
         {imageURL && (
@@ -40,7 +47,7 @@ export default function Features({ data, imageURL = "", number = false }) {
         )}
 
         <Typography
-          variant="h6"
+          variant="h2"
           color="text.secondary"
           sx={{ textAlign: "center", width: { xs: "90%", sm: "70%" } }}
         >
@@ -74,7 +81,7 @@ export default function Features({ data, imageURL = "", number = false }) {
               >
                 {number && (
                   <Typography
-                    component="h3"
+                    component="p"
                     style={{ marginRight: "2rem" }}
                     variant="subtitle2"
                   >
@@ -82,18 +89,18 @@ export default function Features({ data, imageURL = "", number = false }) {
                   </Typography>
                 )}
 
-                <Typography component="h3" variant="subtitle2">
+                <Typography component="h2" variant="subtitle2">
                   {item.title}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Box
-                  variant="p"
+                  variant="h2"
                   color="text.secondary"
                   sx={{
                     maxWidth: { sm: "100%", md: "70%" },
                     textIndent: "3rem",
-                    fontWeight: "500",
+                    fontSize: "1.2rem",
                   }}
                 >
                   {item.description}

@@ -6,12 +6,7 @@ import DividerLine from "./DividerLine";
 
 function Copyright() {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      mt={1}
-      textAlign="center"
-    >
+    <Typography variant="p" color="text.secondary" mt={1} textAlign="center">
       Copyright © NITAI INNOVATIONS&nbsp;
       {new Date().getFullYear()}
     </Typography>
@@ -60,7 +55,14 @@ export default function Footer() {
                 mb: { xs: 4, sm: 0 },
               }}
             >
-              <Typography variant="h5" marginTop={7} color="#0959AA">
+              <Typography
+                variant="h2"
+                marginTop={7}
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+                }}
+              >
                 ABOUT NITAI INNOVATIONS
               </Typography>
               <Box
@@ -70,11 +72,7 @@ export default function Footer() {
                   mt: 2,
                 }}
               >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  fontWeight={600}
-                >
+                <Typography variant="p">
                   We are a passionate and dedicated team of professionals with a
                   mission to make a difference in the world of Information
                   Technology
@@ -91,10 +89,13 @@ export default function Footer() {
               }}
             >
               <Typography
-                variant="h5"
-                sx={{ textAlign: "center" }}
+                variant="h2"
+                sx={{
+                  textAlign: "center",
+                  color: (theme) =>
+                    theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+                }}
                 marginTop={7}
-                color="#0959AA"
               >
                 COMPANY OFFICE
               </Typography>
@@ -110,11 +111,7 @@ export default function Footer() {
                   src="/images/location.png"
                   alt=""
                 />
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  fontWeight={600}
-                >
+                <Typography variant="p">
                   Ramnagar, 1st main, 7th cross,odugoudar building, Dharwad
                   580001 KA, INDIA.
                 </Typography>
@@ -146,49 +143,55 @@ export default function Footer() {
             <Box
               sx={{
                 display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
                 flexDirection: "column",
                 gap: 1,
               }}
             >
               <Typography
-                variant="h5"
+                variant="h2"
                 marginTop={7}
-                color="#0959AA"
-                sx={{ textAlign: "center" }}
+                sx={{
+                  textAlign: "center",
+                  color: (theme) =>
+                    theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+                }}
               >
                 BUSINESS HOURS
               </Typography>
               <Typography
-                variant="body2"
-                color="text.secondary"
-                fontWeight={600}
-                sx={{ textAlign: "center" }}
+                variant="p"
+                sx={{
+                  textAlign: "center",
+                  marginBottom: "1rem",
+                }}
               >
                 Our support available to help you 24 hours a day, seven days a
                 week.
               </Typography>
-              <Box>
-                <Typography variant="body2" color="text.secondary">
+              <Box sx={{ display: "flex", gap: "1rem" }}>
+                <Typography variant="p" color="text.secondary">
                   Monday-Friday:
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="p" color="text.secondary">
                   9am to 5pm
                 </Typography>
               </Box>
-              <Box>
-                <Typography variant="body2" color="text.secondary">
-                  Monday-Friday:
+              <Box sx={{ display: "flex", gap: "1rem" }}>
+                <Typography variant="p" color="text.secondary">
+                  Saturday:
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  9am to 5pm
+                <Typography variant="p" color="text.secondary">
+                  10am to 2pm
                 </Typography>
               </Box>
-              <Box>
-                <Typography variant="body2" color="text.secondary">
-                  Monday-Friday:
+              <Box sx={{ display: "flex", gap: "1rem" }}>
+                <Typography variant="p" color="text.secondary">
+                  Sunday:
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  9am to 5pm
+                <Typography variant="p" color="text.secondary">
+                  Closed
                 </Typography>
               </Box>
             </Box>
@@ -205,12 +208,16 @@ export default function Footer() {
             borderColor: "divider",
           }}
         >
-          <div>
-            <Link color="text.secondary" href="#">
+          <Box>
+            <Link
+              color="text.secondary"
+              href="#"
+              style={{ marginRight: "1rem" }}
+            >
               Privacy Policy
             </Link>
             <Copyright />
-          </div>
+          </Box>
         </Box>
       </Container>
     </>

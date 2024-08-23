@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // Import useSelector
-import "../Styles/navbar.css";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";

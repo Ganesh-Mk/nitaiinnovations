@@ -47,7 +47,14 @@ function Accout() {
     >
       <UserAccountComp />
       <Box>
-        <Typography variant="h2" color="#0959AA" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h1"
+          sx={{
+            textAlign: "center",
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
+        >
           My Blogs
         </Typography>
 

@@ -2,17 +2,28 @@ import React from "react";
 import { Element } from "react-scroll";
 import { Typography } from "@mui/material";
 
-import "../Styles/aboutUsComp.css"; 
+import "../Styles/aboutUsComp.css";
 
 function AboutUsComp() {
   return (
     <Element name="aboutUsSection">
       <div className="aboutUsComp">
         <div className="leftAboutUs">
-          <h1>About Us</h1>
+          <Typography
+            variant="h1"
+            color="text.primary"
+            sx={{ textAlign: "center", marginBottom: "2rem" }}
+          >
+            About Us
+          </Typography>
           <Typography
             textAlign="center"
-            sx={{ alignSelf: "center", color: "#68737F !important" }}
+            color="text.secondary"
+            variant="h2"
+            sx={{
+              alignSelf: "center",
+              fontFamily: "Tinos",
+            }}
           >
             We're excited to share our story with you. At NITAI INNOVATIONS, we
             are a passionate and dedicated team of professionals with a mission

@@ -134,7 +134,7 @@ const getDesignTokens = (mode) => ({
     },
   },
   typography: {
-    fontFamily: ['"Josefin Sans", "sans-serif"'].join(","),
+    fontFamily: [""].join(","),
     h1: {
       fontSize: 60,
       fontWeight: 600,
@@ -143,7 +143,7 @@ const getDesignTokens = (mode) => ({
     },
     h2: {
       fontSize: 48,
-      fontWeight: 600,
+      fontWeight: 400,
       lineHeight: 1.2,
     },
     h3: {

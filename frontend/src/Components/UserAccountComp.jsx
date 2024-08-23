@@ -11,8 +11,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const UserAccountComp = () => {
-  const [firstName, setfirstName] = useState("")
-  const [lastname, setlastname] = useState("")
+  const [firstName, setfirstName] = useState("");
+  const [lastname, setlastname] = useState("");
   const [totalPosts, setTotalPosts] = useState("0");
   const [userEmail, setUserEmail] = useState("");
   const [nameOfUser, setNameOfUser] = useState("");
@@ -29,11 +29,18 @@ const UserAccountComp = () => {
         params: { userName, userEmail },
       })
       .then((res) => {
-        const { username, email, totalPostsLength, image, firstName, lastName } = res.data;
+        const {
+          username,
+          email,
+          totalPostsLength,
+          image,
+          firstName,
+          lastName,
+        } = res.data;
         setNameOfUser(username);
         setUserEmail(email);
-        setfirstName(firstName)
-        setlastname(lastName)
+        setfirstName(firstName);
+        setlastname(lastName);
         setTotalPosts(totalPostsLength);
         setProfileImageUrl(image); // Set the profile image URL
       })
@@ -54,7 +61,7 @@ const UserAccountComp = () => {
     navigate("/");
   };
 
-  const fullname = firstName + " " + lastname
+  const fullname = firstName + " " + lastname;
 
   return (
     <Box
@@ -86,14 +93,18 @@ const UserAccountComp = () => {
         }}
       >
         <Avatar
-          src={profileImageUrl ? `${BACKEND_URL}/${profileImageUrl}` : "images/nitaiLogo.png"} // Use profile image if available
+          src={
+            profileImageUrl
+              ? `${BACKEND_URL}/${profileImageUrl}`
+              : "images/nitaiLogo.png"
+          } // Use profile image if available
           sx={{ width: 80, height: 80 }}
         />
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="body2" color="text.secondary">
             {nameOfUser}
           </Typography>
-          <Typography variant="h6">{fullname}</Typography>
+          <Typography variant="h2">{fullname}</Typography>
           <Typography variant="body2" color="text.secondary">
             {userEmail}
           </Typography>
@@ -121,13 +132,9 @@ const UserAccountComp = () => {
             </Button>
           </Link>
           <Link to="/editProfile" style={{ textDecoration: "none" }}>
-          <Button
-            variant="outlined"
-            color="secondary"
-            fullWidth
-          >
-            Edit Profile
-          </Button>
+            <Button variant="outlined" color="secondary" fullWidth>
+              Edit Profile
+            </Button>
           </Link>
           <Button
             onClick={logoutUser}

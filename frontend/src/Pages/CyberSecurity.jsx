@@ -31,11 +31,18 @@ function CyberSecurity() {
       <Box sx={{ display: "grid", placeItems: "center" }}>
         <DividerLine />
 
-        <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            textAlign: "center",
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
+        >
           Penetration Testing Services
         </Typography>
         <Typography
-          variant="h6"
+          variant="h2"
           sx={{ textAlign: "center", width: { xs: "90%", sm: "70%" } }}
           color="text.secondary"
         >
@@ -46,11 +53,18 @@ function CyberSecurity() {
           need to focus on what matters most—your business.
         </Typography>
         <DividerLine />
-        <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            textAlign: "center",
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
+        >
           What is Penetration Testing?
         </Typography>
         <Typography
-          variant="h6"
+          variant="h2"
           sx={{ textAlign: "center", width: { xs: "90%", sm: "70%" } }}
           color="text.secondary"
         >
@@ -88,32 +102,35 @@ function CyberSecurity() {
       <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
         <Typography
           variant="h4"
-          color="#0959AA"
-          sx={{ textAlign: { xs: "center", sm: "left" } }}
+          sx={{
+            textAlign: { xs: "center", sm: "left" },
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
         >
           Benefits of Penetration Testing
         </Typography>
         <ul>
           <li>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="h2" color="text.secondary">
               Identify and remediate security vulnerabilities before they are
               exploited by cybercriminals.
             </Typography>
           </li>
           <li>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="h2" color="text.secondary">
               Protect sensitive data and maintain the trust of your customers
               and stakeholders.
             </Typography>
           </li>
           <li>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="h2" color="text.secondary">
               Gain valuable insights into your security posture and prioritize
               investments in cybersecurity measures.
             </Typography>
           </li>
           <li>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="h2" color="text.secondary">
               Identify and remediate security vulnerabilities before they are
               exploited by cybercriminals.
             </Typography>
@@ -126,13 +143,16 @@ function CyberSecurity() {
       <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
         <Typography
           variant="h4"
-          color="#0959AA"
-          sx={{ textAlign: { xs: "center", sm: "left" } }}
+          sx={{
+            textAlign: { xs: "center", sm: "left" },
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
         >
           Our Approach
         </Typography>
         <Typography
-          variant="h6"
+          variant="h2"
           color="text.secondary"
           sx={{
             textIndent: { xs: "0rem", sm: "4rem" },
@@ -154,13 +174,16 @@ function CyberSecurity() {
       <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
         <Typography
           variant="h4"
-          color="#0959AA"
-          sx={{ textAlign: { xs: "center", sm: "left" } }}
+          sx={{
+            textAlign: { xs: "center", sm: "left" },
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
         >
           Expertise and Experience
         </Typography>
         <Typography
-          variant="h6"
+          variant="h2"
           color="text.secondary"
           sx={{
             textIndent: { xs: "0rem", sm: "4rem" },
@@ -197,34 +220,37 @@ function CyberSecurity() {
           <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" } }}>
             <Typography
               variant="h4"
-              color="#0959AA"
-              sx={{ textAlign: { xs: "center", sm: "left" } }}
+              sx={{
+                textAlign: { xs: "center", sm: "left" },
+                color: (theme) =>
+                  theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+              }}
             >
               Types of Penetration Testing Services Offered
             </Typography>
             <ul>
               <li>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h2" color="text.secondary">
                   Network Penetration Testing
                 </Typography>
               </li>
               <li>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h2" color="text.secondary">
                   Web Application Testing
                 </Typography>
               </li>
               <li>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h2" color="text.secondary">
                   Wireless Network Testing
                 </Typography>
               </li>
               <li>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h2" color="text.secondary">
                   Social Engineering Assessments
                 </Typography>
               </li>
               <li>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h2" color="text.secondary">
                   And more tailored services to meet your specific needs.
                 </Typography>
               </li>
@@ -234,13 +260,16 @@ function CyberSecurity() {
           <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" }, gridArea: "content" }}>
             <Typography
               variant="h4"
-              color="#0959AA"
-              sx={{ textAlign: { xs: "center", sm: "left" } }}
+              sx={{
+                textAlign: { xs: "center", sm: "left" },
+                color: (theme) =>
+                  theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+              }}
             >
               Reporting and Deliverables
             </Typography>
             <Typography
-              variant="h6"
+              variant="h2"
               color="text.secondary"
               sx={{
                 textIndent: { xs: "0rem", sm: "4rem" },
@@ -292,13 +321,16 @@ function CyberSecurity() {
             ,
             <Typography
               variant="h4"
-              color="#0959AA"
-              sx={{ textAlign: { xs: "center", sm: "left" } }}
+              sx={{
+                textAlign: { xs: "center", sm: "left" },
+                color: (theme) =>
+                  theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+              }}
             >
               Customization and Collaboration
             </Typography>
             <Typography
-              variant="h6"
+              variant="h2"
               color="text.secondary"
               sx={{
                 textIndent: { xs: "0rem", sm: "4rem" },
@@ -316,13 +348,16 @@ function CyberSecurity() {
           <Box sx={{ p: { xs: "0 2rem", sm: "0 4rem" }, gridArea: "content" }}>
             <Typography
               variant="h4"
-              color="#0959AA"
-              sx={{ textAlign: { xs: "center", sm: "left" } }}
+              sx={{
+                textAlign: { xs: "center", sm: "left" },
+                color: (theme) =>
+                  theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+              }}
             >
               Continuous Support and Monitoring
             </Typography>
             <Typography
-              variant="h6"
+              variant="h2"
               color="text.secondary"
               sx={{
                 textIndent: { xs: "0rem", sm: "4rem" },
@@ -353,11 +388,17 @@ function CyberSecurity() {
       <DividerLine />
 
       <Box sx={{ display: "grid", placeItems: "center" }}>
-        <Typography variant="h4" color="#0959AA">
+        <Typography
+          variant="h4"
+          sx={{
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
+        >
           Get Started Today
         </Typography>
         <Typography
-          variant="h6"
+          variant="h2"
           sx={{ textAlign: "center", width: { xs: "90%", sm: "60%" } }}
           color="text.secondary"
         >
@@ -368,7 +409,7 @@ function CyberSecurity() {
         <br />
         <br />
         <Typography
-          variant="h6"
+          variant="h2"
           sx={{ textAlign: "center", width: { xs: "90%", sm: "80%" } }}
           color="text.secondary"
         >
@@ -389,7 +430,14 @@ function CyberSecurity() {
           placeItems: "center",
         }}
       >
-        <Typography variant="h4" color="#0959AA" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            textAlign: "center",
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
+        >
           Pen Test as a service[Compliance along with risk reduction]
         </Typography>
         <Box
@@ -401,19 +449,19 @@ function CyberSecurity() {
         >
           <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
             <Typography
-              variant="h6"
+              variant="h2"
               color="text.secondary"
               sx={{ textAlign: "center" }}
             >
               Our SaaS platforms rich Pen Test Dashboard is under development
               and be made available soon in order to give access to our
               Penetration testing as a Service to the timelines, analytics,
-              prioritised findings, and test progress for 24/7.'
+              prioritised findings, and test progress for 24/7.
             </Typography>
           </Box>
           <Box sx={{ p: { xs: "2rem", sm: "4rem" } }}>
             <Typography
-              variant="h6"
+              variant="h2"
               color="text.secondary"
               sx={{ textAlign: "center" }}
             >
