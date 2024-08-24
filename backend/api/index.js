@@ -13,6 +13,7 @@ const userData = require("./routes/userData");
 const editBlog = require("./routes/editBlog");
 const updateUser = require("./routes/updateUser");
 const deleteBlog = require("./routes/deleteBlog");
+const userMessage = require("./routes/userMessages");
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use("/getUserData", userData);
 app.use("/editBlog", editBlog);
 app.use("/updateUser", updateUser);
 app.use("/deleteBlog", deleteBlog);
+app.use("/userMessages", userMessage);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

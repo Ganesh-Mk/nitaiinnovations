@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { Snackbar, Alert } from "@mui/material";
 import { Element } from "react-scroll";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import axios from "axios";
 
 function SetView({ coords }) {
   const map = useMap();
@@ -25,6 +27,10 @@ function ContactUsComp() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackMessage, setsnackMessage] = useState("")
+  const [snackseverity, setsnackseverity] = useState("")
 
   const inputStyles = {
     sx: { padding: "0.5rem 0" },
@@ -33,15 +39,53 @@ function ContactUsComp() {
     },
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(name.trim() === "" || email.trim() === "" || subject.trim() === "" || message.trim() === ""){
+      setsnackMessage("All feilds are required")
+      setsnackseverity("error")
+      setSnackbarOpen(true)
+      return
+    }
     // Log the input values
-    console.log({
-      name,
-      email,
-      subject,
-      message,
-    });
+    axios
+      .post(`${BACKEND_URL}/userMessages`, {
+        name,
+        email,
+        subject,
+        message,
+      })
+      .then((res) => {
+        setsnackMessage("You message has been sent!")
+        setsnackseverity("success")
+
+        console.log("Sucessfully stroed user feedback");
+        setSnackbarOpen(true); 
+        setTimeout(() => {
+          setSnackbarOpen(false)
+        }, 2200)
+        setName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+      })
+      .catch((err) => {
+        setsnackMessage("Failed")
+        setsnackseverity("error")
+
+        setSnackbarOpen(true); 
+        setTimeout(() => {
+          setSnackbarOpen(false)
+        }, 2200)
+        console.log("Error, storing user feedback : ", err);
+      });
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -128,6 +172,7 @@ function ContactUsComp() {
                 type="submit"
                 variant="contained"
                 sx={{ width: "100%", mb: "1rem" }}
+                onClick={handleSubmit}
               >
                 Submit
               </Button>
@@ -195,6 +240,22 @@ function ContactUsComp() {
           </Box>
         </Box>
       </Box>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
+
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackseverity}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {snackMessage}
+        </Alert>
+      </Snackbar>
     </Element>
   );
 }
