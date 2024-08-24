@@ -45,7 +45,10 @@ function Accout() {
         },
       }}
     >
+      <DialogsProvider>
       <UserAccountComp />
+
+      </DialogsProvider>
       <Box>
         <Typography
           variant="h1"

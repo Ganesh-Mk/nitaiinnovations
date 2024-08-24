@@ -9,6 +9,8 @@ import {
   storeusername,
   storeLoggedinRecord,
 } from "../Store/userSlice";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -19,11 +21,25 @@ export default function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const userStore = useSelector((state) => state.user);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
   const loginUser = (e) => {
     e.preventDefault();
     console.log("Login button clicked");
-
+    if(email === "" && password === "") {
+      setSnackbarMessage("Please enter email and password");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
+    if(email === "" || password === "") {
+      setSnackbarMessage("Please enter all fields");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
     axios
       .post(
         `${BACKEND_URL}/loginUser`,
@@ -49,14 +65,39 @@ export default function Login() {
           dispatch(storeusername(res.data.username));
           dispatch(storeLoggedinRecord(true));
 
-          navigate("/");
+          setSnackbarMessage("You have successfully logged in!");
+          setSnackbarSeverity("success");
+          setSnackbarOpen(true);
+
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
         } else {
           alert("Login failed: " + res.data.error);
         }
       })
       .catch((err) => {
         console.error("Error during login request:", err);
+        if (err.response && err.response.data.error === "Invalid email or password") {
+          setSnackbarMessage("Invalid username or password");
+          setSnackbarSeverity("error");
+          setSnackbarOpen(true);
+        }
+        else {
+          // setSnackbarMessage("User not found");
+          // setSnackbarSeverity("error");
+          // setSnackbarOpen(true);
+          console.log(err);
+          
+        }
       });
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -124,6 +165,20 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { Typography, Box, Button, Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Typography, Box, Button, Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import {
   storeLoggedinRecord,
@@ -9,6 +9,9 @@ import {
 } from "../Store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { useDialogs } from "@toolpad/core/useDialogs";
 
 const UserAccountComp = () => {
   const [firstName, setfirstName] = useState("");
@@ -16,10 +19,12 @@ const UserAccountComp = () => {
   const [totalPosts, setTotalPosts] = useState("0");
   const [userEmail, setUserEmail] = useState("");
   const [nameOfUser, setNameOfUser] = useState("");
-  const [profileImageUrl, setProfileImageUrl] = useState(""); // New state for profile image
+  const [profileImageUrl, setProfileImageUrl] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dialogs = useDialogs();
 
   useEffect(() => {
     const userName = localStorage.getItem("username");
@@ -42,14 +47,26 @@ const UserAccountComp = () => {
         setfirstName(firstName);
         setlastname(lastName);
         setTotalPosts(totalPostsLength);
-        setProfileImageUrl(image); // Set the profile image URL
+        setProfileImageUrl(image);
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
       });
   }, [BACKEND_URL]);
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
+    const confirmLogout = await dialogs.confirm(
+      "Are you sure you want to logout?",
+      {
+        okText: "Yes",
+        cancelText: "No",
+      }
+    );
+
+    if (!confirmLogout) {
+      return;
+    }
+
     dispatch(storeLoggedinRecord(false));
     dispatch(storeName(""));
     dispatch(storeEmail(""));
@@ -58,7 +75,18 @@ const UserAccountComp = () => {
     localStorage.setItem("username", "");
     localStorage.setItem("email", "");
 
-    navigate("/");
+    setSnackbarOpen(true); // Open Snackbar after successful logout
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   const fullname = firstName + " " + lastname;
@@ -97,7 +125,7 @@ const UserAccountComp = () => {
             profileImageUrl
               ? `${BACKEND_URL}/${profileImageUrl}`
               : "images/nitaiLogo.png"
-          } // Use profile image if available
+          }
           sx={{ width: 80, height: 80 }}
         />
         <Box sx={{ textAlign: "center" }}>
@@ -146,6 +174,21 @@ const UserAccountComp = () => {
           </Button>
         </Box>
       </Box>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          You have successfully logged out!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

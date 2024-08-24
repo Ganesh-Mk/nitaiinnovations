@@ -7,6 +7,8 @@ import {
   IconButton,
   Button,
   Skeleton,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { format } from "date-fns";
 import EditIcon from "@mui/icons-material/Edit";
@@ -36,6 +38,15 @@ const BlogsComp = ({
   const [showFullText, setShowFullText] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [reloadPage, setReloadPage] = useState(false);
+
+  // Snackbar state variables
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleReadMore = () => {
     setShowFullText((prev) => !prev);
@@ -83,10 +94,19 @@ const BlogsComp = ({
       })
       .then((res) => {
         console.log("Successfully deleted blog in backend: ", res.data);
-        setReloadPage(true);
+        setSnackbarMessage("Blog deleted successfully!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+        setTimeout(() => {
+          setReloadPage(true);
+        }, 1500)
+        
       })
       .catch((err) => {
         console.log("Failed to delete blog in backend: ", err);
+        setSnackbarMessage("Failed to delete blog");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
       });
   };
 
@@ -136,9 +156,6 @@ const BlogsComp = ({
                   ) : (
                     <Skeleton variant="circular" width={64} height={64} />
                   )}
-                  {/* {!imageLoaded && (
-                    <Skeleton variant="circular" width={64} height={64} />
-                  )} */}
                 </Box>
 
                 <Box>
@@ -244,6 +261,21 @@ const BlogsComp = ({
             </Button>
           )}
         </Box>
+
+        {/* Snackbar for delete success or error messages */}
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity={snackbarSeverity}
+            sx={{ width: "100%" }}
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
       </Box>
     </DialogsProvider>
   );

@@ -5,6 +5,8 @@ import {
   TextField,
   Typography,
   useTheme,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
@@ -24,12 +26,22 @@ function EditProfile() {
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [originalData, setoriginalData] = useState({});
-
   const [image, setImage] = useState("");
+
+  // Snackbar states
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const submitChangedData = () => {
     if (firstName === "" || lastName === "" || usersemail === "") {
-      alert("Please fill all the fields");
+      setSnackbarMessage("Please fill all the fields");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
       return;
     }
     if (
@@ -38,7 +50,6 @@ function EditProfile() {
       usersemail !== originalData.email ||
       image !== originalData.profileImageUrl
     ) {
-      console.log("Updating frontend");
       let formData = new FormData();
       formData.append("username", username);
       formData.append("originalEmail", originalData.email);
@@ -51,8 +62,6 @@ function EditProfile() {
         formData.append("profileImageUrl", originalData.profileImageUrl); // If no new image, keep the old URL
       }
 
-      console.log("edit profile image: ", image);
-
       axios
         .patch(`${BACKEND_URL}/updateUser`, formData, {
           headers: {
@@ -60,7 +69,9 @@ function EditProfile() {
           },
         })
         .then((res) => {
-          console.log("Successfully updated user in backend: ", res.data);
+          setSnackbarMessage("Profile updated successfully!");
+          setSnackbarSeverity("success");
+          setSnackbarOpen(true);
           setfirstName(res.data.firstName);
           setlastName(res.data.lastName);
           setusersemail(res.data.email);
@@ -68,11 +79,19 @@ function EditProfile() {
           localStorage.setItem("email", res.data.email);
           dispatch(storeusername(res.data.username));
           dispatch(storeEmail(res.data.email));
-          navigate("/account");
+          setTimeout(() => {
+            navigate("/account");
+          }, 1300);
         })
         .catch((err) => {
-          console.log("Error in updating user in backend: ", err);
+          setSnackbarMessage("Failed to update profile. Please try again.");
+          setSnackbarSeverity("error");
+          setSnackbarOpen(true);
         });
+    } else {
+      setSnackbarMessage("Nothing changed in profile.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
     }
   };
 
@@ -91,7 +110,6 @@ function EditProfile() {
         },
       })
       .then((res) => {
-        console.log("Recieved data from backend: ", res.data);
         setImage(res.data.profileImageUrl);
         localStorage.setItem("username", res.data.username);
         localStorage.setItem("email", res.data.email);
@@ -101,7 +119,7 @@ function EditProfile() {
         dispatch(storeusername(res.data.username));
         dispatch(storeEmail(res.data.email));
       });
-  }, [storeusername]);
+  }, [dispatch]);
 
   const inputStyles = {
     InputLabelProps: {
@@ -232,6 +250,21 @@ function EditProfile() {
           Reset
         </Button>
       </Box>
+
+      {/* Snackbar for success and error messages */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

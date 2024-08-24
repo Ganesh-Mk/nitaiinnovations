@@ -1,32 +1,35 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Input,
   TextareaAutosize,
   Typography,
-  useTheme,
-  IconButton,
-  InputAdornment,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
 
 function CreateBlog() {
   const navigate = useNavigate();
-  const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
   function createBlog(e) {
     e.preventDefault();
 
     if (title.trim() === "" || desc.trim() === "") {
-      alert("Please enter title and description");
+      setSnackbarMessage("Please enter title and description");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
       return;
     }
 
@@ -44,57 +47,29 @@ function CreateBlog() {
         },
       })
       .then((res) => {
-        console.log("then", res);
         setTitle("");
         setDesc("");
-        navigate("/blogs");
+        setImage(null);
+        setSnackbarMessage("Blog created successfully!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+
+        setTimeout(() => {
+          navigate("/blogs");
+        }, 1500);
       })
       .catch((err) => {
-        if(err.response.data.message === "Blog title already exists for this user") {
-          alert("Blog title is already exists");
+        if (err.response.data.message === "Blog title already exists for this user") {
+          setSnackbarMessage("Blog title already exists");
+          setSnackbarSeverity("error");
+          setSnackbarOpen(true);
         }
-        console.log("catch block : ", err);
+        console.log("Error during blog creation:", err);
       });
   }
 
-  const inputStyles = {
-    width: { xs: "100%", sm: "100%" },
-    fontSize: "1.5rem",
-  };
-
-  const textAreaStyles = {
-    width: "100%",
-    backgroundColor: theme.palette.mode === "dark" ? "transparent" : "#fff",
-    color: theme.palette.mode === "dark" ? "#fff" : "#000",
-    fontSize: "1rem",
-    fontWeight: "400",
-    padding: "1rem",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  };
-
-  const fileInputStyles = {
-    display: "none",
-  };
-
-  const fileInputLabelStyles = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    backgroundColor: theme.palette.mode === "dark" ? "#333" : "#f5f5f5",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    padding: "0.5rem",
-    cursor: "pointer",
-    fontSize: "1rem",
-    fontWeight: "400",
-    color: theme.palette.mode === "dark" ? "#fff" : "#000",
-    gap: "0.5rem",
-    transition: "background-color 0.3s",
-    "&:hover": {
-      backgroundColor: theme.palette.mode === "dark" ? "#555" : "#e0e0e0",
-    },
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -114,18 +89,24 @@ function CreateBlog() {
       </Typography>
       <Input
         placeholder="Enter Blog Title"
-        sx={inputStyles}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        sx={{ width: "100%", fontSize: "1.5rem" }}
       />
       <TextareaAutosize
         minRows={6}
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
         placeholder="Enter Blog Description"
-        style={textAreaStyles}
+        style={{
+          width: "100%",
+          padding: "1rem",
+          borderRadius: "4px",
+          border: "1px solid #ccc",
+          fontSize: "1rem",
+        }}
       />
-      <label htmlFor="file-upload" style={fileInputLabelStyles}>
+      <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
         <AttachFileIcon />
         {image ? image.name : "Choose an image"}
         <Input
@@ -133,25 +114,39 @@ function CreateBlog() {
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
-          style={fileInputStyles}
+          style={{ display: "none" }}
         />
       </label>
-      <Box
-        sx={{
-          display: "grid",
-          placeItems: "center",
-          width: { xs: "100%", sm: "100%" },
-          gap: "2rem",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-        }}
-      >
-        <Button variant="contained" sx={{ width: "100%" }} onClick={createBlog}>
+      <Box sx={{ display: "flex", gap: "2rem", width: "100%" }}>
+        <Button variant="contained" onClick={createBlog} sx={{ width: "100%" }}>
           Post
         </Button>
-        <Button variant="outlined" sx={{ width: "100%" }}>
+        <Button
+          variant="outlined"
+          sx={{ width: "100%" }}
+          onClick={() => {
+            setTitle("");
+            setDesc("");
+            setImage(null);
+          }}
+        >
           Clear
         </Button>
       </Box>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

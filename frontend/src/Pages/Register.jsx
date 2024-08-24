@@ -8,6 +8,8 @@ import {
   storeusername,
   storeLoggedinRecord,
 } from "../Store/userSlice";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export default function Register() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -18,17 +20,24 @@ export default function Register() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("error");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const registerUser = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      setSnackbarMessage("Passwords do not match");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
       return;
     }
     if (/.+@.+\..+/.test(email) === false) {
-      alert("Invalid Email");
+      setSnackbarMessage("Invalid Email");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
       return;
     }
 
@@ -57,16 +66,59 @@ export default function Register() {
 
         dispatch(storeusername(username));
         dispatch(storeName(`${firstName} ${lastName}`));
-        dispatch(storeEmail(email)); // Set isRegistered to true
+        dispatch(storeEmail(email));
         dispatch(storeLoggedinRecord(true));
-        navigate("/");
+
+        setSnackbarMessage("Registration successful!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       })
       .catch((err) => {
-        console.log(
-          "Error during registration:",
-          err.response ? err.response.data : err.message
-        );
+        console.log("Error during registration:", err);
+
+        if (
+          err.response.data.error ===
+          "Users validation failed: lastName: Path `lastName` is required."
+        ) {
+          setSnackbarMessage("Last name is required");
+        } else if (
+          err.response.data.error ===
+          "Users validation failed: firstName: Path `firstName` is required."
+        ) {
+          setSnackbarMessage("First name is required");
+        } else if (
+          err.response.data.error ===
+          "Users validation failed: username: Path `username` is required."
+        ) {
+          setSnackbarMessage("Username is required");
+        } else if (
+          err.response.data.error ===
+          "Users validation failed: email: Path `email` is required."
+        ) {
+          setSnackbarMessage("Email is required");
+        } else if (
+          err.response.data.error ===
+          "Users validation failed: password: Path `password` is required."
+        ) {
+          setSnackbarMessage("Password is required");
+        } else {
+          setSnackbarMessage("An error occurred during registration");
+        }
+
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
       });
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -122,7 +174,7 @@ export default function Register() {
               htmlFor="username"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              username
+              Username
             </label>
             <input
               id="username"
@@ -207,6 +259,19 @@ export default function Register() {
           </div>
         </div>
       </div>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
