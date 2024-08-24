@@ -31,13 +31,13 @@ export default function Hero() {
             flexDirection: "column",
             alignItems: "center",
             pt: { xs: 14, sm: 20 },
-            pb: { xs: 8, sm: 12 },
+            pb: { xs: 4, sm: 6 },
           }}
         >
           <Stack
             spacing={2}
             useFlexGap
-            sx={{ width: { xs: "100%", sm: "70%" } }}
+            sx={{ width: { xs: "100%", sm: "90%" } }}
           >
             <Typography
               variant="h1"
@@ -60,8 +60,9 @@ export default function Hero() {
               variant="h2"
               sx={{
                 alignSelf: "center",
-                width: { sm: "100%", md: "80%" },
                 fontFamily: "Tinos",
+                lineHeight: "2rem !important",
+                fontSize: "1.4rem !important",
               }}
             >
               Welcome to Our Organization! We are passionate about protecting
