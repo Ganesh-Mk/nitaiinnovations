@@ -179,6 +179,8 @@ const UserAccountComp = () => {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
+
       >
         <Alert
           onClose={handleSnackbarClose}
