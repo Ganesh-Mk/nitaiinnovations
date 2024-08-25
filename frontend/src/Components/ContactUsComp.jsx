@@ -27,11 +27,9 @@ function ContactUsComp() {
   const [message, setMessage] = useState("");
 
   const inputStyles = {
-    InputLabelProps: {
-      sx: { fontSize: "1.2rem" }, // Adjust the font size of the label
-    },
+    sx: { padding: "0.5rem 0" },
     InputProps: {
-      sx: { fontSize: "1.4rem" }, // Adjust the font size of the value
+      sx: { fontSize: "1.2rem" }, // Adjust the font size of the value
     },
   };
 
@@ -48,19 +46,26 @@ function ContactUsComp() {
 
   return (
     <Element name="contactUsSection">
-      <Typography variant="h2" sx={{ textAlign: "center", mb: "1rem" }}>
+      <Typography
+        variant="h2"
+        sx={{
+          textAlign: "center",
+          mb: "1rem",
+          color: (theme) =>
+            theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+        }}
+      >
         KEEP IN TOUCH
       </Typography>
-      <Typography variant="h1" sx={{ textAlign: "center", mb: "2rem" }}>
+      <Typography variant="h1" sx={{ textAlign: "center" }}>
         Contact Us
       </Typography>
       <Box
         sx={{
-          minHeight: "100vh",
           display: "grid",
           gridTemplateColumns: { xs: "1fr", sm: "1.3fr 1fr" },
-          gap: "2rem",
-          padding: "2rem",
+          gap: "3rem",
+          padding: "3rem",
           boxSizing: "border-box",
         }}
       >
@@ -170,7 +175,7 @@ function ContactUsComp() {
                 <Marker
                   position={coords}
                   icon={L.icon({
-                    iconUrl: "../../public/images/mapPointer.png", // Google Maps location icon URL
+                    iconUrl: "/images/mapPointer.png", // Google Maps location icon URL
                     iconSize: [50, 50], // Size of the icon
                     iconAnchor: [10, 32], // Anchor point of the icon
                     popupAnchor: [1, -34], // Popup anchor relative to the icon anchor
