@@ -58,8 +58,8 @@ export default function Features({ data, imageURL = "", number = false }) {
       <Container
         id="faq"
         sx={{
-          pt: { xs: 4, sm: 12 },
-          pb: { xs: 8, sm: 16 },
+          pt: { xs: 2, sm: 6 },
+          pb: { xs: 4, sm: 8 },
           position: "relative",
           display: "flex",
           flexDirection: "column",
