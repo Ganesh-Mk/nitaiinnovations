@@ -9,6 +9,7 @@ import { Box, Typography } from "@mui/material";
 export default function DropDownButton({ toggleDrawer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const closeTimeout = React.useRef(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,9 +18,20 @@ export default function DropDownButton({ toggleDrawer }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleMenuItemClick = () => {
     handleClose();
     toggleDrawer(false)(); // Close the navbar
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeout.current = setTimeout(() => {
+      handleClose();
+    }, 500);
+  };
+
+  const handleMouseEnter = () => {
+    clearTimeout(closeTimeout.current);
   };
 
   return (
@@ -31,6 +43,7 @@ export default function DropDownButton({ toggleDrawer }) {
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         onMouseEnter={handleClick}
+        onMouseLeave={handleMouseLeave} // Close if mouse leaves the icon
         sx={{ p: "0 !important" }}
       >
         <KeyboardArrowDownIcon />
@@ -41,7 +54,8 @@ export default function DropDownButton({ toggleDrawer }) {
         open={open}
         onClose={handleClose}
         PaperProps={{
-          onMouseLeave: handleClose,
+          onMouseLeave: handleMouseLeave, // Close if mouse leaves the dropdown
+          onMouseEnter: handleMouseEnter, // Prevent closing if mouse enters the dropdown
         }}
         anchorOrigin={{
           vertical: "bottom",
