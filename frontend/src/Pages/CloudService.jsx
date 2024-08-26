@@ -6,6 +6,11 @@ import Features from "../Components/Features";
 import FeatureMainSection from "../Components/FeatureMainSection";
 import { AWSFeatures } from "../Data/AWSFeaturesData";
 import { AzureFeatures } from "../Data/AzureFeaturesData";
+import { CloudServicesQNA } from "../Data/CloudServicesQNA";
+import DividerLine from "../Components/DividerLine";
+import DataList from "../Components/DataList";
+import { CloudServiceData } from "../Data/CloudServiceData";
+import { GoogleCloudPlatformData } from "../Data/GoogleCloudPlatformData";
 
 function CloudService() {
   useEffect(() => {
@@ -121,8 +126,40 @@ function CloudService() {
         </div>
       </Stack>
 
+      <DividerLine />
+      <Box
+        sx={{
+          padding: { xs: "1rem 2rem", md: "1rem 5rem", lg: "1rem 10rem" },
+        }}
+      >
+        <DataList data={CloudServiceData} />
+      </Box>
+      <DividerLine />
+
+      <Box
+        sx={{
+          padding: { xs: "1rem 2rem", md: "1rem 5rem", lg: "1rem 10rem" },
+        }}
+      >
+        <DataList data={GoogleCloudPlatformData} />
+      </Box>
+      <DividerLine />
+
       <Features data={AWSFeatures} />
       <Features data={AzureFeatures} />
+      <Typography
+        variant="h2"
+        sx={{
+          marginTop: "3rem",
+          textAlign: "center",
+          fontSize: "2rem !important",
+          color: (theme) =>
+            theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+        }}
+      >
+        Frequently Asked Questions
+      </Typography>
+      <Features number={true} data={CloudServicesQNA} />
     </>
   );
 }

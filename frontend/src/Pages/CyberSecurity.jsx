@@ -17,6 +17,8 @@ import { CSFeaturesBenefits } from "../Data/CSFeaturesBenefits";
 import NetworkPenetration from "../Components/PenetrationTestingTypes/NetworkPenetration";
 import PropTypes from "prop-types";
 import WebAppPenetration from "../Components/PenetrationTestingTypes/WebAppPenetration";
+import WireLessTesting from "../Components/PenetrationTestingTypes/WireLessTesting";
+import SocialEngineering from "../Components/PenetrationTestingTypes/SocialEngineering";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,6 +63,15 @@ function CyberSecurity() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const tabStyle = {
+    textAlign: "start !important",
+    alignItems: "flex-start !important",
+    "&.Mui-selected": {
+      color: (theme) =>
+        theme.palette.mode === "light" ? "#0959AA" : "#50a3f7", // Active tab text color
+    },
   };
 
   const boxStyle = {
@@ -170,6 +181,17 @@ function CyberSecurity() {
         >
           Types of Penetration Testing Services Offered
         </Typography>
+        <Typography
+          variant="p"
+          sx={{
+            display: { xs: "block", sm: "none" },
+            fontSize: ".9rem !important",
+            color: "text.secondary",
+            textAlign: { xs: "center", sm: "left" },
+          }}
+        >
+          (Click the service to know more below)
+        </Typography>
         <br /> <br /> <br />
         <Box
           sx={{
@@ -178,7 +200,7 @@ function CyberSecurity() {
             margin: "auto",
             display: "grid",
             gridTemplateColumns: { xs: "1fr", sm: "1fr 3fr" },
-            height: "80vh",
+            height: { xs: "100%", sm: "100%" },
           }}
         >
           <Tabs
@@ -186,36 +208,52 @@ function CyberSecurity() {
             value={value}
             onChange={handleChange}
             aria-label="Vertical tabs example"
-            sx={{ borderRight: 1, borderColor: "divider" }}
+            sx={{
+              borderRight: 1,
+              borderColor: "divider",
+              height: { xs: "100%", sm: "100%" },
+              borderBottom: { xs: "1px solid #0959AA", sm: "none" },
+            }}
           >
-            <Tab label="Network Penetration Testing" {...a11yProps(0)} />
             <Tab
-              label="Web Application Penetration Testing"
+              sx={tabStyle}
+              label="1. Network Penetration Testing"
+              {...a11yProps(0)}
+            />
+            <Tab
+              sx={tabStyle}
+              label="2. Web Application Penetration Testing"
               {...a11yProps(1)}
             />
-            <Tab label="Wireless Network Testing" {...a11yProps(2)} />
-            <Tab label="Social Engineering Assessments" {...a11yProps(3)} />
+            <Tab
+              sx={tabStyle}
+              label="3. Wireless Network Testing"
+              {...a11yProps(2)}
+            />
+            <Tab
+              sx={tabStyle}
+              label="4. Social Engineering Assessments"
+              {...a11yProps(3)}
+            />
           </Tabs>
 
-          <TabPanel value={value} index={0} sx={{ overflowY: "scroll" }}>
+          <TabPanel value={value} index={0}>
             <NetworkPenetration />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <WebAppPenetration />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
+            <WireLessTesting />
           </TabPanel>
           <TabPanel value={value} index={3}>
-            Item Four
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            Item Five
+            <SocialEngineering />
           </TabPanel>
         </Box>
+        <DividerLine />
         <Box
           sx={{
-            margin: "1rem !important",
+            marginTop: "2rem !important",
             width: "100%",
             display: "grid",
             placeItems: "center",

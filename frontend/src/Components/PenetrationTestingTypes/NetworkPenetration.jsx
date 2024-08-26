@@ -194,7 +194,7 @@ function NetworkPenetration() {
       >
         Our Network Penetration Testing Procedure
       </Typography>
-      <Features data={PenetrationProcedureData} />
+      <Features number={true} data={PenetrationProcedureData} />
       <Divider />
       <Divider />
       <Typography
@@ -254,7 +254,7 @@ function NetworkPenetration() {
       >
         Frequently Asked Questions
       </Typography>
-      <Features data={NetworkPenetrationQNA} />
+      <Features number={true} data={NetworkPenetrationQNA} />
     </Box>
   );
 }

@@ -179,7 +179,7 @@ function WebAppPenetration() {
       >
         Frequently Asked Questions
       </Typography>
-      <Features data={WebPenetrationQNA} />
+      <Features number={true} data={WebPenetrationQNA} />
     </Box>
   );
 }

@@ -2,6 +2,7 @@ import * as React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DividerLine from "./DividerLine";
 
 export default function Features({ data, imageURL = "", number = false }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -17,6 +18,7 @@ export default function Features({ data, imageURL = "", number = false }) {
           variant="h1"
           sx={{
             textAlign: "center",
+            fontSize: "2.5rem !important",
             color: (theme) =>
               theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
           }}

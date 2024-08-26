@@ -4,7 +4,12 @@ import Features from "../Components/Features";
 import FeatureMainSection from "../Components/FeatureMainSection";
 import { AIFeatures } from "../Data/AIFeaturesData";
 import { MLFeatures } from "../Data/MLFeaturesData";
+import { AIMLQNA } from "../Data/AIMLQNA";
 import "../Styles/index.css";
+import { Box, Typography } from "@mui/material";
+import DividerLine from "../Components/DividerLine";
+import DataList from "../Components/DataList";
+import { AIML_HireUsData } from "../Data/AIML_HireUsData";
 
 function AIML() {
   useEffect(() => {
@@ -25,8 +30,69 @@ function AIML() {
               serve as your dedicated AI talent powerhouse."
         imageURL="/images/ai1.png"
       />
+      <Box
+        sx={{
+          padding: { xs: "1rem 2rem", md: "1rem 5rem", lg: "1rem 10rem" },
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            fontSize: "2rem !important",
+            color: (theme) =>
+              theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+          }}
+        >
+          AI and ML
+        </Typography>
+        <br />
+        <Typography
+          variant="p"
+          sx={{
+            textAlign: "start",
+          }}
+        >
+          Nitai innovations is a progressive AI/ML development company enabling
+          businesses globally to harness the limitless power of Artificial
+          Intelligence and Machine Learning by delivering end-to-end innovative,
+          tailored solutions to help businesses achieve intelligent automation.
+        </Typography>
+        <br />
+        <br />
+        <Typography
+          variant="p"
+          sx={{
+            textAlign: "start",
+          }}
+        >
+          Benefit from Nitai innovations expertise in end-to-end AI/ML
+          development services and boost your productivity and competitive
+          growth.
+        </Typography>
+        <br />
+        <DividerLine />
+        <DataList data={AIML_HireUsData} />
+      </Box>
+      <DividerLine />
       <Features data={AIFeatures} />
+      <DividerLine />
+
       <Features data={MLFeatures} imageURL="/images/ml.png" />
+      <DividerLine />
+
+      <Typography
+        variant="h2"
+        sx={{
+          marginTop: "3rem",
+          textAlign: "center",
+          fontSize: "2rem !important",
+          color: (theme) =>
+            theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+        }}
+      >
+        Frequently Asked Questions
+      </Typography>
+      <Features number={true} data={AIMLQNA} />
     </>
   );
 }
