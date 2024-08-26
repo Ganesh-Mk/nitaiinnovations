@@ -301,32 +301,32 @@ function CyberSecurity() {
             Benefits of Penetration Testing
           </Typography>
           <Divider sx={{ width: "90%" }} />
-          <List>
-            <ListItem>
+          <ul style={{ padding: ".5rem" }}>
+            <li style={{ listStyleType: "disc" }}>
               <Typography variant="p" color="text.secondary">
                 Identify and remediate security vulnerabilities before they are
                 exploited by cybercriminals.
               </Typography>
-            </ListItem>
-            <ListItem>
+            </li>
+            <li style={{ listStyleType: "disc" }}>
               <Typography variant="p" color="text.secondary">
                 Protect sensitive data and maintain the trust of your customers
                 and stakeholders.
               </Typography>
-            </ListItem>
-            <ListItem>
+            </li>
+            <li style={{ listStyleType: "disc" }}>
               <Typography variant="p" color="text.secondary">
                 Gain valuable insights into your security posture and prioritize
                 investments in cybersecurity measures.
               </Typography>
-            </ListItem>
-            <ListItem>
+            </li>
+            <li style={{ listStyleType: "disc" }}>
               <Typography variant="p" color="text.secondary">
                 Identify and remediate security vulnerabilities before they are
                 exploited by cybercriminals.
               </Typography>
-            </ListItem>
-          </List>
+            </li>
+          </ul>
         </Box>
 
         <Box style={boxStyle}>

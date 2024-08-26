@@ -10,6 +10,7 @@ import {
 } from "../Store/userSlice";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { Box, Typography } from "@mui/material";
 
 export default function Register() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -131,51 +132,54 @@ export default function Register() {
           </p>
         </div>
         <form className="grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
+          <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
             <div className="space-y-2">
-              <label
-                htmlFor="first-name"
-                className="block text-sm font-medium leading-6 text-gray-900"
+              <Typography
+                variant="p"
+                color="text.secondary"
+                sx={{ fontWeight: "500" }}
               >
                 First Name
-              </label>
+              </Typography>
               <input
                 id="first-name"
                 value={firstName}
                 onChange={(e) => setfirstName(e.target.value)}
                 type="text"
                 autoComplete="given-name"
-                className="inpts block w-[15vw] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+                className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
                 placeholder="John"
                 required
               />
             </div>
             <div className="space-y-2">
-              <label
-                htmlFor="last-name"
-                className="block text-sm font-medium leading-6 text-gray-900"
+              <Typography
+                variant="p"
+                color="text.secondary"
+                sx={{ fontWeight: "500" }}
               >
                 Last Name
-              </label>
+              </Typography>
               <input
                 id="last-name"
                 type="text"
                 value={lastName}
                 onChange={(e) => setlastName(e.target.value)}
                 autoComplete="family-name"
-                className="inpts block w-[15vw] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+                className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
                 placeholder="Doe"
                 required
               />
             </div>
-          </div>
+          </Box>
           <div className="space-y-2">
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium leading-6 text-gray-900"
+            <Typography
+              variant="p"
+              color="text.secondary"
+              sx={{ fontWeight: "500" }}
             >
               Username
-            </label>
+            </Typography>
             <input
               id="username"
               value={username}
@@ -188,12 +192,13 @@ export default function Register() {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
+            <Typography
+              variant="p"
+              color="text.secondary"
+              sx={{ fontWeight: "500" }}
             >
               Email
-            </label>
+            </Typography>
             <input
               id="email"
               value={email}
@@ -206,12 +211,13 @@ export default function Register() {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
+            <Typography
+              variant="p"
+              color="text.secondary"
+              sx={{ fontWeight: "500" }}
             >
               Password
-            </label>
+            </Typography>
             <input
               id="password"
               value={password}
@@ -223,12 +229,13 @@ export default function Register() {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="confirm-password"
-              className="block text-sm font-medium leading-6 text-gray-900"
+            <Typography
+              variant="p"
+              color="text.secondary"
+              sx={{ fontWeight: "500" }}
             >
               Confirm Password
-            </label>
+            </Typography>
             <input
               id="confirm-password"
               type="password"
@@ -263,8 +270,7 @@ export default function Register() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
-
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           onClose={handleSnackbarClose}

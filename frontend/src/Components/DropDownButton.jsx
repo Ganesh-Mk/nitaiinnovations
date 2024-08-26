@@ -17,6 +17,10 @@ export default function DropDownButton({ toggleDrawer }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleMenuItemClick = () => {
+    handleClose();
+    toggleDrawer(false)(); // Close the navbar
+  };
 
   return (
     <Box>
@@ -49,7 +53,7 @@ export default function DropDownButton({ toggleDrawer }) {
         }}
       >
         <Link to="/cyberSecurity" style={{ textDecoration: "none" }}>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleMenuItemClick}>
             <Typography variant="p" color="text.primary">
               Cyber Security
             </Typography>
@@ -57,7 +61,7 @@ export default function DropDownButton({ toggleDrawer }) {
         </Link>
 
         <Link to="/cloudService" style={{ textDecoration: "none" }}>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleMenuItemClick}>
             <Typography variant="p" color="text.primary">
               Cloud Services
             </Typography>
@@ -65,7 +69,7 @@ export default function DropDownButton({ toggleDrawer }) {
         </Link>
 
         <Link to="/AIML" style={{ textDecoration: "none" }}>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleMenuItemClick}>
             <Typography variant="p" color="text.primary">
               AI & ML
             </Typography>

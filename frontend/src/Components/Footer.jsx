@@ -171,28 +171,16 @@ export default function Footer() {
                 week.
               </Typography>
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography variant="p" color="text.secondary">
-                  Monday-Friday:
-                </Typography>
-                <Typography variant="p" color="text.secondary">
-                  9am to 5pm
-                </Typography>
+                <Typography variant="p">Monday-Friday:</Typography>
+                <Typography variant="p">9am to 5pm</Typography>
               </Box>
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography variant="p" color="text.secondary">
-                  Saturday:
-                </Typography>
-                <Typography variant="p" color="text.secondary">
-                  10am to 2pm
-                </Typography>
+                <Typography variant="p">Saturday:</Typography>
+                <Typography variant="p">10am to 2pm</Typography>
               </Box>
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography variant="p" color="text.secondary">
-                  Sunday:
-                </Typography>
-                <Typography variant="p" color="text.secondary">
-                  Closed
-                </Typography>
+                <Typography variant="p">Sunday:</Typography>
+                <Typography variant="p">Closed</Typography>
               </Box>
             </Box>
           </Box>

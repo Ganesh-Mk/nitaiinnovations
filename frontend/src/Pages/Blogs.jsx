@@ -181,7 +181,7 @@ function CreateBlog() {
             labelId="demo-select-small-label"
             id="demo-select-small"
             value={filter}
-            label="Filter"
+            label="Sort"
             onChange={changeFilter}
           >
             <MenuItem value={"newest"}>Newest</MenuItem>
