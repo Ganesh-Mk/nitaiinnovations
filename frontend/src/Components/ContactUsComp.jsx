@@ -29,8 +29,8 @@ function ContactUsComp() {
   const [message, setMessage] = useState("");
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackMessage, setsnackMessage] = useState("")
-  const [snackseverity, setsnackseverity] = useState("")
+  const [snackMessage, setsnackMessage] = useState("");
+  const [snackseverity, setsnackseverity] = useState("");
 
   const inputStyles = {
     sx: { padding: "0.5rem 0" },
@@ -41,11 +41,16 @@ function ContactUsComp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(name.trim() === "" || email.trim() === "" || subject.trim() === "" || message.trim() === ""){
-      setsnackMessage("All feilds are required")
-      setsnackseverity("error")
-      setSnackbarOpen(true)
-      return
+    if (
+      name.trim() === "" ||
+      email.trim() === "" ||
+      subject.trim() === "" ||
+      message.trim() === ""
+    ) {
+      setsnackMessage("All feilds are required");
+      setsnackseverity("error");
+      setSnackbarOpen(true);
+      return;
     }
     // Log the input values
     axios
@@ -56,27 +61,27 @@ function ContactUsComp() {
         message,
       })
       .then((res) => {
-        setsnackMessage("You message has been sent!")
-        setsnackseverity("success")
+        setsnackMessage("You message has been sent!");
+        setsnackseverity("success");
 
         console.log("Sucessfully stroed user feedback");
-        setSnackbarOpen(true); 
+        setSnackbarOpen(true);
         setTimeout(() => {
-          setSnackbarOpen(false)
-        }, 2200)
+          setSnackbarOpen(false);
+        }, 2200);
         setName("");
         setEmail("");
         setSubject("");
         setMessage("");
       })
       .catch((err) => {
-        setsnackMessage("Failed")
-        setsnackseverity("error")
+        setsnackMessage("Failed");
+        setsnackseverity("error");
 
-        setSnackbarOpen(true); 
+        setSnackbarOpen(true);
         setTimeout(() => {
-          setSnackbarOpen(false)
-        }, 2200)
+          setSnackbarOpen(false);
+        }, 2200);
         console.log("Error, storing user feedback : ", err);
       });
   };
@@ -211,24 +216,14 @@ function ContactUsComp() {
                 background: "transparent",
               }}
             >
-              <MapContainer style={{ height: "100%", width: "100%" }}>
-                <TileLayer
-                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-                  attribution='&copy; <a href="https://www.esri.com">Esri</a> contributors'
-                />
-                <SetView coords={coords} />
-                <Marker
-                  position={coords}
-                  icon={L.icon({
-                    iconUrl: "/images/mapPointer.png", // Google Maps location icon URL
-                    iconSize: [50, 50], // Size of the icon
-                    iconAnchor: [10, 32], // Anchor point of the icon
-                    popupAnchor: [1, -34], // Popup anchor relative to the icon anchor
-                  })}
-                >
-                  <Popup>Location</Popup>
-                </Marker>
-              </MapContainer>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.584867647099!2d75.0086892741532!3d15.452941285140712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8cd600b1102cf%3A0x6fde00d66af72d03!2sNITAI%20INNOVATIONS!5e0!3m2!1sen!2sin!4v1724674983702!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </Box>
           </Box>
           <Box sx={{ padding: "1rem" }}>
@@ -244,8 +239,7 @@ function ContactUsComp() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
-
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           onClose={handleSnackbarClose}
