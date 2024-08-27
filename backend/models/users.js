@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema(
     },
     profileImageUrl: {
       type: String,
-      default: "",
+      default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
     },
     createdAt: {
       type: Date,

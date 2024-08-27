@@ -124,7 +124,7 @@ const UserAccountComp = () => {
           src={
             profileImageUrl
               ? `${BACKEND_URL}/${profileImageUrl}`
-              : "images/nitaiLogo.png"
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
           }
           sx={{ width: 80, height: 80 }}
         />

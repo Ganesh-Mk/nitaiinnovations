@@ -8,7 +8,6 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { storeusername, storeEmail } from "../Store/userSlice";
@@ -27,6 +26,7 @@ function EditProfile() {
   const [lastName, setlastName] = useState("");
   const [originalData, setoriginalData] = useState({});
   const [image, setImage] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   // Snackbar states
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -71,6 +71,8 @@ function EditProfile() {
         .then((res) => {
           setSnackbarMessage("Profile updated successfully!");
           setSnackbarSeverity("success");
+          console.log("hidoahda : ", res);
+
           setSnackbarOpen(true);
           setfirstName(res.data.firstName);
           setlastName(res.data.lastName);
@@ -110,7 +112,9 @@ function EditProfile() {
         },
       })
       .then((res) => {
-        setImage(res.data.profileImageUrl);
+        console.log("res :bakd ", res.data.image);
+        setImage(res.data.image);
+        setImagePreview(`${BACKEND_URL}/${res.data.image}`);
         localStorage.setItem("username", res.data.username);
         localStorage.setItem("email", res.data.email);
         setoriginalData(res.data);
@@ -120,6 +124,14 @@ function EditProfile() {
         dispatch(storeEmail(res.data.email));
       });
   }, [dispatch]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const inputStyles = {
     InputLabelProps: {
@@ -166,12 +178,24 @@ function EditProfile() {
         Edit Profile
       </Typography>
       <label htmlFor="file-upload" style={fileInputLabelStyles}>
-        {image ? image.name : "Select profile image"}
+        {imagePreview ? (
+          <img
+            src={imagePreview}
+            alt="Profile Preview"
+            style={{ width: "150%", height: "100%", backgroundPosition: "center", backgroundSize: "cover", borderRadius: "50%" }}
+          />
+        ) : (
+          <img
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            alt="Default Profile"
+            style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+          />
+        )}
         <Input
           id="file-upload"
           type="file"
           accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
+          onChange={handleImageChange}
           style={fileInputStyles}
         />
       </label>
@@ -256,8 +280,7 @@ function EditProfile() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
-
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           onClose={handleSnackbarClose}

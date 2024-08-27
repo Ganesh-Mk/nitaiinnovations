@@ -33,13 +33,12 @@ const BlogsComp = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  const dialogs = useDialogs(); // Access the dialogs
+  const dialogs = useDialogs();
 
   const [showFullText, setShowFullText] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [reloadPage, setReloadPage] = useState(false);
 
-  // Snackbar state variables
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
@@ -72,7 +71,6 @@ const BlogsComp = ({
   const deleteBlog = async () => {
     const userEmail = localStorage.getItem("email");
 
-    // Use the dialog for confirmation
     const confirmDeletion = await dialogs.confirm(
       `Are you sure you want to delete the blog titled "${title}"? This action cannot be undone.`,
       {
@@ -82,7 +80,7 @@ const BlogsComp = ({
     );
 
     if (!confirmDeletion) {
-      return; // Exit if the user cancels
+      return;
     }
 
     axios
@@ -99,8 +97,7 @@ const BlogsComp = ({
         setSnackbarOpen(true);
         setTimeout(() => {
           setReloadPage(true);
-        }, 1500)
-        
+        }, 1500);
       })
       .catch((err) => {
         console.log("Failed to delete blog in backend: ", err);
@@ -116,10 +113,10 @@ const BlogsComp = ({
     }
   }, [reloadPage]);
 
+  const defaultProfileImage = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
   return (
     <DialogsProvider>
-      {" "}
-      {/* Wrap the component with DialogsProvider */}
       <Box
         key={blogKey}
         sx={{
@@ -139,29 +136,31 @@ const BlogsComp = ({
                 }}
               >
                 <Box sx={{ display: "grid", placeItems: "center" }}>
-                  {profileImageUrl ? (
-                    <img
-                      src={`${BACKEND_URL}/${profileImageUrl}`}
-                      style={{
-                        height: "4rem",
-                        width: "4rem",
-                        display: imageLoaded ? "block" : "none",
-                        objectFit: "contain",
-                        borderRadius: "100rem",
-                        background: `url(${BACKEND_URL}\\${profileImageUrl}) center/cover no-repeat`,
-                      }}
-                      alt="Profile image"
-                      onLoad={handleImageLoad}
-                    />
-                  ) : (
-                    <Skeleton variant="circular" width={64} height={64} />
-                  )}
+                  <img
+                    src={
+                      profileImageUrl
+                        ? `${BACKEND_URL}/${profileImageUrl}`
+                        : defaultProfileImage
+                    }
+                    style={{
+                      height: "4rem",
+                      width: "4rem",
+                      objectFit: "contain",
+                      borderRadius: "100rem",
+                      transition: "opacity 0.3s ease-in-out",
+                    }}
+                    alt="Profile image"
+                    onError={(e) => {
+                      e.target.onerror = null; // prevents looping
+                      e.target.src = defaultProfileImage;
+                    }}
+                  />
                 </Box>
 
                 <Box>
                   <Typography variant="p">
                     {username || <Skeleton width={120} />}
-                  </Typography>{" "}
+                  </Typography>
                   <br />
                   <Typography variant="p" color="text.secondary">
                     {email || <Skeleton width={160} />}
@@ -202,14 +201,16 @@ const BlogsComp = ({
         <Divider />
         {imageUrl ? (
           <>
-            {!imageLoaded && (
-              <Skeleton
-                variant="rectangular"
-                width="80%"
-                height="18rem"
-                sx={{ borderRadius: ".5rem", mx: "auto" }}
-              />
-            )}
+            <Skeleton
+              variant="rectangular"
+              width="80%"
+              height="18rem"
+              sx={{
+                borderRadius: ".5rem",
+                mx: "auto",
+                display: imageLoaded ? "none" : "block",
+              }}
+            />
             <Box
               sx={{
                 display: imageLoaded ? "grid" : "none",
@@ -224,7 +225,8 @@ const BlogsComp = ({
                   width: "80%",
                   objectFit: "contain",
                   borderRadius: ".5rem",
-                  background: `url(${BACKEND_URL}\\${imageUrl}) center/cover no-repeat`,
+                  opacity: imageLoaded ? 1 : 0,
+                  transition: "opacity 0.3s ease-in-out",
                 }}
                 alt="Blog image"
                 onLoad={handleImageLoad}
@@ -262,13 +264,11 @@ const BlogsComp = ({
           )}
         </Box>
 
-        {/* Snackbar for delete success or error messages */}
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={6000}
           onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
-
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
         >
           <Alert
             onClose={handleSnackbarClose}
