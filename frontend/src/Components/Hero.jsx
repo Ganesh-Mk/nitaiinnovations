@@ -52,7 +52,7 @@ export default function Hero() {
                 marginBottom: "2rem",
               }}
             >
-              NITAI INNOVATIONS working
+              NITAI INNOVATIONS
             </Typography>
             <Typography
               textAlign="center"
