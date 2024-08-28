@@ -3,16 +3,17 @@ const mongoose = require("mongoose");
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
     trim: true,
+    default: "",
   },
   desc: {
     type: String,
-    required: true,
     trim: true,
+    default: "",
   },
   imageUrl: {
     type: String,
+    default: "",
   },
   createdAt: {
     type: Date,

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Define the Blog schema
 const blogsSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -15,7 +16,6 @@ const blogsSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   desc: {
     type: String,
@@ -35,5 +35,7 @@ const blogsSchema = new mongoose.Schema({
   },
 });
 
+// Create the Blogs model
 const Blogs = mongoose.model("Blogs", blogsSchema);
+
 module.exports = Blogs;
