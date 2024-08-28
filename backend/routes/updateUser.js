@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 const route = express.Router();
-const Users = require("../../models/users");
-const Blogs = require("../../models/blogs"); // Import Blogs model
+const Users = require("../models/users");
+const Blogs = require("../models/blogs"); // Import Blogs model
 
 // Configure multer for file upload
 const storage = multer.diskStorage({

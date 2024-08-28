@@ -19,7 +19,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: ["https://nitaiinnovations.vercel.app", "http://localhost:5173"],
+  origin: [process.env.FRONTEND_URL, "http://localhost:5173"],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"], // Specify headers you expect
 };
