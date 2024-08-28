@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
   const { username, firstName, lastName, email, password } = req.body;
+  console.log("Request Body:", req.body);
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -23,6 +24,7 @@ router.post("/", async (req, res) => {
     res.status(400).json({
       status: "error",
       error: err.message || "Duplicate username or email",
+      details: err.errors || {},
     });
   }
 });

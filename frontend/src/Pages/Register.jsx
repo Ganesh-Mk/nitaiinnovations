@@ -42,6 +42,14 @@ export default function Register() {
       return;
     }
 
+    console.log("sending request to backend: ", {
+      username: username.trim(),
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim(),
+      password,
+    });
+
     axios
       .post(
         `${BACKEND_URL}/registerUser`,
@@ -80,6 +88,7 @@ export default function Register() {
       })
       .catch((err) => {
         console.log("Error during registration:", err);
+        console.log("Error during registration:", err.response);
 
         if (
           err.response.data.error ===
