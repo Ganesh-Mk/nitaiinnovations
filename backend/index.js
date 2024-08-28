@@ -20,13 +20,13 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: [process.env.FRONTEND_URL, "http://localhost:5173"],
+  origin: [process.env.FRONTEND_URL],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify headers you expect
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
 
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -36,18 +36,13 @@ app.set("views", path.join(__dirname, "views"));
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/nitaiInnovationsDB"
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Not Connected to MongoDB: ", err));
 
 // Routes
 app.get("/", (req, res) => {
   res.render("index");
-});
-app.get("/hello", (req, res) => {
-  res.send("Hello Bro");
 });
 app.use("/registerUser", registerUser);
 app.use("/loginUser", loginUser);
@@ -65,7 +60,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
