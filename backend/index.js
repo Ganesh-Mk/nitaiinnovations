@@ -17,9 +17,10 @@ const userMessage = require("./routes/userMessages");
 
 const app = express();
 
+console.log("process.env.FRONTEND_URL : ",process.env.FRONTEND_URL)
 // CORS configuration
 const corsOptions = {
-  origin: [process.env.FRONTEND_URL],
+  origin: [process.env.FRONTEND_URL, "https://nitaiinnovations.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -59,10 +60,9 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message });
 });
 
-const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.listen(3000, () => {
+  console.log("Server started on port : 3000 ");
 });
 
 module.exports = app;
