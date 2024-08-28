@@ -20,7 +20,7 @@ const app = express();
 console.log("process.env.FRONTEND_URL : ",process.env.FRONTEND_URL)
 // CORS configuration
 const corsOptions = {
-  origin: [process.env.FRONTEND_URL, "https://nitaiinnovations.netlify.app"],
+  origin: [process.env.FRONTEND_URL],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
