@@ -17,7 +17,6 @@ const userMessage = require("./routes/userMessages");
 
 const app = express();
 
-console.log("process.env.FRONTEND_URL : ",process.env.FRONTEND_URL)
 // CORS configuration
 const corsOptions = {
   origin: [process.env.FRONTEND_URL],
@@ -59,7 +58,6 @@ app.use((err, req, res, next) => {
   console.error("Error from backend: ", err.stack);
   res.status(err.status || 500).json({ error: err.message });
 });
-
 
 app.listen(3000, () => {
   console.log("Server started on port : 3000 ");
