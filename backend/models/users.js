@@ -5,6 +5,8 @@ const blogSchema = new mongoose.Schema({
     type: String,
     trim: true,
     default: "",
+    unique: true,
+    sparse: true,
   },
   desc: {
     type: String,
