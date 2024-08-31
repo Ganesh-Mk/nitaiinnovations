@@ -9,6 +9,11 @@ import {
   Skeleton,
   Snackbar,
   Alert,
+  CircularProgress, // Import CircularProgress for the loader
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 import { format } from "date-fns";
 import EditIcon from "@mui/icons-material/Edit";
@@ -43,6 +48,9 @@ const BlogsComp = ({
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
+  const [loading, setLoading] = useState(false); // Add loading state
+  const [openDialog, setOpenDialog] = useState(false); // State to control dialog visibility
+
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
@@ -68,20 +76,14 @@ const BlogsComp = ({
     navigate("/editBlog");
   }
 
+  const handleDeleteClick = () => {
+    setOpenDialog(true);
+  };
+
   const deleteBlog = async () => {
     const userEmail = localStorage.getItem("email");
 
-    const confirmDeletion = await dialogs.confirm(
-      `Are you sure you want to delete the blog titled "${title}"? This action cannot be undone.`,
-      {
-        okText: "Yes",
-        cancelText: "No",
-      }
-    );
-
-    if (!confirmDeletion) {
-      return;
-    }
+    setLoading(true); // Start loader
 
     axios
       .delete(`${BACKEND_URL}/deleteBlog`, {
@@ -104,6 +106,10 @@ const BlogsComp = ({
         setSnackbarMessage("Failed to delete blog");
         setSnackbarSeverity("error");
         setSnackbarOpen(true);
+      })
+      .finally(() => {
+        setLoading(false); // Stop loader
+        setOpenDialog(false); // Close dialog
       });
   };
 
@@ -190,7 +196,7 @@ const BlogsComp = ({
                 <IconButton aria-label="edit" onClick={editBlog}>
                   <EditIcon />
                 </IconButton>
-                <IconButton aria-label="delete" onClick={deleteBlog}>
+                <IconButton aria-label="delete" onClick={handleDeleteClick}>
                   <DeleteIcon />
                 </IconButton>
               </Box>
@@ -278,6 +284,47 @@ const BlogsComp = ({
             {snackbarMessage}
           </Alert>
         </Snackbar>
+
+        {/* Dialog for delete confirmation */}
+        <Dialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+          aria-labelledby="delete-dialog-title"
+        >
+          <DialogTitle id="delete-dialog-title">
+            {loading ? "Deleting Blog" : "Confirm Deletion"}
+          </DialogTitle>
+          <DialogContent>
+            {loading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  p: 3,
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Typography>
+                Are you sure you want to delete the blog titled "{title}"? This action cannot be undone.
+              </Typography>
+            )}
+          </DialogContent>
+          <DialogActions>
+            {!loading && (
+              <>
+                <Button onClick={() => setOpenDialog(false)} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={deleteBlog} color="error">
+                  Delete
+                </Button>
+              </>
+            )}
+          </DialogActions>
+        </Dialog>
       </Box>
     </DialogsProvider>
   );

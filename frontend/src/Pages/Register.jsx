@@ -10,7 +10,7 @@ import {
 } from "../Store/userSlice";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 
 export default function Register() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -24,6 +24,7 @@ export default function Register() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,13 +43,7 @@ export default function Register() {
       return;
     }
 
-    console.log("sending request to backend: ", {
-      username: username.trim(),
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      email: email.trim(),
-      password,
-    });
+    setLoading(true); // Start loading
 
     axios
       .post(
@@ -121,6 +116,9 @@ export default function Register() {
 
         setSnackbarSeverity("error");
         setSnackbarOpen(true);
+      })
+      .finally(() => {
+        setLoading(false); // Stop loading
       });
   };
 
@@ -257,13 +255,29 @@ export default function Register() {
           </div>
         </form>
         <div className="flex flex-col gap-2">
-          <button
-            onClick={registerUser}
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Register
-          </button>
+          <div className="relative">
+            <button
+              onClick={registerUser}
+              type="submit"
+              className="relative rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full h-[2.5vw]"
+              disabled={loading} // Disable button when loading
+            >
+              {loading && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    position: "absolute",
+                    color: "white",
+                    left: "50%",
+                    top: "50%",
+                    marginLeft: "-12px",
+                    marginTop: "-12px",
+                  }}
+                />
+              )}
+              {!loading && "Register"}
+            </button>
+          </div>
           <div className="text-center text-sm text-muted-foreground">
             Already have an account?{" "}
             <a

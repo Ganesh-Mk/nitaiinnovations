@@ -7,6 +7,7 @@ import {
   useTheme,
   Snackbar,
   Alert,
+  CircularProgress, // Import CircularProgress
 } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -32,6 +33,9 @@ function EditProfile() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  // Loader state
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -62,6 +66,8 @@ function EditProfile() {
         formData.append("profileImageUrl", originalData.profileImageUrl); // If no new image, keep the old URL
       }
 
+      setLoading(true); // Show the spinner
+
       axios
         .patch(`${BACKEND_URL}/updateUser`, formData, {
           headers: {
@@ -82,6 +88,7 @@ function EditProfile() {
           dispatch(storeusername(res.data.username));
           dispatch(storeEmail(res.data.email));
           setTimeout(() => {
+            setLoading(false); // Hide the spinner
             navigate("/account");
           }, 1300);
         })
@@ -89,6 +96,7 @@ function EditProfile() {
           setSnackbarMessage("Failed to update profile. Please try again.");
           setSnackbarSeverity("error");
           setSnackbarOpen(true);
+          setLoading(false); // Hide the spinner in case of error
         });
     } else {
       setSnackbarMessage("Nothing changed in profile.");
@@ -129,7 +137,6 @@ function EditProfile() {
       });
   }, [dispatch]);
 
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -165,6 +172,7 @@ function EditProfile() {
     width: "10rem",
     borderRadius: "100rem",
   };
+
   return (
     <Box
       sx={{
@@ -268,9 +276,23 @@ function EditProfile() {
       >
         <Button
           variant="contained"
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", position: "relative" }} // Add position relative
           onClick={submitChangedData}
+          disabled={loading} // Disable button when loading
         >
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                position: "absolute",
+                color: "#00bcd4",
+                top: "50%",
+                left: "50%",
+                marginTop: "-12px",
+                marginLeft: "-12px",
+              }}
+            />
+          )}
           Submit
         </Button>
         <Button

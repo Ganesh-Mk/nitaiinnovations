@@ -7,6 +7,7 @@ import {
   Typography,
   Snackbar,
   Alert,
+  CircularProgress, // Import CircularProgress
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
@@ -22,6 +23,7 @@ function CreateBlog() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [loading, setLoading] = useState(false); // Add loading state
 
   function createBlog(e) {
     e.preventDefault();
@@ -32,6 +34,8 @@ function CreateBlog() {
       setSnackbarOpen(true);
       return;
     }
+
+    setLoading(true); // Show the spinner
 
     let formData = new FormData();
     formData.append("username", localStorage.getItem("username"));
@@ -55,6 +59,7 @@ function CreateBlog() {
         setSnackbarOpen(true);
 
         setTimeout(() => {
+          setLoading(false); // Hide the spinner
           navigate("/blogs");
         }, 1500);
       })
@@ -65,6 +70,7 @@ function CreateBlog() {
           setSnackbarOpen(true);
         }
         console.log("Error during blog creation:", err);
+        setLoading(false); // Hide the spinner in case of error
       });
   }
 
@@ -118,8 +124,20 @@ function CreateBlog() {
         />
       </label>
       <Box sx={{ display: "flex", gap: "2rem", width: "100%" }}>
-        <Button variant="contained" onClick={createBlog} sx={{ width: "100%" }}>
-          Post
+        <Button
+          variant="contained"
+          onClick={createBlog}
+          sx={{ width: "100%", position: "relative" }}
+          disabled={loading} // Disable the button when loading
+        >
+          {loading ? (
+            <CircularProgress
+              size={24}
+              sx={{ position: "absolute",color: "#00bcd4", top: "50%", left: "50%", marginTop: "-12px", marginLeft: "-12px" }}
+            />
+          ) : (
+            "Post"
+          )}
         </Button>
         <Button
           variant="outlined"

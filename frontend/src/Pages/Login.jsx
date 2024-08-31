@@ -11,6 +11,7 @@ import {
 } from "../Store/userSlice";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { CircularProgress } from "@mui/material";
 
 export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -20,33 +21,33 @@ export default function Login() {
   const dispatch = useDispatch();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const userStore = useSelector((state) => state.user);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [loading, setLoading] = useState(false);
 
   const loginUser = (e) => {
     e.preventDefault();
     console.log("Login button clicked");
-    if(email === "" && password === "") {
+    if (email === "" && password === "") {
       setSnackbarMessage("Please enter email and password");
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
       return;
     }
-    if(email === "" || password === "") {
+    if (email === "" || password === "") {
       setSnackbarMessage("Please enter all fields");
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
       return;
     }
+    
+    setLoading(true);
+
     axios
       .post(
         `${BACKEND_URL}/loginUser`,
-        {
-          email,
-          password,
-        },
+        { email, password },
         {
           headers: {
             "Content-Type": "application/json",
@@ -73,7 +74,9 @@ export default function Login() {
             navigate("/");
           }, 1500);
         } else {
-          alert("Login failed: " + res.data.error);
+          setSnackbarMessage("Login failed: " + res.data.error);
+          setSnackbarSeverity("error");
+          setSnackbarOpen(true);
         }
       })
       .catch((err) => {
@@ -82,14 +85,15 @@ export default function Login() {
           setSnackbarMessage("Invalid username or password");
           setSnackbarSeverity("error");
           setSnackbarOpen(true);
-        }
-        else {
-          // setSnackbarMessage("User not found");
-          // setSnackbarSeverity("error");
-          // setSnackbarOpen(true);
+        } else {
+          setSnackbarMessage("An error occurred during login");
+          setSnackbarSeverity("error");
+          setSnackbarOpen(true);
           console.log(err);
-          
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -123,7 +127,7 @@ export default function Login() {
               onChange={(e) => setemail(e.target.value)}
               type="email"
               autoComplete="email"
-              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm"
               placeholder="johnDoe@example.com"
               required
             />
@@ -141,18 +145,32 @@ export default function Login() {
               value={password}
               onChange={(e) => setpassword(e.target.value)}
               autoComplete="current-password"
-              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm"
               required
             />
           </div>
         </form>
-        <div className="flex flex-col gap-2">
+        <div className="relative flex flex-col gap-2">
           <button
             type="submit"
             onClick={loginUser}
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="relative rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full max-w-md h-12"
+            disabled={loading}
           >
-            Login
+            {loading && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  position: "absolute",
+                  left: "50%",
+                  color: "white",
+                  top: "50%",
+                  marginLeft: "-12px",
+                  marginTop: "-12px",
+                }}
+              />
+            )}
+            {!loading && "Login"}
           </button>
           <div className="text-center text-sm text-muted-foreground">
             You don't have an account?{" "}
@@ -169,8 +187,7 @@ export default function Login() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
-
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
           onClose={handleSnackbarClose}

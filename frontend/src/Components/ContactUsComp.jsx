@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, CircularProgress } from "@mui/material";
 import { Snackbar, Alert } from "@mui/material";
 import { Element } from "react-scroll";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
@@ -20,13 +20,16 @@ function ContactUsComp() {
     // Scroll to top when the component mounts
     window.scrollTo(0, 0);
   }, []);
+
   const coords = [15.452990963271466, 75.01120148913052];
 
-  // Define state variables for the form inputs
+  // Define state variables for the form inputs and loading state
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
+  const [showLoader, setShowLoader] = useState(false); // Loader visibility state
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackMessage, setsnackMessage] = useState("");
@@ -47,11 +50,20 @@ function ContactUsComp() {
       subject.trim() === "" ||
       message.trim() === ""
     ) {
-      setsnackMessage("All feilds are required");
+      setsnackMessage("All fields are required");
       setsnackseverity("error");
       setSnackbarOpen(true);
       return;
     }
+
+    setLoading(true);
+    setShowLoader(true);
+
+    // Set a timeout to show the loader after 1.5 seconds
+    const loaderTimeout = setTimeout(() => {
+      setShowLoader(true);
+    }, 1500);
+
     // Log the input values
     axios
       .post(`${BACKEND_URL}/userMessages`, {
@@ -61,10 +73,9 @@ function ContactUsComp() {
         message,
       })
       .then((res) => {
-        setsnackMessage("You message has been sent!");
+        setsnackMessage("Your message has been sent!");
         setsnackseverity("success");
-
-        console.log("Sucessfully stroed user feedback");
+        console.log("Successfully stored user feedback");
         setSnackbarOpen(true);
         setTimeout(() => {
           setSnackbarOpen(false);
@@ -75,14 +86,18 @@ function ContactUsComp() {
         setMessage("");
       })
       .catch((err) => {
-        setsnackMessage("Failed");
+        setsnackMessage("Failed to send message");
         setsnackseverity("error");
-
         setSnackbarOpen(true);
         setTimeout(() => {
           setSnackbarOpen(false);
         }, 2200);
-        console.log("Error, storing user feedback : ", err);
+        console.log("Error storing user feedback: ", err);
+      })
+      .finally(() => {
+        setLoading(false);
+        setShowLoader(false);
+        clearTimeout(loaderTimeout); // Clear the timeout if the request finishes before 1.5 seconds
       });
   };
 
@@ -178,8 +193,13 @@ function ContactUsComp() {
                 variant="contained"
                 sx={{ width: "100%", mb: "1rem" }}
                 onClick={handleSubmit}
+                disabled={loading} // Disable button when loading
               >
-                Submit
+                {showLoader ? (
+                  <CircularProgress size={24} sx={{ color: "#fff" }} /> // Show loader with delay
+                ) : (
+                  "Submit"
+                )}
               </Button>
               <Button
                 type="reset"
@@ -191,6 +211,7 @@ function ContactUsComp() {
                   setSubject("");
                   setMessage("");
                 }}
+                disabled={loading} // Disable button when loading
               >
                 Reset
               </Button>

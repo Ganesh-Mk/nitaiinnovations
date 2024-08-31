@@ -10,6 +10,8 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 function EditBlog() {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ function EditBlog() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state
 
   useEffect(() => {
     const blog = JSON.parse(localStorage.getItem("currentBlog") || "{}");
@@ -27,37 +30,8 @@ function EditBlog() {
     setImage(blog.image);
   }, []);
 
-  // function deleteBlog() {
-  //   const userEmail = localStorage.getItem("email");
-  //   const currentTitle = JSON.parse(
-  //     localStorage.getItem("currentBlog") || "{}"
-  //   ).title;
-
-  //   const confirmDeletion = window.confirm(
-  //     `Are you sure you want to delete the blog titled "${currentTitle}"? This action cannot be undone.`
-  //   );
-
-  //   if (!confirmDeletion) {
-  //     return; // If the user cancels, exit the function without deleting
-  //   }
-
-  //   axios
-  //     .delete(`${BACKEND_URL}/deleteBlog`, {
-  //       data: {
-  //         email: userEmail,
-  //         title: currentTitle,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log("Successfully deleted blog in backend: ", res.data);
-  //       navigate("/account");
-  //     })
-  //     .catch((err) => {
-  //       console.log("Failed to delete blog in backend: ", err);
-  //     });
-  // }
-
   function editBlog() {
+    setLoading(true); // Start loading
     const userName = localStorage.getItem("username");
     const userEmail = localStorage.getItem("email");
     const currentTitle = JSON.parse(
@@ -72,6 +46,7 @@ function EditBlog() {
 
     if (title === "" || desc === "") {
       alert("Please enter title and description");
+      setLoading(false); // Stop loading
       return;
     }
     if (
@@ -80,6 +55,7 @@ function EditBlog() {
       image.name === currentImageUrl
     ) {
       alert("No changes made");
+      setLoading(false); // Stop loading
       return;
     }
 
@@ -101,10 +77,12 @@ function EditBlog() {
       })
       .then((res) => {
         console.log("Successfully edited blog in backend: ", res.data);
+        setLoading(false); // Stop loading
         navigate("/account");
       })
       .catch((err) => {
         console.log("Didn't edit blog in backend: ", err);
+        setLoading(false); // Stop loading
       });
   }
 
@@ -204,8 +182,26 @@ function EditBlog() {
           gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
         }}
       >
-        <Button variant="contained" sx={{ width: "100%" }} onClick={editBlog}>
-          Submit
+        <Button
+          variant="contained"
+          sx={{ width: "100%", position: "relative" }}
+          onClick={editBlog}
+          disabled={loading} // Disable button while loading
+        >
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                color: "#00bcd4", // Light blue color
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                marginLeft: "-12px",
+                marginTop: "-12px",
+              }}
+            />
+          )}
+          {loading ? "Submitting..." : "Submit"}
         </Button>
         <Button variant="outlined" sx={{ width: "100%" }} onClick={resetBlog}>
           Reset
@@ -216,3 +212,4 @@ function EditBlog() {
 }
 
 export default EditBlog;
+
