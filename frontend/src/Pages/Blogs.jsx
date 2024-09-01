@@ -96,7 +96,11 @@ function CreateBlog() {
         display: "flex",
         flexDirection: "column",
         gap: "2rem",
-        padding: "2rem",
+        padding: {
+          xs: ".5rem",
+          sm: "1rem",
+          md: "2rem",
+        },
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
         width: "100%",
