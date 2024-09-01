@@ -1,5 +1,10 @@
 import * as React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import "./Styles/index.css";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,7 +22,7 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Blogs from "./Pages/Blogs";
 import CreateBlog from "./Pages/CreateBlog";
-import Account from "./Pages/Accout";
+import Account from "./Pages/Account";
 import EditBlog from "./Pages/EditBlog";
 import EditProfile from "./Pages/EditProfile";
 
@@ -35,21 +40,42 @@ export default function App() {
       <CssBaseline />
       <Router>
         <Navbar mode={mode} toggleColorMode={toggleColorMode} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cyberSecurity" element={<CyberSecurity />} />
-          <Route path="/cloudService" element={<CloudService />} />
-          <Route path="/AIML" element={<AIML />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/createBlog" element={<CreateBlog />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/editBlog" element={<EditBlog />} />
-          <Route path="/editProfile" element={<EditProfile />} />
-        </Routes>
-        <Footer />
+        <MainContent />
       </Router>
     </ThemeProvider>
+  );
+}
+
+function MainContent() {
+  const location = useLocation(); // Get the current location
+
+  // Function to determine if the footer should be displayed
+  const shouldShowFooter = () => {
+    const hideFooterRoutes = [
+      "/editProfile",
+      "/createBlog",
+      "/editBlog",
+      "/account",
+    ];
+    return !hideFooterRoutes.includes(location.pathname);
+  };
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cyberSecurity" element={<CyberSecurity />} />
+        <Route path="/cloudService" element={<CloudService />} />
+        <Route path="/AIML" element={<AIML />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/createBlog" element={<CreateBlog />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/editBlog" element={<EditBlog />} />
+        <Route path="/editProfile" element={<EditProfile />} />
+      </Routes>
+      {shouldShowFooter() && <Footer />}
+    </>
   );
 }

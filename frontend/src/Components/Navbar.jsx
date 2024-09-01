@@ -30,6 +30,7 @@ function Navbar({ mode, toggleColorMode }) {
   }, [storeLoggedinRecord]);
 
   const toggleDrawer = (newOpen) => () => {
+    console.log("toggle");
     setOpen(newOpen);
   };
 
@@ -346,7 +347,7 @@ function Navbar({ mode, toggleColorMode }) {
                       sx={{ mb: 1 }}
                       component={Link}
                       to="/account"
-                      onClick={() => toggleDrawer(false)}
+                      onClick={toggleDrawer(false)}
                     >
                       Account
                     </Button>

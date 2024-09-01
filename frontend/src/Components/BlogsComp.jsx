@@ -119,7 +119,8 @@ const BlogsComp = ({
     }
   }, [reloadPage]);
 
-  const defaultProfileImage = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  const defaultProfileImage =
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   return (
     <DialogsProvider>
@@ -308,7 +309,8 @@ const BlogsComp = ({
               </Box>
             ) : (
               <Typography>
-                Are you sure you want to delete the blog titled "{title}"? This action cannot be undone.
+                Are you sure you want to delete the blog titled "{title}"? This
+                action cannot be undone.
               </Typography>
             )}
           </DialogContent>

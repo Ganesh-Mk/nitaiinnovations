@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import {
 } from "../Store/userSlice";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 
 export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -25,6 +25,11 @@ export default function Login() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -41,7 +46,7 @@ export default function Login() {
       setSnackbarOpen(true);
       return;
     }
-    
+
     setLoading(true);
 
     axios
@@ -81,7 +86,10 @@ export default function Login() {
       })
       .catch((err) => {
         console.error("Error during login request:", err);
-        if (err.response && err.response.data.error === "Invalid email or password") {
+        if (
+          err.response &&
+          err.response.data.error === "Invalid email or password"
+        ) {
           setSnackbarMessage("Invalid username or password");
           setSnackbarSeverity("error");
           setSnackbarOpen(true);
@@ -108,19 +116,25 @@ export default function Login() {
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="mx-auto w-full max-w-md space-y-6 rounded-lg bg-card p-6 shadow-lg">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Login</h1>
-          <p className="text-muted-foreground">
-            Enter your email and password to sign in.
-          </p>
+          <Typography
+            variant="h1"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+            }}
+          >
+            Login
+          </Typography>
         </div>
         <form className="grid gap-4">
           <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
+            <Typography
+              variant="p"
+              color="text.secondary"
+              sx={{ fontWeight: "500" }}
             >
               Email
-            </label>
+            </Typography>
             <input
               id="email"
               value={email}
@@ -133,12 +147,13 @@ export default function Login() {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
+            <Typography
+              variant="p"
+              color="text.secondary"
+              sx={{ fontWeight: "500" }}
             >
               Password
-            </label>
+            </Typography>
             <input
               id="password"
               type="password"
@@ -154,7 +169,7 @@ export default function Login() {
           <button
             type="submit"
             onClick={loginUser}
-            className="relative rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full max-w-md h-12"
+            className="relative rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full max-w-md "
             disabled={loading}
           >
             {loading && (
@@ -187,7 +202,7 @@ export default function Login() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
           onClose={handleSnackbarClose}

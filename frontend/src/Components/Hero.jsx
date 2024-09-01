@@ -62,7 +62,7 @@ export default function Hero() {
                 alignSelf: "center",
                 fontFamily: "Tinos",
                 lineHeight: "2rem !important",
-                fontSize: "1.4rem !important",
+                fontSize: { xs: "1.2rem !important", md: "1.5rem !important" },
               }}
             >
               Welcome to Our Organization! We are passionate about protecting

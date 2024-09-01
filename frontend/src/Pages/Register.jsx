@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -27,6 +27,11 @@ export default function Register() {
   const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   const registerUser = (e) => {
     e.preventDefault();
@@ -130,13 +135,18 @@ export default function Register() {
   };
 
   return (
-    <div className="flex pt-[8rem] min-h-screen items-center justify-center bg-background">
+    <div className="flex pt-[5rem] min-h-screen items-center justify-center bg-background">
       <div className="mx-auto w-full max-w-md space-y-6 rounded-lg bg-card p-6 shadow-lg">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Sign Up</h1>
-          <p className="text-muted-foreground">
-            Create a new account to get started.
-          </p>
+          <Typography
+            variant="h1"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+            }}
+          >
+            Register
+          </Typography>
         </div>
         <form className="grid gap-4">
           <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
@@ -259,7 +269,7 @@ export default function Register() {
             <button
               onClick={registerUser}
               type="submit"
-              className="relative rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full h-[2.5vw]"
+              className="relative rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
               disabled={loading} // Disable button when loading
             >
               {loading && (

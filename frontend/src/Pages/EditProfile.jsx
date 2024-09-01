@@ -34,6 +34,11 @@ function EditProfile() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   // Loader state
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -123,7 +128,8 @@ function EditProfile() {
         console.log("Response data:", res.data);
         setImage(res.data.image || ""); // Set image to empty string if not available
         setImagePreview(
-          res.data.image == "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          res.data.image ==
+            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
             ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             : `${BACKEND_URL}/${res.data.image}`
         );
@@ -183,10 +189,17 @@ function EditProfile() {
         flexDirection: "column",
         padding: { xs: "0 2rem", sm: "0 20rem" },
         gap: "2rem",
+        marginTop: "5rem",
         marginBottom: "5rem",
       }}
     >
-      <Typography variant="h2" mt={"6rem"}>
+      <Typography
+        variant="h1"
+        sx={{
+          color: (theme) =>
+            theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+        }}
+      >
         Edit Profile
       </Typography>
       <label htmlFor="file-upload" style={fileInputLabelStyles}>
@@ -203,8 +216,7 @@ function EditProfile() {
             }}
           />
         ) : (
-          <img
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280" />
+          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280" />
         )}
         <Input
           id="file-upload"
@@ -269,8 +281,9 @@ function EditProfile() {
         sx={{
           display: "grid",
           placeItems: "center",
+          marginTop: "1rem",
           width: { xs: "100%", sm: "100%" },
-          gap: "2rem",
+          gap: "1rem",
           gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
         }}
       >

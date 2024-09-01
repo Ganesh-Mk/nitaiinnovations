@@ -10,8 +10,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import CircularProgress from '@mui/material/CircularProgress';
-
+import CircularProgress from "@mui/material/CircularProgress";
 
 function EditBlog() {
   const navigate = useNavigate();
@@ -22,6 +21,11 @@ function EditBlog() {
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false); // Add loading state
+
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const blog = JSON.parse(localStorage.getItem("currentBlog") || "{}");
@@ -143,10 +147,17 @@ function EditBlog() {
         flexDirection: "column",
         padding: { xs: "0 2rem", sm: "0 20rem" },
         gap: "2rem",
+        marginTop: "3rem",
         marginBottom: "5rem",
       }}
     >
-      <Typography variant="h2" mt={"5rem"}>
+      <Typography
+        variant="h1"
+        sx={{
+          color: (theme) =>
+            theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+        }}
+      >
         Edit Blog
       </Typography>
       <Input
@@ -162,23 +173,34 @@ function EditBlog() {
         placeholder="Enter Blog Description"
         style={textAreaStyles}
       />
-      <label htmlFor="file-upload" style={fileInputLabelStyles}>
-        <AttachFileIcon />
-        {image ? image.name : "Choose other image"}
-        <Input
-          id="file-upload"
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-          style={fileInputStyles}
-        />
-      </label>
+      <Button
+        sx={{
+          cursor: "pointer",
+          width: "100%",
+          color: (theme) =>
+            theme.palette.mode === "light" ? "black" : "white",
+        }}
+        variant="outlined"
+      >
+        <label htmlFor="file-upload">
+          <AttachFileIcon />
+          {image ? image.name : "Choose other image"}
+          <Input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+            style={fileInputStyles}
+          />
+        </label>
+      </Button>
       <Box
         sx={{
           display: "grid",
           placeItems: "center",
           width: { xs: "100%", sm: "100%" },
-          gap: "2rem",
+          gap: "1rem",
+          marginTop: "1rem",
           gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
         }}
       >
@@ -212,4 +234,3 @@ function EditBlog() {
 }
 
 export default EditBlog;
-

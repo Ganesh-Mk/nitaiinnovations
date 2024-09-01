@@ -84,10 +84,10 @@ export default function ProductsAndSolutions() {
               {items.map(({ title }, index) => (
                 <Chip
                   key={index}
-                  label={<Typography variant="h2">{title}</Typography>}
+                  label={<Typography variant="p">{title}</Typography>}
                   onClick={() => handleItemClick(index)}
                   sx={{
-                    padding: "1.5rem 1rem",
+                    padding: "1.5rem .5rem",
                     borderColor: (theme) => {
                       if (theme.palette.mode === "light") {
                         return selectedItemIndex === index

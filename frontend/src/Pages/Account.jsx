@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { DialogsProvider } from "@toolpad/core/useDialogs";
 
-function Accout() {
+function Account() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [allBlogs, setAllBlogs] = useState([]);
 
@@ -46,8 +46,7 @@ function Accout() {
       }}
     >
       <DialogsProvider>
-      <UserAccountComp />
-
+        <UserAccountComp />
       </DialogsProvider>
       <Box>
         <Typography
@@ -122,4 +121,4 @@ function Accout() {
     </Box>
   );
 }
-export default Accout;
+export default Account;

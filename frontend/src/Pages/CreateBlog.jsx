@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -24,6 +24,11 @@ function CreateBlog() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [loading, setLoading] = useState(false); // Add loading state
+
+  useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   function createBlog(e) {
     e.preventDefault();
@@ -64,7 +69,10 @@ function CreateBlog() {
         }, 1500);
       })
       .catch((err) => {
-        if (err.response.data.message === "Blog title already exists for this user") {
+        if (
+          err.response.data.message ===
+          "Blog title already exists for this user"
+        ) {
           setSnackbarMessage("Blog title already exists");
           setSnackbarSeverity("error");
           setSnackbarOpen(true);
@@ -85,12 +93,19 @@ function CreateBlog() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: "2rem",
         flexDirection: "column",
         padding: { xs: "0 2rem", sm: "0 20rem" },
         gap: "2rem",
       }}
     >
-      <Typography variant="h2" mt={"5rem"}>
+      <Typography
+        variant="h1"
+        sx={{
+          color: (theme) =>
+            theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+        }}
+      >
         Create Blog
       </Typography>
       <Input
@@ -110,19 +125,31 @@ function CreateBlog() {
           borderRadius: "4px",
           border: "1px solid #ccc",
           fontSize: "1rem",
+          background: "transparent",
         }}
       />
-      <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
-        <AttachFileIcon />
-        {image ? image.name : "Choose an image"}
-        <Input
-          id="file-upload"
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-          style={{ display: "none" }}
-        />
-      </label>
+      <Button
+        sx={{
+          width: "100%",
+          cursor: "pointer",
+
+          color: (theme) =>
+            theme.palette.mode === "light" ? "black" : "white",
+        }}
+        variant="outlined"
+      >
+        <label htmlFor="file-upload">
+          <AttachFileIcon />
+          {image ? image.name : "Choose an image"}
+          <Input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+            style={{ display: "none" }}
+          />
+        </label>
+      </Button>
       <Box sx={{ display: "flex", gap: "2rem", width: "100%" }}>
         <Button
           variant="contained"
@@ -133,7 +160,14 @@ function CreateBlog() {
           {loading ? (
             <CircularProgress
               size={24}
-              sx={{ position: "absolute",color: "#00bcd4", top: "50%", left: "50%", marginTop: "-12px", marginLeft: "-12px" }}
+              sx={{
+                position: "absolute",
+                color: "#00bcd4",
+                top: "50%",
+                left: "50%",
+                marginTop: "-12px",
+                marginLeft: "-12px",
+              }}
             />
           ) : (
             "Post"
@@ -156,7 +190,7 @@ function CreateBlog() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           onClose={handleSnackbarClose}

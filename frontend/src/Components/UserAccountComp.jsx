@@ -58,8 +58,8 @@ const UserAccountComp = () => {
     const confirmLogout = await dialogs.confirm(
       "Are you sure you want to logout?",
       {
-        okText: "Yes",
-        cancelText: "No",
+        okText: <Typography>Logout</Typography>,
+        cancelText: <Typography>Cancel</Typography>,
       }
     );
 
@@ -94,7 +94,8 @@ const UserAccountComp = () => {
   return (
     <Box
       sx={{
-        maxWidth: 300,
+        maxWidth: 500,
+        padding: "1rem",
         height: "80vh",
         borderRight: "1px solid",
         borderColor: "divider",
@@ -102,7 +103,7 @@ const UserAccountComp = () => {
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        paddingTop: "6rem",
+        paddingTop: "1rem",
         "@media (max-width: 600px)": {
           maxWidth: "100%",
           position: "relative",
@@ -126,13 +127,28 @@ const UserAccountComp = () => {
               ? `${BACKEND_URL}/${profileImageUrl}`
               : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
           }
-          sx={{ width: 80, height: 80 }}
+          sx={{ width: "10rem", height: "10rem" }}
         />
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="body2" color="text.secondary">
-            {nameOfUser}
+            username: {nameOfUser}
           </Typography>
-          <Typography variant="h2">{fullname}</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h1" sx={{ fontSize: "2rem !important" }}>
+              {firstName}
+            </Typography>
+            <Typography variant="h1" sx={{ fontSize: "2rem !important" }}>
+              {lastname}
+            </Typography>
+          </Box>
           <Typography variant="body2" color="text.secondary">
             {userEmail}
           </Typography>
@@ -179,8 +195,7 @@ const UserAccountComp = () => {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
-
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
           onClose={handleSnackbarClose}
