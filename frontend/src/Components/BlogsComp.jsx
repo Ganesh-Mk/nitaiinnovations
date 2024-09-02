@@ -171,14 +171,14 @@ const BlogsComp = ({
               }}
             >
               <Typography variant="p">
-                {"Mohammaad Adil Malladi" || <Skeleton width={120} />}
+                {username || <Skeleton width={120} />}
               </Typography>
               <Typography
                 variant="p"
                 sx={{ fontSize: "100% !important" }}
                 color="text.secondary"
               >
-                {"MohammaadAdilMalladi.com" || <Skeleton width={160} />}
+                {email || <Skeleton width={160} />}
               </Typography>
               <Typography sx={{ fontSize: ".8rem !important" }}>
                 {format(new Date(createdAt), "d MMM yyyy")}
