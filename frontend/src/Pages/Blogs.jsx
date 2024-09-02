@@ -9,7 +9,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  CircularProgress, // Import CircularProgress for the loader
+  CircularProgress,
 } from "@mui/material";
 import { DialogsProvider } from "@toolpad/core/useDialogs";
 import axios from "axios";
@@ -116,101 +116,101 @@ function CreateBlog() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {loading ? ( // Display loader if loading state is true
+      <Box
+        sx={{
+          display: "grid",
+          placeItems: "center",
+          gridTemplateAreas: {
+            xs: `
+                  "title"
+                  "createBlog"
+                  "search"
+                  "filter"
+                `,
+            md: `
+                  "createBlog title search filter"
+                `,
+          },
+          gridTemplateColumns: {
+            xs: "1fr",
+            md: "auto 1fr auto auto",
+          },
+          gridTemplateRows: {
+            xs: "auto auto auto auto",
+            md: "auto",
+          },
+          gap: "1rem",
+          alignItems: "center",
+          width: "100%",
+          marginTop: "7rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <Button
+          onClick={handleCreateBlogClick}
+          sx={{ width: "13rem", gridArea: "createBlog" }}
+          variant="outlined"
+        >
+          Create your blog
+        </Button>
+
+        <Typography
+          variant="h1"
+          sx={{
+            gridArea: "title",
+            textAlign: "center",
+            fontSize: { xs: "2.5rem", md: "3rem" },
+          }}
+        >
+          All Blogs
+        </Typography>
+
+        <Input
+          type="search"
+          sx={{
+            gridArea: "search",
+            width: { xs: "90%", md: 300 },
+            marginTop: { xs: 3, md: 0 },
+          }}
+          placeholder="Search Blogs by Title"
+          onChange={handleSearch}
+        />
+
+        <FormControl
+          sx={{
+            gridArea: "filter",
+            marginTop: { xs: 2, md: 0 },
+            width: { xs: "90%", md: 150 },
+          }}
+          size="small"
+        >
+          <InputLabel id="demo-select-small-label">Filter</InputLabel>
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            value={filter}
+            label="Sort"
+            onChange={changeFilter}
+          >
+            <MenuItem value={"newest"}>Newest</MenuItem>
+            <MenuItem value={"oldest"}>Oldest</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
+      {loading ? (
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "80vh",
+            height: "50vh",
           }}
         >
           <CircularProgress size={60} />
         </Box>
       ) : (
         <>
-          <Box
-            sx={{
-              display: "grid",
-              placeItems: "center",
-              gridTemplateAreas: {
-                xs: `
-                  "title"
-                  "createBlog"
-                  "search"
-                  "filter"
-                `,
-                md: `
-                  "createBlog title search filter"
-                `,
-              },
-              gridTemplateColumns: {
-                xs: "1fr",
-                md: "auto 1fr auto auto",
-              },
-              gridTemplateRows: {
-                xs: "auto auto auto auto",
-                md: "auto",
-              },
-              gap: "1rem",
-              alignItems: "center",
-              width: "100%",
-              marginTop: "7rem",
-              marginBottom: "2rem",
-            }}
-          >
-            <Button
-              onClick={handleCreateBlogClick}
-              sx={{ width: "13rem", gridArea: "createBlog" }}
-              variant="outlined"
-            >
-              Create your blog
-            </Button>
-
-            <Typography
-              variant="h1"
-              sx={{
-                gridArea: "title",
-                textAlign: "center",
-                fontSize: { xs: "2.5rem", md: "3rem" },
-              }}
-            >
-              All Blogs
-            </Typography>
-
-            <Input
-              type="search"
-              sx={{
-                gridArea: "search",
-                width: { xs: "90%", md: 300 },
-                marginTop: { xs: 3, md: 0 },
-              }}
-              placeholder="Search Blogs by Title"
-              onChange={handleSearch}
-            />
-
-            <FormControl
-              sx={{
-                gridArea: "filter",
-                marginTop: { xs: 2, md: 0 },
-                width: { xs: "90%", md: 150 },
-              }}
-              size="small"
-            >
-              <InputLabel id="demo-select-small-label">Filter</InputLabel>
-              <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={filter}
-                label="Sort"
-                onChange={changeFilter}
-              >
-                <MenuItem value={"newest"}>Newest</MenuItem>
-                <MenuItem value={"oldest"}>Oldest</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-
           <Box
             sx={{
               display: "grid",
