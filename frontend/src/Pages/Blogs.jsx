@@ -184,7 +184,7 @@ function CreateBlog() {
           }}
           size="small"
         >
-          <InputLabel id="demo-select-small-label">Filter</InputLabel>
+          <InputLabel id="demo-select-small-label">Sort</InputLabel>
           <Select
             labelId="demo-select-small-label"
             id="demo-select-small"
