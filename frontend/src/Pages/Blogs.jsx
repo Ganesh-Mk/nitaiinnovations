@@ -62,7 +62,7 @@ function CreateBlog() {
       .get(`${BACKEND_URL}/allBlogs`)
       .then((res) => {
         setBlogs(res.data);
-        setLoading(false); // Stop loading once blogs are fetched
+        setLoading(false); // Stop loading once blogs are  fetched
         console.log("allblogs: ", res.data);
       })
       .catch((err) => {
