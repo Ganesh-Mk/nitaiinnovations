@@ -9,6 +9,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  CircularProgress, // Import CircularProgress for the loader
 } from "@mui/material";
 import { DialogsProvider } from "@toolpad/core/useDialogs";
 import axios from "axios";
@@ -29,6 +30,7 @@ function CreateBlog() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 9;
+  const [loading, setLoading] = useState(true); // Initialize loading state
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,10 +62,12 @@ function CreateBlog() {
       .get(`${BACKEND_URL}/allBlogs`)
       .then((res) => {
         setBlogs(res.data);
+        setLoading(false); // Stop loading once blogs are fetched
         console.log("allblogs: ", res.data);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false); // Stop loading even if there's an error
       });
   }, [BACKEND_URL]);
 
@@ -112,146 +116,161 @@ function CreateBlog() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <Box
-        sx={{
-          display: "grid",
-          placeItems: "center",
-          gridTemplateAreas: {
-            xs: `
-              "title"
-              "createBlog"
-              "search"
-              "filter"
-            `,
-            md: `
-              "createBlog title search filter"
-            `,
-          },
-          gridTemplateColumns: {
-            xs: "1fr",
-            md: "auto 1fr auto auto",
-          },
-          gridTemplateRows: {
-            xs: "auto auto auto auto",
-            md: "auto",
-          },
-          gap: "1rem",
-          alignItems: "center",
-          width: "100%",
-          marginTop: "7rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <Button
-          onClick={handleCreateBlogClick}
-          sx={{ width: "13rem", gridArea: "createBlog" }}
-          variant="outlined"
-        >
-          Create your blog
-        </Button>
-
-        <Typography
-          variant="h1"
+      {loading ? ( // Display loader if loading state is true
+        <Box
           sx={{
-            gridArea: "title",
-            textAlign: "center",
-            fontSize: { xs: "2.5rem", md: "3rem" },
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "80vh",
           }}
         >
-          All Blogs
-        </Typography>
-
-        <Input
-          type="search"
-          sx={{
-            gridArea: "search",
-            width: { xs: "90%", md: 300 },
-            marginTop: { xs: 3, md: 0 },
-          }}
-          placeholder="Search Blogs by Title"
-          onChange={handleSearch}
-        />
-
-        <FormControl
-          sx={{
-            gridArea: "filter",
-            marginTop: { xs: 2, md: 0 },
-            width: { xs: "90%", md: 150 },
-          }}
-          size="small"
-        >
-          <InputLabel id="demo-select-small-label">Filter</InputLabel>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={filter}
-            label="Sort"
-            onChange={changeFilter}
-          >
-            <MenuItem value={"newest"}>Newest</MenuItem>
-            <MenuItem value={"oldest"}>Oldest</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-
-      <Box
-        sx={{
-          display: "grid",
-          width: "100%",
-          gridTemplateColumns: {
-            xs: "1fr",
-            sm: "1fr 1fr",
-            md: "1fr 1fr 1fr",
-          },
-          gap: "1rem",
-        }}
-      >
-        {currentBlogs.length === 0 && (
+          <CircularProgress size={60} />
+        </Box>
+      ) : (
+        <>
           <Box
             sx={{
-              width: "93vw",
               display: "grid",
               placeItems: "center",
-              marginTop: "3rem",
+              gridTemplateAreas: {
+                xs: `
+                  "title"
+                  "createBlog"
+                  "search"
+                  "filter"
+                `,
+                md: `
+                  "createBlog title search filter"
+                `,
+              },
+              gridTemplateColumns: {
+                xs: "1fr",
+                md: "auto 1fr auto auto",
+              },
+              gridTemplateRows: {
+                xs: "auto auto auto auto",
+                md: "auto",
+              },
+              gap: "1rem",
+              alignItems: "center",
+              width: "100%",
+              marginTop: "7rem",
+              marginBottom: "2rem",
             }}
           >
+            <Button
+              onClick={handleCreateBlogClick}
+              sx={{ width: "13rem", gridArea: "createBlog" }}
+              variant="outlined"
+            >
+              Create your blog
+            </Button>
+
             <Typography
-              variant="h3"
+              variant="h1"
               sx={{
+                gridArea: "title",
                 textAlign: "center",
-                color: (theme) =>
-                  theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+                fontSize: { xs: "2.5rem", md: "3rem" },
               }}
             >
-              No Blogs Found
+              All Blogs
             </Typography>
-          </Box>
-        )}
-        <DialogsProvider>
-          {currentBlogs.map((blog, i) => (
-            <BlogsComp
-              key={i}
-              blogKey={i}
-              username={blog.username}
-              email={blog.email}
-              title={blog.title}
-              desc={blog.desc}
-              imageUrl={blog.imageUrl}
-              profileImageUrl={blog.profileImageUrl}
-              createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
-            />
-          ))}
-        </DialogsProvider>
-      </Box>
 
-      <Stack spacing={2} sx={{ marginTop: "2rem", alignItems: "center" }}>
-        <Pagination
-          count={Math.ceil(applyFilters(blogs).length / blogsPerPage)}
-          page={currentPage}
-          onChange={handlePageChange}
-          color="primary"
-        />
-      </Stack>
+            <Input
+              type="search"
+              sx={{
+                gridArea: "search",
+                width: { xs: "90%", md: 300 },
+                marginTop: { xs: 3, md: 0 },
+              }}
+              placeholder="Search Blogs by Title"
+              onChange={handleSearch}
+            />
+
+            <FormControl
+              sx={{
+                gridArea: "filter",
+                marginTop: { xs: 2, md: 0 },
+                width: { xs: "90%", md: 150 },
+              }}
+              size="small"
+            >
+              <InputLabel id="demo-select-small-label">Filter</InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={filter}
+                label="Sort"
+                onChange={changeFilter}
+              >
+                <MenuItem value={"newest"}>Newest</MenuItem>
+                <MenuItem value={"oldest"}>Oldest</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Box
+            sx={{
+              display: "grid",
+              width: "100%",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "1fr 1fr",
+                md: "1fr 1fr 1fr",
+              },
+              gap: "1rem",
+            }}
+          >
+            {currentBlogs.length === 0 && (
+              <Box
+                sx={{
+                  width: "93vw",
+                  display: "grid",
+                  placeItems: "center",
+                  marginTop: "3rem",
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{
+                    textAlign: "center",
+                    color: (theme) =>
+                      theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+                  }}
+                >
+                  No Blogs Found
+                </Typography>
+              </Box>
+            )}
+            <DialogsProvider>
+              {currentBlogs.map((blog, i) => (
+                <BlogsComp
+                  key={i}
+                  blogKey={i}
+                  username={blog.username}
+                  email={blog.email}
+                  title={blog.title}
+                  desc={blog.desc}
+                  imageUrl={blog.imageUrl}
+                  profileImageUrl={blog.profileImageUrl}
+                  createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
+                />
+              ))}
+            </DialogsProvider>
+          </Box>
+
+          <Stack spacing={2} sx={{ marginTop: "2rem", alignItems: "center" }}>
+            <Pagination
+              count={Math.ceil(applyFilters(blogs).length / blogsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+              color="primary"
+            />
+          </Stack>
+        </>
+      )}
     </Box>
   );
 }

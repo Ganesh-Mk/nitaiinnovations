@@ -1,4 +1,4 @@
-import { Typography, Box, Button } from "@mui/material";
+import { Typography, Box, Button, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import UserAccountComp from "../Components/UserAccountComp";
 import BlogsComp from "../Components/BlogsComp";
@@ -10,6 +10,7 @@ import { DialogsProvider } from "@toolpad/core/useDialogs";
 function Account() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [allBlogs, setAllBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const userName = localStorage.getItem("username");
@@ -21,9 +22,11 @@ function Account() {
       .then((res) => {
         const { allBlogPosts } = res.data;
         setAllBlogs(allBlogPosts);
+        setTimeout(() => setIsLoading(false), 1000); // Simulate loading for 1 second
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
+        setIsLoading(false); // Ensure loader stops even if there's an error
       });
   }, []);
 
@@ -60,7 +63,15 @@ function Account() {
           My Blogs
         </Typography>
 
-        {allBlogs?.length === 0 && (
+        {isLoading ? ( // Show loader while loading
+          <Box
+            sx={{ display: "flex", justifyContent: "center", marginTop: "5rem" }}
+          >
+            <CircularProgress 
+              sx={{marginTop: "6rem"}}
+            />
+          </Box>
+        ) : allBlogs?.length === 0 ? (
           <Box
             sx={{ display: "grid", placeItems: "center", marginTop: "10rem" }}
           >
@@ -82,24 +93,23 @@ function Account() {
               </Button>
             </Link>
           </Box>
-        )}
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-            gap: "1rem",
-            height: {
-              xs: "auto",
-              sm: "75vh",
-            },
-            padding: "2rem",
-            overflowY: { xs: "auto", sm: "scroll" },
-            overflowX: "hidden",
-          }}
-        >
-          <DialogsProvider>
-            {allBlogs?.length > 0 &&
-              allBlogs
+        ) : (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+              gap: "1rem",
+              height: {
+                xs: "auto",
+                sm: "75vh",
+              },
+              padding: "2rem",
+              overflowY: { xs: "auto", sm: "scroll" },
+              overflowX: "hidden",
+            }}
+          >
+            <DialogsProvider>
+              {allBlogs
                 .slice()
                 .reverse()
                 .map((blog, index) => (
@@ -115,8 +125,9 @@ function Account() {
                     createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
                   />
                 ))}
-          </DialogsProvider>
-        </Box>
+            </DialogsProvider>
+          </Box>
+        )}
       </Box>
     </Box>
   );
