@@ -142,11 +142,7 @@ const BlogsComp = ({
           >
             <Box>
               <img
-                src={
-                  profileImageUrl
-                    ? `${BACKEND_URL}/${profileImageUrl}`
-                    : defaultProfileImage
-                }
+                src={profileImageUrl ? profileImageUrl : defaultProfileImage}
                 style={{
                   height: "4rem",
                   width: "4rem",
