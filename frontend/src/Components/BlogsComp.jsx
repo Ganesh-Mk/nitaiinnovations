@@ -230,7 +230,7 @@ const BlogsComp = ({
               }}
             >
               <img
-                src={`${BACKEND_URL}/${imageUrl}`}
+                src={imageUrl}
                 style={{
                   height: "100%",
                   maxHeight: "18rem",

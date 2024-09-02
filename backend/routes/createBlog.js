@@ -3,13 +3,30 @@ const route = express.Router();
 const User = require("../models/users");
 const Blogs = require("../models/blogs");
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { Readable } = require("stream");
 
-const upload = multer({ dest: "uploads/" });
+// Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only image files are allowed!"), false);
+    }
+  },
+});
 
 route.post("/", upload.single("image"), async (req, res) => {
   const { username, title, email, desc } = req.body;
-  const imageUrl = req.file?.path || "";
-  console.log("imageUrl: ", imageUrl);
 
   try {
     // Fetch the user to get profile image and check if the blog title exists
@@ -28,6 +45,30 @@ route.post("/", upload.single("image"), async (req, res) => {
         status: "titlesSame",
       });
     }
+
+    // Upload image to Cloudinary
+    const uploadPromise = new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { resource_type: "image" },
+        (error, result) => {
+          if (error) {
+            reject(new Error("Cloudinary upload failed"));
+          } else {
+            resolve(result);
+          }
+        }
+      );
+
+      // Convert buffer to a readable stream
+      const bufferStream = new Readable();
+      bufferStream.push(req.file.buffer);
+      bufferStream.push(null);
+
+      // Pipe bufferStream to uploadStream
+      bufferStream.pipe(uploadStream);
+    });
+
+    const { secure_url: imageUrl } = await uploadPromise;
 
     const profileImageUrl = user.profileImageUrl || "";
 
@@ -53,8 +94,8 @@ route.post("/", upload.single("image"), async (req, res) => {
     const blogs = await Blogs.find();
     res.status(200).send({ user, blogs });
   } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: "Internal Server Error" });
+    console.error(err);
+    res.status(500).send({ message: err.message || "Internal Server Error" });
   }
 });
 
