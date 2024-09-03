@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Box, Button, TextField, Typography, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { Snackbar, Alert } from "@mui/material";
 import { Element } from "react-scroll";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
@@ -241,7 +247,7 @@ function ContactUsComp() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.584867647099!2d75.0086892741532!3d15.452941285140712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8cd600b1102cf%3A0x6fde00d66af72d03!2sNITAI%20INNOVATIONS!5e0!3m2!1sen!2sin!4v1724674983702!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
-                allowFullScreen=""
+                allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
