@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useRef, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // Import useSelector
 import Box from "@mui/material/Box";
@@ -11,17 +11,24 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Menu from "@mui/material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
 import DropDownButton from "./DropDownButton";
 import { storeLoggedinRecord } from "../Store/userSlice";
 
+
 function Navbar({ mode, toggleColorMode }) {
-  const [open, setOpen] = React.useState(false);
-  const [showAccountBtn, setShowAccountBtn] = React.useState(false);
+  const [showAccountBtn, setShowAccountBtn] = useState(false);
   const isLoggedin = useSelector((state) => state.user.isLoggedin);
   const isLogin = localStorage.getItem("isLogin");
+  const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const dropdownRef = useRef(null);
 
-  React.useEffect(() => {
+ useEffect(() => {
     if (isLoggedin) {
       setShowAccountBtn(true);
     } else {
@@ -29,10 +36,22 @@ function Navbar({ mode, toggleColorMode }) {
     }
   }, [storeLoggedinRecord]);
 
-  const toggleDrawer = (newOpen) => () => {
-    console.log("toggle");
-    setOpen(newOpen);
+  const handleMouseEnter = (event) => {
+    setAnchorEl(event.currentTarget);
+    setDropdownOpen(true);
   };
+
+  const handleMouseLeave = () => {
+    // Delay closing to allow the user to move the mouse to the dropdown
+    setTimeout(() => {
+      setDropdownOpen(false);
+    }, 100);
+  };
+
+  const toggleDrawer = (open) => () => {
+    setOpen(open);
+  };
+
 
   return (
     <div>
@@ -130,13 +149,25 @@ function Navbar({ mode, toggleColorMode }) {
                     display: "flex",
                   }}
                 >
+                  <Box
+                  sx={{ position: "relative" }}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography variant="p" color="text.primary">
-                      Products and Solutions
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      Product and Solutions
+                <DropDownButton toggleDrawer={toggleDrawer} />
+
                     </Typography>
                   </MenuItem>
+                </Box>
+
                 </Link>
-                <DropDownButton toggleDrawer={toggleDrawer} />
                 <Link
                   to="/"
                   state={{ scrollTo: "contactUsSection" }}
