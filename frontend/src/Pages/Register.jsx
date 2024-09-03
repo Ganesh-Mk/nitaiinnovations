@@ -11,6 +11,8 @@ import {
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Box, Typography, CircularProgress } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export default function Register() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -25,6 +27,8 @@ export default function Register() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("error");
   const [loading, setLoading] = useState(false); // Loading state
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,6 +36,10 @@ export default function Register() {
     // Scroll to top when the component mounts
     window.scrollTo(0, 0);
   }, []);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
   const registerUser = (e) => {
     e.preventDefault();
@@ -235,15 +243,28 @@ export default function Register() {
             >
               Password
             </Typography>
-            <input
-              id="password"
-              value={password}
-              onChange={(e) => setpassword(e.target.value)}
-              type="password"
-              autoComplete="new-password"
-              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
-              required
-            />
+            <div className="relative">
+              <input
+                id="password"
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+                required
+              />
+              <button
+                type="button"
+                onClick={handleClickShowPassword}
+                className="absolute inset-y-0 right-0 flex items-center pr-3"
+              >
+                {showPassword ? (
+                  <VisibilityOff sx={{ fontSize: "1.2rem" }} />
+                ) : (
+                  <Visibility sx={{ fontSize: "1.2rem" }} />
+                )}
+              </button>
+            </div>
           </div>
           <div className="space-y-2">
             <Typography
@@ -253,15 +274,28 @@ export default function Register() {
             >
               Confirm Password
             </Typography>
-            <input
-              id="confirm-password"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setconfirmPassword(e.target.value)}
-              autoComplete="new-password"
-              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
-              required
-            />
+            <div className="relative">
+              <input
+                id="confirm-password"
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setconfirmPassword(e.target.value)}
+                autoComplete="new-password"
+                className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm "
+                required
+              />
+              <button
+                type="button"
+                onClick={handleClickShowConfirmPassword}
+                className="absolute inset-y-0 right-0 flex items-center pr-3"
+              >
+                {showConfirmPassword ? (
+                  <VisibilityOff sx={{ fontSize: "1.2rem" }} />
+                ) : (
+                  <Visibility sx={{ fontSize: "1.2rem" }} />
+                )}
+              </button>
+            </div>
           </div>
         </form>
         <div className="flex flex-col gap-2">

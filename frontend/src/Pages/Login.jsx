@@ -12,6 +12,8 @@ import {
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { CircularProgress, Typography } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -21,6 +23,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
@@ -112,6 +115,10 @@ export default function Login() {
     setSnackbarOpen(false);
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="mx-auto w-full max-w-md space-y-6 rounded-lg bg-card p-6 shadow-lg">
@@ -154,22 +161,35 @@ export default function Login() {
             >
               Password
             </Typography>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setpassword(e.target.value)}
-              autoComplete="current-password"
-              className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm"
-              required
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+                autoComplete="current-password"
+                className="inpts block w-[100%] h-[2.5vw] p-4 rounded-md border-2 border-gray-300 shadow-sm focus:border-primary bg-transparent focus:ring-primary sm:text-sm"
+                required
+              />
+              <button
+                type="button"
+                onClick={handleClickShowPassword}
+                className="absolute inset-y-0 right-0 flex items-center pr-3"
+              >
+                {showPassword ? (
+                  <VisibilityOff sx={{ fontSize: "1.2rem" }} />
+                ) : (
+                  <Visibility sx={{ fontSize: "1.2rem" }} />
+                )}
+              </button>
+            </div>
           </div>
         </form>
         <div className="relative flex flex-col gap-2">
           <button
             type="submit"
             onClick={loginUser}
-            className="relative rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full max-w-md "
+            className="relative rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full max-w-md"
             disabled={loading}
           >
             {loading && (
