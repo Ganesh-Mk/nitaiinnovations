@@ -6,11 +6,24 @@ const bcrypt = require("bcrypt");
 router.post("/", async (req, res) => {
   const { username, firstName, lastName, email, password } = req.body;
   console.log("Request Body:", req.body);
+
   try {
+    // Check if the email already exists
+    const existingUser = await Users.findOne({ email });
+    if (existingUser) {
+      console.log("Hello World ::",existingUser);
+      
+      return res.status(400).json({
+        status: "error",
+        error: "email already exists",
+      });
+    }
+
+    // Proceed with user creation if email does not exist
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const user = await Users.create({
+    const user = new Users({
       username,
       firstName,
       lastName,
@@ -18,13 +31,13 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
     });
 
+    await user.save();
     res.status(201).send(user);
   } catch (err) {
     console.log("Error during user registration:", err);
-    res.status(400).json({
+    res.status(500).json({
       status: "error",
-      error: err.message || "Duplicate username or email",
-      details: err.errors || {},
+      error: err.message || "An error occurred during registration",
     });
   }
 });

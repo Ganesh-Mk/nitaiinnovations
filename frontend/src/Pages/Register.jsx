@@ -97,7 +97,6 @@ export default function Register() {
       .catch((err) => {
         console.log("Error during registration:", err);
         console.log("Error during registration:", err.response);
-
         if (
           err.response.data.error ===
           "Users validation failed: lastName: Path `lastName` is required."
@@ -124,7 +123,7 @@ export default function Register() {
         ) {
           setSnackbarMessage("Password is required");
         } else {
-          setSnackbarMessage("An error occurred during registration");
+          setSnackbarMessage("Credentials already exist, try again by changing username and email");
         }
 
         setSnackbarSeverity("error");

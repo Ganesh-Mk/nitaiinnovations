@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box, Button, Avatar } from "@mui/material";
+import { Typography, Box, Button, Avatar, CircularProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 import {
   storeLoggedinRecord,
@@ -25,10 +25,12 @@ const UserAccountComp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dialogs = useDialogs();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const userName = localStorage.getItem("username");
     const userEmail = localStorage.getItem("email");
+
     axios
       .get(`${BACKEND_URL}/getUserData`, {
         params: { userName, userEmail },
@@ -48,9 +50,11 @@ const UserAccountComp = () => {
         setlastname(lastName);
         setTotalPosts(totalPostsLength);
         setProfileImageUrl(image);
+        setLoading(false); // Set loading to false after data is fetched
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
+        setLoading(false); // Set loading to false even if there is an error
       });
   }, [BACKEND_URL]);
 
@@ -75,7 +79,7 @@ const UserAccountComp = () => {
     localStorage.setItem("username", "");
     localStorage.setItem("email", "");
 
-    setSnackbarOpen(true); // Open Snackbar after successful logout
+    setSnackbarOpen(true);
 
     setTimeout(() => {
       navigate("/");
@@ -121,14 +125,19 @@ const UserAccountComp = () => {
           gap: 2,
         }}
       >
-        <Avatar
-          src={
-            profileImageUrl
-              ? profileImageUrl
-              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-          }
-          sx={{ width: "10rem", height: "10rem" }}
-        />
+        {/* Show loader while loading */}
+        {loading ? (
+          <CircularProgress sx={{ width: "10rem", height: "10rem" }} />
+        ) : (
+          <Avatar
+            src={
+              profileImageUrl
+                ? profileImageUrl
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            }
+            sx={{ width: "10rem", height: "10rem" }}
+          />
+        )}
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="body2" color="text.secondary">
             username: {nameOfUser}

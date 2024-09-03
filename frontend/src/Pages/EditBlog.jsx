@@ -5,6 +5,8 @@ import {
   TextareaAutosize,
   Typography,
   useTheme,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
@@ -20,10 +22,12 @@ function EditBlog() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
+  const [snackbarMessage, setSnackbarMessage] = useState(""); // Snackbar message
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success"); // Snackbar severity
 
   useEffect(() => {
-    // Scroll to top when the component mounts
     window.scrollTo(0, 0);
   }, []);
 
@@ -35,7 +39,7 @@ function EditBlog() {
   }, []);
 
   function editBlog() {
-    setLoading(true); // Start loading
+    setLoading(true);
     const userName = localStorage.getItem("username");
     const userEmail = localStorage.getItem("email");
     const currentTitle = JSON.parse(
@@ -49,8 +53,10 @@ function EditBlog() {
     ).imageUrl;
 
     if (title === "" || desc === "") {
-      alert("Please enter title and description");
-      setLoading(false); // Stop loading
+      setSnackbarMessage("Please enter title and description");
+      setSnackbarSeverity("warning"); // Show warning Snackbar
+      setSnackbarOpen(true);
+      setLoading(false);
       return;
     }
     if (
@@ -58,8 +64,10 @@ function EditBlog() {
       desc === currentDesc &&
       image.name === currentImageUrl
     ) {
-      alert("No changes made");
-      setLoading(false); // Stop loading
+      setSnackbarMessage("No changes made");
+      setSnackbarSeverity("warning"); // Show warning Snackbar
+      setSnackbarOpen(true);
+      setLoading(false);
       return;
     }
 
@@ -70,7 +78,7 @@ function EditBlog() {
     formData.append("currentTitle", currentTitle);
     formData.append("changedesc", desc);
     if (image) {
-      formData.append("image", image); // Make sure the file is sent with the correct key name
+      formData.append("image", image);
     }
 
     axios
@@ -81,12 +89,20 @@ function EditBlog() {
       })
       .then((res) => {
         console.log("Successfully edited blog in backend: ", res.data);
-        setLoading(false); // Stop loading
-        navigate("/account");
+        setSnackbarMessage("Blog successfully edited!");
+        setSnackbarSeverity("success"); // Show success Snackbar
+        setSnackbarOpen(true);
+        setLoading(false);
+        setTimeout(() => {
+          navigate("/account");
+        }, 1500);
       })
       .catch((err) => {
         console.log("Didn't edit blog in backend: ", err);
-        setLoading(false); // Stop loading
+        setSnackbarMessage("Failed to edit blog. Please try again.");
+        setSnackbarSeverity("error"); // Show error Snackbar
+        setSnackbarOpen(true);
+        setLoading(false);
       });
   }
 
@@ -96,6 +112,10 @@ function EditBlog() {
     setDesc(blog.desc);
     setImage(blog.image);
   }
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const inputStyles = {
     width: { xs: "100%", sm: "100%" },
@@ -229,6 +249,22 @@ function EditBlog() {
           Reset
         </Button>
       </Box>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity} // Set severity dynamically
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

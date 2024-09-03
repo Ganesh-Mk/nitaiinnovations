@@ -26,7 +26,9 @@ const upload = multer({
 });
 
 route.post("/", upload.single("image"), async (req, res) => {
-  const { username, title, email, desc } = req.body;
+  const { username, title, email, desc, firstName, lastName } = req.body;
+  console.log(req.body);
+  
 
   try {
     // Fetch the user to get profile image and check if the blog title exists
@@ -84,6 +86,8 @@ route.post("/", upload.single("image"), async (req, res) => {
     // Add the blog to the global Blogs collection
     await Blogs.create({
       username,
+      firstName,
+      lastName,
       email,
       title,
       desc,

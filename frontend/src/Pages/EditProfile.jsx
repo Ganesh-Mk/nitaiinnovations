@@ -34,13 +34,48 @@ function EditProfile() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
+  // Loader states
+  const [loading, setLoading] = useState(false); // Spinner for submit button
+  const [pageLoading, setPageLoading] = useState(true); // Loader for the whole page
+
   useEffect(() => {
     // Scroll to top when the component mounts
     window.scrollTo(0, 0);
-  }, []);
 
-  // Loader state
-  const [loading, setLoading] = useState(false); // Add loading state
+    axios
+      .get(`${BACKEND_URL}/getUserData`, {
+        params: {
+          userName: localStorage.getItem("username"),
+          userEmail: localStorage.getItem("email"),
+        },
+      })
+      .then((res) => {
+        console.log("Response data:", res.data);
+        setImage(res.data.image || ""); // Set image to empty string if not available
+        setImagePreview(
+          res.data.image ==
+            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            : res.data.image
+        );
+        localStorage.setItem("username", res.data.username);
+        localStorage.setItem("email", res.data.email);
+        setoriginalData(res.data);
+        setfirstName(res.data.firstName);
+        setlastName(res.data.lastName);
+        dispatch(storeusername(res.data.username));
+        dispatch(storeEmail(res.data.email));
+        setTimeout(() => {
+          setPageLoading(false);
+        }, 400); // Data fetched, hide the loader
+      })
+      .catch(() => {
+        setSnackbarMessage("Failed to fetch data. Please try again.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        setPageLoading(false); // Hide the loader even if there's an error
+      });
+  }, [dispatch]);
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -116,33 +151,6 @@ function EditProfile() {
     setusersemail(originalData.email);
   };
 
-  useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/getUserData`, {
-        params: {
-          userName: localStorage.getItem("username"),
-          userEmail: localStorage.getItem("email"),
-        },
-      })
-      .then((res) => {
-        console.log("Response data:", res.data);
-        setImage(res.data.image || ""); // Set image to empty string if not available
-        setImagePreview(
-          res.data.image ==
-            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-            ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-            : res.data.image
-        );
-        localStorage.setItem("username", res.data.username);
-        localStorage.setItem("email", res.data.email);
-        setoriginalData(res.data);
-        setfirstName(res.data.firstName);
-        setlastName(res.data.lastName);
-        dispatch(storeusername(res.data.username));
-        dispatch(storeEmail(res.data.email));
-      });
-  }, [dispatch]);
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -178,6 +186,21 @@ function EditProfile() {
     width: "10rem",
     borderRadius: "100rem",
   };
+
+  if (pageLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <CircularProgress size={60} />
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -269,60 +292,41 @@ function EditProfile() {
         sx={{ width: "100%" }}
         id="standard-required"
         label="Email"
-        fontSize="5rem"
-        onChange={(e) => setusersemail(e.target.value)}
         value={usersemail}
+        onChange={(e) => setusersemail(e.target.value)}
         variant="standard"
-        type="email"
         {...inputStyles}
       />
 
       <Box
         sx={{
           display: "grid",
-          placeItems: "center",
-          marginTop: "1rem",
-          width: { xs: "100%", sm: "100%" },
-          gap: "1rem",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          width: "100%",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "2rem",
         }}
       >
         <Button
           variant="contained"
-          sx={{ width: "100%", position: "relative" }} // Add position relative
+          sx={{ width: "100%", fontSize: "1.4rem" }}
           onClick={submitChangedData}
-          disabled={loading} // Disable button when loading
+          disabled={loading} // Disable the button while loading
         >
-          {loading && (
-            <CircularProgress
-              size={24}
-              sx={{
-                position: "absolute",
-                color: "#00bcd4",
-                top: "50%",
-                left: "50%",
-                marginTop: "-12px",
-                marginLeft: "-12px",
-              }}
-            />
-          )}
-          Submit
+          {loading ? <CircularProgress size={24} /> : "Submit"}
         </Button>
         <Button
+          sx={{ width: "100%", fontSize: "1.4rem" }}
           variant="outlined"
-          sx={{ width: "100%" }}
           onClick={resetUsersData}
         >
           Reset
         </Button>
       </Box>
 
-      {/* Snackbar for success and error messages */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
           onClose={handleSnackbarClose}

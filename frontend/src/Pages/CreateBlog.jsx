@@ -24,11 +24,34 @@ function CreateBlog() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [loading, setLoading] = useState(false); // Add loading state
+  const [firstName, setfirstName] = useState("")
+  const [lastName, setlastName] = useState("")
 
   useEffect(() => {
     // Scroll to top when the component mounts
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    const userName = localStorage.getItem("username");
+    const userEmail = localStorage.getItem("email");
+    axios
+      .get(`${BACKEND_URL}/getUserData`, {
+        params: { userName, userEmail },
+      })
+      .then((res) => {
+        const {
+          firstName,
+          lastName,
+        } = res.data;
+        setfirstName(firstName)
+        setlastName(lastName)
+      })
+      .catch((err) => {
+        console.log("Didn't get data of user from backend", err);
+      });
+      
+  }, [BACKEND_URL]);
 
   function createBlog(e) {
     e.preventDefault();
@@ -48,6 +71,11 @@ function CreateBlog() {
     formData.append("title", title);
     formData.append("desc", desc);
     formData.append("image", image);
+    formData.append("firstName", firstName)
+    formData.append("lastName", lastName)
+
+    console.log("Hello World ::", title, desc, image, firstName, lastName);
+    
 
     axios
       .post(`${BACKEND_URL}/createBlog`, formData, {
@@ -132,6 +160,7 @@ function CreateBlog() {
         sx={{
           width: "100%",
           cursor: "pointer",
+
 
           color: (theme) =>
             theme.palette.mode === "light" ? "black" : "white",

@@ -250,6 +250,8 @@ function CreateBlog() {
                   key={i}
                   blogKey={i}
                   username={blog.username}
+                  firstname={blog.firstName}
+                  lastname={blog.lastName}
                   email={blog.email}
                   title={blog.title}
                   desc={blog.desc}

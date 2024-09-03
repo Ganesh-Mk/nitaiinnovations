@@ -26,6 +26,8 @@ import { DialogsProvider, useDialogs } from "@toolpad/core/useDialogs";
 const BlogsComp = ({
   blogKey,
   username,
+  firstname,
+  lastname,
   email,
   title,
   desc,
@@ -34,11 +36,14 @@ const BlogsComp = ({
   profileImageUrl,
   isAccountBlog = false,
 }) => {
+  console.log(firstname + ":::" +  lastname);
+  
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const dialogs = useDialogs();
+  const [fullName, setfullName] = useState(firstname + " " + lastname)
 
   const [showFullText, setShowFullText] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -119,6 +124,12 @@ const BlogsComp = ({
     }
   }, [reloadPage]);
 
+
+  // const name = llll
+  // setfullName(name);
+
+
+
   const defaultProfileImage =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -167,7 +178,7 @@ const BlogsComp = ({
               }}
             >
               <Typography variant="p">
-                {username || <Skeleton width={120} />}
+                { fullName || <Skeleton width={120} />}
               </Typography>
               <Typography
                 variant="p"
