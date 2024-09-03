@@ -106,7 +106,7 @@ function Navbar({ mode, toggleColorMode }) {
                   className="navItems"
                 >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography variant="body2" color="text.primary">
+                    <Typography variant="p" color="text.primary">
                       Home
                     </Typography>
                   </MenuItem>
@@ -117,7 +117,7 @@ function Navbar({ mode, toggleColorMode }) {
                   className="navItems"
                 >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography variant="body2" color="text.primary">
+                    <Typography variant="p" color="text.primary">
                       About Us
                     </Typography>
                   </MenuItem>
@@ -131,7 +131,7 @@ function Navbar({ mode, toggleColorMode }) {
                   }}
                 >
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography variant="body2" color="text.primary">
+                    <Typography variant="p" color="text.primary">
                       Products and Solutions
                     </Typography>
                   </MenuItem>
@@ -143,14 +143,14 @@ function Navbar({ mode, toggleColorMode }) {
                   className="navItems"
                 >
                   <MenuItem sx={{ ml: 1, py: "6px", px: "12px" }}>
-                    <Typography variant="body2" color="text.primary">
+                    <Typography variant="p" color="text.primary">
                       Contact Us
                     </Typography>
                   </MenuItem>
                 </Link>
                 <Link to="/blogs" className="navItems">
                   <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography variant="body2" color="text.primary">
+                    <Typography variant="p" color="text.primary">
                       Blogs
                     </Typography>
                   </MenuItem>
@@ -243,7 +243,7 @@ function Navbar({ mode, toggleColorMode }) {
                     onClick={toggleDrawer(false)}
                   >
                     <MenuItem sx={{ py: "6px", px: "12px" }}>
-                      <Typography variant="body2" color="text.primary">
+                      <Typography variant="p" color="text.primary">
                         Home
                       </Typography>
                     </MenuItem>
@@ -255,7 +255,7 @@ function Navbar({ mode, toggleColorMode }) {
                     onClick={toggleDrawer(false)}
                   >
                     <MenuItem sx={{ py: "6px", px: "12px" }}>
-                      <Typography variant="body2" color="text.primary">
+                      <Typography variant="p" color="text.primary">
                         About Us
                       </Typography>
                     </MenuItem>
@@ -275,7 +275,7 @@ function Navbar({ mode, toggleColorMode }) {
                       onClick={toggleDrawer(false)}
                     >
                       <MenuItem sx={{ py: "6px", px: "12px" }}>
-                        <Typography variant="body2" color="text.primary">
+                        <Typography variant="p" color="text.primary">
                           Products and Solutions
                         </Typography>
                       </MenuItem>
@@ -288,7 +288,7 @@ function Navbar({ mode, toggleColorMode }) {
                     onClick={toggleDrawer(false)}
                   >
                     <MenuItem sx={{ py: "6px", px: "12px" }}>
-                      <Typography variant="body2" color="text.primary">
+                      <Typography variant="p" color="text.primary">
                         Blogs
                       </Typography>
                     </MenuItem>

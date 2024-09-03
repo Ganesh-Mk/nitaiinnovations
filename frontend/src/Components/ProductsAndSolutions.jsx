@@ -182,7 +182,7 @@ export default function ProductsAndSolutions() {
                   component={Button}
                   onClick={() => handleItemClick(index)}
                   sx={{
-                    p: 3,
+                    p: 1.5,
                     height: "fit-content",
                     width: "100%",
                     background: "none",
@@ -277,7 +277,6 @@ export default function ProductsAndSolutions() {
               sx={{
                 height: "100%",
                 width: "100%",
-
                 display: { xs: "none", sm: "flex" },
                 pointerEvents: "none",
               }}
