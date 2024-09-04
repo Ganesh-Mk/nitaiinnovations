@@ -112,7 +112,7 @@ export default function Footer() {
                   alt=""
                 />
                 <Typography variant="p">
-                  Ramnagar, 1st main, 7th cross,odugoudar building, Dharwad
+                  Odugoudar building, Ramnagar, 1st Main 7th Cross Road, Dharwad
                   580001 KA, INDIA.
                 </Typography>
               </Box>
