@@ -9,13 +9,15 @@ import {
   Skeleton,
   Snackbar,
   Alert,
-  CircularProgress, // Import CircularProgress for the loader
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  useMediaQuery,
 } from "@mui/material";
 import { format } from "date-fns";
+import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -41,11 +43,11 @@ const BlogsComp = ({
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isMobileView = useMediaQuery(theme.breakpoints.down("md"));
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const dialogs = useDialogs();
   const [fullName, setfullName] = useState(firstname + " " + lastname);
 
-  const [showFullText, setShowFullText] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [reloadPage, setReloadPage] = useState(false);
 
@@ -53,23 +55,25 @@ const BlogsComp = ({
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
-  const [loading, setLoading] = useState(false); // Add loading state
-  const [openDialog, setOpenDialog] = useState(false); // State to control dialog visibility
+  const [loading, setLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openReadMoreDialog, setOpenReadMoreDialog] = useState(false);
+
+  const handleReadMoreDialogOpen = () => {
+    setOpenReadMoreDialog(true);
+  };
+
+  const handleReadMoreDialogClose = () => {
+    setOpenReadMoreDialog(false);
+  };
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
 
-  const handleReadMore = () => {
-    setShowFullText((prev) => !prev);
-  };
-
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
-
-  const truncatedText =
-    desc?.length > 200 && !showFullText ? `${desc.slice(0, 200)}...` : desc;
 
   function editBlog() {
     let blogInfo = {
@@ -88,7 +92,7 @@ const BlogsComp = ({
   const deleteBlog = async () => {
     const userEmail = localStorage.getItem("email");
 
-    setLoading(true); // Start loader
+    setLoading(true);
 
     axios
       .delete(`${BACKEND_URL}/deleteBlog`, {
@@ -113,8 +117,8 @@ const BlogsComp = ({
         setSnackbarOpen(true);
       })
       .finally(() => {
-        setLoading(false); // Stop loader
-        setOpenDialog(false); // Close dialog
+        setLoading(false);
+        setOpenDialog(false);
       });
   };
 
@@ -123,9 +127,6 @@ const BlogsComp = ({
       window.location.reload();
     }
   }, [reloadPage]);
-
-  // const name = llll
-  // setfullName(name);
 
   const defaultProfileImage =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
@@ -160,7 +161,7 @@ const BlogsComp = ({
                 }}
                 alt="Profile image"
                 onError={(e) => {
-                  e.target.onerror = null; // prevents looping
+                  e.target.onerror = null;
                   e.target.src = defaultProfileImage;
                 }}
               />
@@ -215,7 +216,8 @@ const BlogsComp = ({
         )}
 
         <Divider />
-        {imageUrl ? (
+
+        {imageUrl && (
           <>
             <Skeleton
               variant="rectangular"
@@ -249,9 +251,8 @@ const BlogsComp = ({
               />
             </Box>
           </>
-        ) : (
-          <></>
         )}
+
         <Box>
           <Typography
             variant="h2"
@@ -263,23 +264,180 @@ const BlogsComp = ({
             variant="p"
             color="text.secondary"
             sx={{
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: showFullText ? "none" : 4,
-              overflow: "hidden",
               wordWrap: "break-word",
-              maxHeight: showFullText ? "8rem" : "auto",
-              overflowY: showFullText ? "auto" : "hidden",
             }}
           >
-            {truncatedText || <Skeleton width="100%" height={80} />}
+            {desc?.length > 150
+              ? `${desc.slice(0, 150)}...`
+              : desc || <Skeleton width="100%" height={80} />}
           </Typography>
-          {desc?.length > 200 && (
-            <Button onClick={handleReadMore} sx={{ mt: 1 }}>
-              {showFullText ? "Read Less" : "Read More"}
-            </Button>
-          )}
         </Box>
+        <Button
+          sx={{ mt: 2 }}
+          variant="outlined"
+          onClick={handleReadMoreDialogOpen}
+        >
+          Read more
+        </Button>
+        <Dialog
+          open={openReadMoreDialog}
+          onClose={handleReadMoreDialogClose}
+          aria-labelledby="read-more-dialog-title"
+          fullWidth
+          maxWidth="md"
+          BackdropProps={{
+            style: {
+              backdropFilter: "blur(10px)", // Apply blur effect
+              backgroundColor: "rgba(0, 0, 0, 0.6)", // Adjust opacity and color
+            },
+          }}
+        >
+          <DialogTitle
+            id="read-more-dialog-title"
+            sx={{
+              position: "relative",
+              display: "grid",
+              placeItems: "center",
+              padding: "1rem", // Adjust padding as needed
+            }}
+          >
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: "2rem",
+                paddingRight: "2.2rem",
+              }}
+            >
+              {title}
+            </Typography>
+            <IconButton
+              aria-label="close"
+              onClick={handleReadMoreDialogClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: "text.primary",
+              }}
+            >
+              <CloseIcon
+                sx={{
+                  fontSize: "2.2rem",
+                  color: (theme) =>
+                    theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
+                }}
+              />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent dividers sx={{ padding: { xs: "1rem", lg: "2rem" } }}>
+            {imageUrl && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 2,
+                }}
+              >
+                <img
+                  src={imageUrl}
+                  alt="Blog image"
+                  style={{
+                    height: "auto",
+                    maxHeight: "20rem",
+                    width: "100%",
+                    objectFit: "contain",
+                    borderRadius: ".5rem",
+                  }}
+                />
+              </Box>
+            )}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                mb: 2,
+              }}
+            >
+              <Box>
+                <img
+                  src={profileImageUrl ? profileImageUrl : defaultProfileImage}
+                  style={{
+                    height: "4rem",
+                    width: "4rem",
+                    objectFit: "cover",
+                    transition: "opacity 0.3s ease-in-out",
+                  }}
+                  alt="Profile image"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = defaultProfileImage;
+                  }}
+                />
+              </Box>
+              {isMobileView ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    overflow: "hidden",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography variant="body1">
+                    {fullName || <Skeleton width={120} />}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {email || <Skeleton width={160} />}
+                  </Typography>
+                  <Typography variant="caption">
+                    {format(new Date(createdAt), "d MMM yyyy")}
+                  </Typography>
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      overflow: "hidden",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Typography variant="body1">
+                      {fullName || <Skeleton width={120} />}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {email || <Skeleton width={160} />}
+                    </Typography>
+                  </Box>
+                  <Typography variant="caption">
+                    {format(new Date(createdAt), "d MMM yyyy")}
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+
+            <Divider />
+            <Divider />
+            <Divider />
+
+            <Typography variant="h2" gutterBottom sx={{ marginTop: "2rem" }}>
+              <Box sx={{ whiteSpace: "pre-wrap" }}>
+                <Typography
+                  variant="body1"
+                  sx={{ fontSize: "1rem", lineHeight: "1.5" }}
+                  dangerouslySetInnerHTML={{ __html: desc }}
+                />
+              </Box>
+            </Typography>
+          </DialogContent>
+        </Dialog>
 
         <Snackbar
           open={snackbarOpen}
@@ -296,7 +454,6 @@ const BlogsComp = ({
           </Alert>
         </Snackbar>
 
-        {/* Dialog for delete confirmation */}
         <Dialog
           open={openDialog}
           onClose={() => setOpenDialog(false)}
