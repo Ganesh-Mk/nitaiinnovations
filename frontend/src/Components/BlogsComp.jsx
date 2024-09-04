@@ -34,7 +34,7 @@ const BlogsComp = ({
   title,
   fetchBlogs,
   desc,
-  imageUrl,
+  imageUrl = "",
   createdAt,
   profileImageUrl,
   isAccountBlog = false,
@@ -255,8 +255,8 @@ const BlogsComp = ({
             variant="h2"
             sx={{ mb: 2, fontSize: "1.8rem !important" }}
           >
-            {title?.length > 25
-              ? `${title.slice(0, 25)}...`
+            {title?.length > 30
+              ? `${title.slice(0, 30)}...`
               : title || <Skeleton width="80%" height={80} />}
           </Typography>
           <Typography
@@ -266,9 +266,13 @@ const BlogsComp = ({
               wordWrap: "break-word",
             }}
           >
-            {desc?.length > 150
-              ? `${desc.slice(0, 150)}...`
-              : desc || <Skeleton width="100%" height={80} />}
+            {imageUrl === ""
+              ? desc?.length > 400
+                ? `${desc.slice(0, 400)}...`
+                : desc || <Skeleton width="100%" height={80} />
+              : desc?.length > 150
+                ? `${desc.slice(0, 150)}...`
+                : desc || <Skeleton width="100%" height={80} />}
           </Typography>
         </Box>
         <Button

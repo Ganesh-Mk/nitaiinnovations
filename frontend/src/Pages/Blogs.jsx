@@ -20,7 +20,7 @@ import BlogsComp from "../Components/BlogsComp";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-function CreateBlog() {
+function Blogs() {
   const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
@@ -277,4 +277,4 @@ function CreateBlog() {
   );
 }
 
-export default CreateBlog;
+export default Blogs;
