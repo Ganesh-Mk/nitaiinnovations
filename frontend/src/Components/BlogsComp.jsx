@@ -255,8 +255,8 @@ const BlogsComp = ({
             variant="h2"
             sx={{ mb: 2, fontSize: "1.8rem !important" }}
           >
-            {title?.length > 30
-              ? `${title.slice(0, 30)}...`
+            {title?.length > 35
+              ? `${title.slice(0, 35)}...`
               : title || <Skeleton width="80%" height={80} />}
           </Typography>
           <Typography
@@ -267,8 +267,8 @@ const BlogsComp = ({
             }}
           >
             {imageUrl === ""
-              ? desc?.length > 400
-                ? `${desc.slice(0, 400)}...`
+              ? desc?.length > 500
+                ? `${desc.slice(0, 500)}...`
                 : desc || <Skeleton width="100%" height={80} />
               : desc?.length > 150
                 ? `${desc.slice(0, 150)}...`
