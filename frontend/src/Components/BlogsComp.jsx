@@ -258,7 +258,9 @@ const BlogsComp = ({
             variant="h2"
             sx={{ mb: 2, fontSize: "1.8rem !important" }}
           >
-            {title || <Skeleton width="80%" />}
+            {title?.length > 25
+              ? `${title.slice(0, 25)}...`
+              : title || <Skeleton width="80%" height={80} />}
           </Typography>
           <Typography
             variant="p"
@@ -304,7 +306,7 @@ const BlogsComp = ({
             <Typography
               variant="h1"
               sx={{
-                fontSize: "2rem",
+                fontSize: "2.5rem !important",
                 paddingRight: "2.2rem",
               }}
             >
