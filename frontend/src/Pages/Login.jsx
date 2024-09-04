@@ -62,7 +62,6 @@ export default function Login() {
         }
       )
       .then((res) => {
-        console.log(":", res);
         if (res.data.status === "ok") {
           localStorage.setItem("isLogin", true);
           localStorage.setItem("firstname", res.data.firstname);

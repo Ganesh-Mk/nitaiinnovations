@@ -76,7 +76,6 @@ export default function Register() {
         }
       )
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("username", username);
         localStorage.setItem("firstName", firstName);
         localStorage.setItem("lastName", lastName);
@@ -98,7 +97,6 @@ export default function Register() {
       })
       .catch((err) => {
         console.log("Error during registration:", err);
-        console.log("Error during registration:", err.response);
         if (
           err.response.data.error ===
           "Users validation failed: lastName: Path `lastName` is required."

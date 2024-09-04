@@ -88,7 +88,6 @@ function EditBlog() {
         },
       })
       .then((res) => {
-        console.log("Successfully edited blog in backend: ", res.data);
         setSnackbarMessage("Blog successfully edited!");
         setSnackbarSeverity("success"); // Show success Snackbar
         setSnackbarOpen(true);
@@ -98,7 +97,6 @@ function EditBlog() {
         }, 1500);
       })
       .catch((err) => {
-        console.log("Didn't edit blog in backend: ", err);
         setSnackbarMessage("Failed to edit blog. Please try again.");
         setSnackbarSeverity("error"); // Show error Snackbar
         setSnackbarOpen(true);

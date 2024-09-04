@@ -101,14 +101,12 @@ const BlogsComp = ({
         },
       })
       .then((res) => {
-        console.log("Successfully deleted blog in backend: ", res.data);
         setSnackbarMessage("Blog deleted successfully!");
         setSnackbarSeverity("success");
         setSnackbarOpen(true);
         fetchBlogs();
       })
       .catch((err) => {
-        console.log("Failed to delete blog in backend: ", err);
         setSnackbarMessage("Failed to delete blog");
         setSnackbarSeverity("error");
         setSnackbarOpen(true);
@@ -297,6 +295,7 @@ const BlogsComp = ({
         >
           <DialogTitle
             id="read-more-dialog-title"
+            component="div"
             sx={{
               position: "relative",
               display: "grid",

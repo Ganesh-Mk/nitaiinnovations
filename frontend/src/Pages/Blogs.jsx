@@ -57,13 +57,11 @@ function Blogs() {
   };
 
   useEffect(() => {
-    console.log(`${BACKEND_URL}/allBlogs`);
     axios
       .get(`${BACKEND_URL}/allBlogs`)
       .then((res) => {
         setBlogs(res.data);
         setLoading(false); // Stop loading once blogs are  fetched
-        console.log("allblogs: ", res.data);
       })
       .catch((err) => {
         console.log(err);

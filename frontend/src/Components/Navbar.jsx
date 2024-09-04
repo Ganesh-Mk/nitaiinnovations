@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // Import useSelector
 import Box from "@mui/material/Box";
@@ -18,7 +18,6 @@ import ToggleColorMode from "./ToggleColorMode";
 import DropDownButton from "./DropDownButton";
 import { storeLoggedinRecord } from "../Store/userSlice";
 
-
 function Navbar({ mode, toggleColorMode }) {
   const [showAccountBtn, setShowAccountBtn] = useState(false);
   const isLoggedin = useSelector((state) => state.user.isLoggedin);
@@ -28,9 +27,9 @@ function Navbar({ mode, toggleColorMode }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const dropdownRef = useRef(null);
 
- useEffect(() => {
-  setShowAccountBtn(isLoggedin);
-}, [isLoggedin]);
+  useEffect(() => {
+    setShowAccountBtn(isLoggedin);
+  }, [isLoggedin]);
 
   const handleMouseEnter = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,7 +46,6 @@ function Navbar({ mode, toggleColorMode }) {
   const toggleDrawer = (open) => () => {
     setOpen(open);
   };
-
 
   return (
     <div>
@@ -146,23 +144,29 @@ function Navbar({ mode, toggleColorMode }) {
                   }}
                 >
                   <Box
-                  sx={{ position: "relative" }}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <MenuItem sx={{ py: "6px", px: "12px" }}>
-                    <Typography
-                      variant="body2"
-                      color="text.primary"
-                      sx={{ display: "flex", alignItems: "center" }}
-                    >
-                      Product and Solutions
-                <DropDownButton toggleDrawer={toggleDrawer} />
-
-                    </Typography>
-                  </MenuItem>
-                </Box>
-
+                    sx={{ position: "relative" }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          variant="body2"
+                          color="text.primary"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          Product and Solutions
+                        </Typography>
+                        <DropDownButton toggleDrawer={toggleDrawer} />
+                      </Box>
+                    </MenuItem>
+                  </Box>
                 </Link>
                 <Link
                   to="/"

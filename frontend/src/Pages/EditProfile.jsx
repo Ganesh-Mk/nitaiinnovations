@@ -50,7 +50,6 @@ function EditProfile() {
         },
       })
       .then((res) => {
-        console.log("Response data:", res.data);
         setImage(res.data.image || ""); // Set image to empty string if not available
         setImagePreview(
           res.data.image ==
@@ -117,7 +116,6 @@ function EditProfile() {
         .then((res) => {
           setSnackbarMessage("Profile updated successfully!");
           setSnackbarSeverity("success");
-          console.log("Response: ", res);
 
           setSnackbarOpen(true);
           setfirstName(res.data.firstName);

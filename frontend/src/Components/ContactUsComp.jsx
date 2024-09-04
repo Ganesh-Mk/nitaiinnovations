@@ -81,7 +81,6 @@ function ContactUsComp() {
       .then((res) => {
         setsnackMessage("Your message has been sent!");
         setsnackseverity("success");
-        console.log("Successfully stored user feedback");
         setSnackbarOpen(true);
         setTimeout(() => {
           setSnackbarOpen(false);
