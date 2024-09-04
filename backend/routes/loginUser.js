@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
   try {
-    console.log("Request Body:", req.body);
     const { email, password } = req.body;
     const user = await Users.findOne({ email });
 

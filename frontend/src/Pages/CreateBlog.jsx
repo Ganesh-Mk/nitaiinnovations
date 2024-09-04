@@ -24,8 +24,8 @@ function CreateBlog() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [loading, setLoading] = useState(false); // Add loading state
-  const [firstName, setfirstName] = useState("")
-  const [lastName, setlastName] = useState("")
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
 
   useEffect(() => {
     // Scroll to top when the component mounts
@@ -40,17 +40,13 @@ function CreateBlog() {
         params: { userName, userEmail },
       })
       .then((res) => {
-        const {
-          firstName,
-          lastName,
-        } = res.data;
-        setfirstName(firstName)
-        setlastName(lastName)
+        const { firstName, lastName } = res.data;
+        setfirstName(firstName);
+        setlastName(lastName);
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
       });
-      
   }, [BACKEND_URL]);
 
   function createBlog(e) {
@@ -71,11 +67,10 @@ function CreateBlog() {
     formData.append("title", title);
     formData.append("desc", desc);
     formData.append("image", image);
-    formData.append("firstName", firstName)
-    formData.append("lastName", lastName)
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
 
     console.log("Hello World ::", title, desc, image, firstName, lastName);
-    
 
     axios
       .post(`${BACKEND_URL}/createBlog`, formData, {
@@ -156,20 +151,41 @@ function CreateBlog() {
           background: "transparent",
         }}
       />
+
+      {image && (
+        <Box
+          sx={{
+            marginTop: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <img
+            src={URL.createObjectURL(image)}
+            alt="Selected"
+            style={{ maxWidth: "100%", maxHeight: "200px", objectFit: "cover" }}
+          />
+        </Box>
+      )}
       <Button
         sx={{
+          height: "100%",
           width: "100%",
           cursor: "pointer",
-
-
           color: (theme) =>
             theme.palette.mode === "light" ? "black" : "white",
         }}
         variant="outlined"
       >
-        <label htmlFor="file-upload">
+        <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
           <AttachFileIcon />
-          {image ? image.name : "Choose an image"}
+          {image ? (
+            <Typography variant="p">Upload different Image</Typography>
+          ) : (
+            <Typography variant="p">Upload Image</Typography>
+          )}
           <Input
             id="file-upload"
             type="file"
@@ -179,6 +195,7 @@ function CreateBlog() {
           />
         </label>
       </Button>
+
       <Box sx={{ display: "flex", gap: "2rem", width: "100%" }}>
         <Button
           variant="contained"

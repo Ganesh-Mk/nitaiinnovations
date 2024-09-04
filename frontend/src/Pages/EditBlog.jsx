@@ -6,7 +6,7 @@ import {
   Typography,
   useTheme,
   Snackbar,
-  Alert
+  Alert,
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import axios from "axios";
@@ -193,24 +193,46 @@ function EditBlog() {
         placeholder="Enter Blog Description"
         style={textAreaStyles}
       />
+      {image && (
+        <Box
+          sx={{
+            marginTop: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <img
+            src={URL.createObjectURL(image)}
+            alt="Selected"
+            style={{ maxWidth: "100%", maxHeight: "200px", objectFit: "cover" }}
+          />
+        </Box>
+      )}
       <Button
         sx={{
-          cursor: "pointer",
+          height: "100%",
           width: "100%",
+          cursor: "pointer",
           color: (theme) =>
             theme.palette.mode === "light" ? "black" : "white",
         }}
         variant="outlined"
       >
-        <label htmlFor="file-upload">
+        <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
           <AttachFileIcon />
-          {image ? image.name : "Choose other image"}
+          {image ? (
+            <Typography variant="p">Upload different Image</Typography>
+          ) : (
+            <Typography variant="p">Upload different Image</Typography>
+          )}
           <Input
             id="file-upload"
             type="file"
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
-            style={fileInputStyles}
+            style={{ display: "none" }}
           />
         </label>
       </Button>

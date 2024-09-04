@@ -19,9 +19,6 @@ const upload = multer({ storage: storage });
 
 route.patch("/", upload.single("image"), async (req, res) => {
   try {
-    console.log("Request Body Fields:", req.body);
-    console.log("Uploaded File:", req.file);
-
     const { username, originalEmail, firstName, lastName, email } = req.body;
     let profileImageUrl = req.body.profileImageUrl;
 
