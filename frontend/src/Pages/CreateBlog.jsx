@@ -70,8 +70,6 @@ function CreateBlog() {
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
 
-    console.log("Hello World ::", title, desc, image, firstName, lastName);
-
     axios
       .post(`${BACKEND_URL}/createBlog`, formData, {
         headers: {
@@ -179,7 +177,10 @@ function CreateBlog() {
         }}
         variant="outlined"
       >
-        <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
+        <label
+          htmlFor="file-upload"
+          style={{ cursor: "pointer", width: "100%" }}
+        >
           <AttachFileIcon />
           {image ? (
             <Typography variant="p">Upload different Image</Typography>

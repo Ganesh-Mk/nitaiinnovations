@@ -28,11 +28,18 @@ import EditProfile from "./Pages/EditProfile";
 
 export default function App() {
   const isMobile = useMediaQuery("(max-width:600px)");
-  const [mode, setMode] = React.useState(isMobile ? "dark" : "light");
+  const storedMode =
+    localStorage.getItem("themeMode") || (isMobile ? "dark" : "light");
+  const [mode, setMode] = React.useState(storedMode);
+
   const LPtheme = React.useMemo(() => createTheme(getLPTheme(mode)), [mode]);
 
   const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+    setMode((prev) => {
+      const newMode = prev === "dark" ? "light" : "dark";
+      localStorage.setItem("themeMode", newMode); // Store the selected theme in localStorage
+      return newMode;
+    });
   };
 
   return (

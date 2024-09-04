@@ -64,6 +64,7 @@ function CyberSecurity() {
   const tabStyle = {
     textAlign: "start !important",
     alignItems: "flex-start !important",
+    color: (theme) => (theme.palette.mode === "light" ? "black" : "white"),
     "&.Mui-selected": {
       color: (theme) =>
         theme.palette.mode === "light" ? "#0959AA" : "#50a3f7", // Active tab text color

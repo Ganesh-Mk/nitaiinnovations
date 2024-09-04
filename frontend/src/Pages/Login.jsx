@@ -17,7 +17,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export default function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  console.log("Backend URL:", BACKEND_URL);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,7 +35,6 @@ export default function Login() {
 
   const loginUser = (e) => {
     e.preventDefault();
-    console.log("Login button clicked");
     if (email === "" && password === "") {
       setSnackbarMessage("Please enter email and password");
       setSnackbarSeverity("error");
@@ -64,9 +62,11 @@ export default function Login() {
         }
       )
       .then((res) => {
-        console.log("Response received from backend:", res);
+        console.log(":", res);
         if (res.data.status === "ok") {
           localStorage.setItem("isLogin", true);
+          localStorage.setItem("firstname", res.data.firstname);
+          localStorage.setItem("lastname", res.data.lastname);
           localStorage.setItem("username", res.data.name);
           localStorage.setItem("email", res.data.email);
           dispatch(storeName(res.data.name));

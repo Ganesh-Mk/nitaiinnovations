@@ -170,17 +170,36 @@ export default function Footer() {
                 Our support available to help you 24 hours a day, seven days a
                 week.
               </Typography>
-              <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography variant="p">Monday-Friday:</Typography>
-                <Typography variant="p">9am to 5pm</Typography>
-              </Box>
-              <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography variant="p">Saturday:</Typography>
-                <Typography variant="p">10am to 2pm</Typography>
-              </Box>
-              <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography variant="p">Sunday:</Typography>
-                <Typography variant="p">Closed</Typography>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                  <Typography variant="p" sx={{ textAlign: "end", mr: 2 }}>
+                    Monday - Friday:
+                  </Typography>
+                  <Typography variant="p" sx={{ textAlign: "end", mr: 2 }}>
+                    Saturday:
+                  </Typography>
+                  <Typography variant="p" sx={{ textAlign: "end", mr: 2 }}>
+                    Sunday:
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                  <Typography variant="p" sx={{ textAlign: "start" }}>
+                    9am to 5pm
+                  </Typography>
+                  <Typography variant="p" sx={{ textAlign: "start" }}>
+                    10am to 2pm
+                  </Typography>
+                  <Typography variant="p" sx={{ textAlign: "start" }}>
+                    Closed
+                  </Typography>
+                </Box>
               </Box>
             </Box>
           </Box>

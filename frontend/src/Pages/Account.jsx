@@ -11,10 +11,10 @@ function Account() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [allBlogs, setAllBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
-  const [image, setimage] = useState("")
-  const [firstname, setfirstname] = useState("")
-  const [lastname, setlastname] = useState("")
-  const [email, setemail] = useState("")
+  const [image, setimage] = useState("");
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [email, setemail] = useState("");
 
   const fetchBlogs = () => {
     const userName = localStorage.getItem("username");
@@ -26,6 +26,7 @@ function Account() {
       .then((res) => {
         const { allBlogPosts } = res.data;
         setAllBlogs(allBlogPosts);
+        setimage(res.data.image);
         setTimeout(() => setIsLoading(false), 1000);
       })
       .catch((err) => {
@@ -36,6 +37,9 @@ function Account() {
 
   useEffect(() => {
     fetchBlogs(); // Fetch data when the component mounts
+    setfirstname(localStorage.getItem("firstName"));
+    setlastname(localStorage.getItem("lastName"));
+    setemail(localStorage.getItem("email"));
   }, []);
 
   useEffect(() => {
@@ -73,11 +77,13 @@ function Account() {
 
         {isLoading ? ( // Show loader while loading
           <Box
-            sx={{ display: "flex", justifyContent: "center", marginTop: "5rem" }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "5rem",
+            }}
           >
-            <CircularProgress 
-              sx={{marginTop: "6rem"}}
-            />
+            <CircularProgress sx={{ marginTop: "6rem" }} />
           </Box>
         ) : allBlogs?.length === 0 ? (
           <Box

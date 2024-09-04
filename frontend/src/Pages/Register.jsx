@@ -78,6 +78,8 @@ export default function Register() {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("username", username);
+        localStorage.setItem("firstName", firstName);
+        localStorage.setItem("lastName", lastName);
         localStorage.setItem("email", email);
         localStorage.setItem("isLogin", true);
 
@@ -123,7 +125,9 @@ export default function Register() {
         ) {
           setSnackbarMessage("Password is required");
         } else {
-          setSnackbarMessage("Credentials already exist, try again by changing username and email");
+          setSnackbarMessage(
+            "Credentials already exist, try again by changing username and email"
+          );
         }
 
         setSnackbarSeverity("error");

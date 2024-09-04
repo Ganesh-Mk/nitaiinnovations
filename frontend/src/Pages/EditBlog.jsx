@@ -220,7 +220,10 @@ function EditBlog() {
         }}
         variant="outlined"
       >
-        <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
+        <label
+          htmlFor="file-upload"
+          style={{ cursor: "pointer", width: "100%" }}
+        >
           <AttachFileIcon />
           {image ? (
             <Typography variant="p">Upload different Image</Typography>

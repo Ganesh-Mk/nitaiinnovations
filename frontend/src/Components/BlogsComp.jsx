@@ -39,8 +39,6 @@ const BlogsComp = ({
   profileImageUrl,
   isAccountBlog = false,
 }) => {
-  console.log(firstname + ":::" + lastname);
-
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -387,7 +385,11 @@ const BlogsComp = ({
                   <Typography variant="body1">
                     {fullName || <Skeleton width={120} />}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontSize: "100% !important" }}
+                  >
                     {email || <Skeleton width={160} />}
                   </Typography>
                   <Typography variant="caption">
@@ -413,7 +415,11 @@ const BlogsComp = ({
                     <Typography variant="body1">
                       {fullName || <Skeleton width={120} />}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ fontSize: "100% !important" }}
+                    >
                       {email || <Skeleton width={160} />}
                     </Typography>
                   </Box>

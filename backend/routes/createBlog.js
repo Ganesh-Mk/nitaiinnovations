@@ -28,7 +28,6 @@ const upload = multer({
 route.post("/", upload.single("image"), async (req, res) => {
   const { username, title, email, desc, firstName, lastName } = req.body;
   console.log(req.body);
-  
 
   try {
     // Fetch the user to get profile image and check if the blog title exists
@@ -48,29 +47,33 @@ route.post("/", upload.single("image"), async (req, res) => {
       });
     }
 
-    // Upload image to Cloudinary
-    const uploadPromise = new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        { resource_type: "image" },
-        (error, result) => {
-          if (error) {
-            reject(new Error("Cloudinary upload failed"));
-          } else {
-            resolve(result);
+    let imageUrl = "";
+    if (req.file) {
+      // Upload image to Cloudinary
+      const uploadPromise = new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { resource_type: "image" },
+          (error, result) => {
+            if (error) {
+              reject(new Error("Cloudinary upload failed"));
+            } else {
+              resolve(result);
+            }
           }
-        }
-      );
+        );
 
-      // Convert buffer to a readable stream
-      const bufferStream = new Readable();
-      bufferStream.push(req.file.buffer);
-      bufferStream.push(null);
+        // Convert buffer to a readable stream
+        const bufferStream = new Readable();
+        bufferStream.push(req.file.buffer);
+        bufferStream.push(null);
 
-      // Pipe bufferStream to uploadStream
-      bufferStream.pipe(uploadStream);
-    });
+        // Pipe bufferStream to uploadStream
+        bufferStream.pipe(uploadStream);
+      });
 
-    const { secure_url: imageUrl } = await uploadPromise;
+      const result = await uploadPromise;
+      imageUrl = result.secure_url;
+    }
 
     const profileImageUrl = user.profileImageUrl || "";
 
