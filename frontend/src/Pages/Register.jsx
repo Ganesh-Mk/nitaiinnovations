@@ -302,19 +302,14 @@ export default function Register() {
             <button
               onClick={registerUser}
               type="submit"
-              className="relative rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
+              className="relative rounded-md bg-indigo-600 px-1 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
               disabled={loading} // Disable button when loading
             >
               {loading && (
                 <CircularProgress
-                  size={24}
+                  size={15}
                   sx={{
-                    position: "absolute",
                     color: "white",
-                    left: "50%",
-                    top: "50%",
-                    marginLeft: "-12px",
-                    marginTop: "-12px",
                   }}
                 />
               )}

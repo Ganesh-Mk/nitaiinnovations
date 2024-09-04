@@ -32,6 +32,7 @@ const BlogsComp = ({
   lastname,
   email,
   title,
+  fetchBlogs,
   desc,
   imageUrl,
   createdAt,
@@ -106,9 +107,7 @@ const BlogsComp = ({
         setSnackbarMessage("Blog deleted successfully!");
         setSnackbarSeverity("success");
         setSnackbarOpen(true);
-        setTimeout(() => {
-          setReloadPage(true);
-        }, 1500);
+        fetchBlogs();
       })
       .catch((err) => {
         console.log("Failed to delete blog in backend: ", err);

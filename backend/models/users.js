@@ -8,6 +8,21 @@ const blogSchema = new mongoose.Schema({
     unique: true,
     sparse: true,
   },
+  firstName: {
+    type: String,
+    require: true,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    require: true,
+    trim: true,
+  },
+  email: {
+    type: String,
+    require: true,
+    trim: true,
+  },
   desc: {
     type: String,
     trim: true,

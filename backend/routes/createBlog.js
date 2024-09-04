@@ -77,6 +77,9 @@ route.post("/", upload.single("image"), async (req, res) => {
     // Add the blog to user's blogs array
     user.blogs.push({
       title,
+      firstName,
+      lastName,
+      email,
       desc,
       imageUrl,
       profileImageUrl, // Add the user's profile image to the blog

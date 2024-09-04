@@ -194,14 +194,9 @@ export default function Login() {
           >
             {loading && (
               <CircularProgress
-                size={24}
+                size={14}
                 sx={{
-                  position: "absolute",
-                  left: "50%",
                   color: "white",
-                  top: "50%",
-                  marginLeft: "-12px",
-                  marginTop: "-12px",
                 }}
               />
             )}

@@ -11,8 +11,12 @@ function Account() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [allBlogs, setAllBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [image, setimage] = useState("")
+  const [firstname, setfirstname] = useState("")
+  const [lastname, setlastname] = useState("")
+  const [email, setemail] = useState("")
 
-  useEffect(() => {
+  const fetchBlogs = () => {
     const userName = localStorage.getItem("username");
     const userEmail = localStorage.getItem("email");
     axios
@@ -22,12 +26,16 @@ function Account() {
       .then((res) => {
         const { allBlogPosts } = res.data;
         setAllBlogs(allBlogPosts);
-        setTimeout(() => setIsLoading(false), 1000); // Simulate loading for 1 second
+        setTimeout(() => setIsLoading(false), 1000);
       })
       .catch((err) => {
         console.log("Didn't get data of user from backend", err);
-        setIsLoading(false); // Ensure loader stops even if there's an error
+        setIsLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchBlogs(); // Fetch data when the component mounts
   }, []);
 
   useEffect(() => {
@@ -118,9 +126,13 @@ function Account() {
                     isAccountBlog={true}
                     blogKey={index}
                     username={blog.username}
-                    email={blog.email}
+                    firstname={firstname}
+                    lastname={lastname}
+                    email={email}
                     title={blog.title}
                     desc={blog.desc}
+                    fetchBlogs={fetchBlogs}
+                    profileImageUrl={image}
                     imageUrl={blog.imageUrl}
                     createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
                   />

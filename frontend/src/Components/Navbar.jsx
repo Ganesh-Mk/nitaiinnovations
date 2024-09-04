@@ -29,12 +29,8 @@ function Navbar({ mode, toggleColorMode }) {
   const dropdownRef = useRef(null);
 
  useEffect(() => {
-    if (isLoggedin) {
-      setShowAccountBtn(true);
-    } else {
-      setShowAccountBtn(false);
-    }
-  }, [storeLoggedinRecord]);
+  setShowAccountBtn(isLoggedin);
+}, [isLoggedin]);
 
   const handleMouseEnter = (event) => {
     setAnchorEl(event.currentTarget);
