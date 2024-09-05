@@ -325,6 +325,8 @@ function EditProfile() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+
       >
         <Alert
           onClose={handleSnackbarClose}
