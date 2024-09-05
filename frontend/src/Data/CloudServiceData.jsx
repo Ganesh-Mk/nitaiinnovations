@@ -1,5 +1,5 @@
 export const CloudServiceData = {
-  title: "Cloud Services",
+  title: "",
   description: ``,
   conclusion: ``,
   items: [

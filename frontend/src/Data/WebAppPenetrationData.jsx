@@ -27,7 +27,7 @@ export const WebAppPenetrationData = {
       description: `Penetration testing helps your organization keep its web
       application secure by finding and fixing vulnerabilities that could
       expose confidential data. It also helps you meet compliance
-      regulations, which are rules that ensure you&#39;re handling data
+      regulations, which are rules that ensure you are handling data
       securely and protecting privacy.`,
     },
     {

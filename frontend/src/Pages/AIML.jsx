@@ -70,14 +70,20 @@ function AIML() {
           growth.
         </Typography>
         <br />
-        <DividerLine />
-        <DataList data={AIML_HireUsData} />
       </Box>
       <DividerLine />
       <Features data={AIFeatures} />
       <DividerLine />
 
       <Features data={MLFeatures} imageURL="/images/ml.png" />
+      <DividerLine />
+      <Box
+        sx={{
+          padding: { xs: "1rem 2rem", md: "1rem 5rem", lg: "1rem 10rem" },
+        }}
+      >
+        <DataList data={AIML_HireUsData} />
+      </Box>
       <DividerLine />
 
       <Typography

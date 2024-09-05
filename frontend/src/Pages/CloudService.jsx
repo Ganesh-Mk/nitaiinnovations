@@ -127,26 +127,11 @@ function CloudService() {
       </Stack>
 
       <DividerLine />
-      <Box
-        sx={{
-          padding: { xs: "1rem 2rem", md: "1rem 5rem", lg: "1rem 10rem" },
-        }}
-      >
-        <DataList data={CloudServiceData} />
-      </Box>
-      <DividerLine />
-
-      <Box
-        sx={{
-          padding: { xs: "1rem 2rem", md: "1rem 5rem", lg: "1rem 10rem" },
-        }}
-      >
-        <DataList data={GoogleCloudPlatformData} />
-      </Box>
-      <DividerLine />
 
       <Features data={AWSFeatures} />
       <Features data={AzureFeatures} />
+      <Features number={true} data={GoogleCloudPlatformData} />
+
       <Typography
         variant="h2"
         sx={{
