@@ -10,6 +10,9 @@ import {
   Select,
   MenuItem,
   CircularProgress,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
 } from "@mui/material";
 import { DialogsProvider } from "@toolpad/core/useDialogs";
 import axios from "axios";
@@ -209,57 +212,47 @@ function Blogs() {
         </Box>
       ) : (
         <>
-          <Box
-            sx={{
-              display: "grid",
-              width: "100%",
-              gridTemplateColumns: {
-                xs: "1fr",
-                sm: "1fr 1fr",
-                md: "1fr 1fr 1fr",
-              },
-              gap: "1rem",
-            }}
-          >
-            {currentBlogs.length === 0 && (
-              <Box
+          {currentBlogs.length === 0 && (
+            <Box
+              sx={{
+                width: "93vw",
+                display: "grid",
+                placeItems: "center",
+                marginTop: "3rem",
+              }}
+            >
+              <Typography
+                variant="h3"
                 sx={{
-                  width: "93vw",
-                  display: "grid",
-                  placeItems: "center",
-                  marginTop: "3rem",
+                  textAlign: "center",
+                  color: (theme) =>
+                    theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
                 }}
               >
-                <Typography
-                  variant="h3"
-                  sx={{
-                    textAlign: "center",
-                    color: (theme) =>
-                      theme.palette.mode === "light" ? "#0959AA" : "#50a3f7",
-                  }}
-                >
-                  No Blogs Found
-                </Typography>
-              </Box>
-            )}
-            <DialogsProvider>
+                No Blogs Found
+              </Typography>
+            </Box>
+          )}
+          <DialogsProvider>
+            <ImageList variant="masonry" cols={3} gap={20}>
               {currentBlogs.map((blog, i) => (
-                <BlogsComp
-                  key={i}
-                  blogKey={i}
-                  username={blog.username}
-                  firstname={blog.firstName}
-                  lastname={blog.lastName}
-                  email={blog.email}
-                  title={blog.title}
-                  desc={blog.desc}
-                  imageUrl={blog.imageUrl}
-                  profileImageUrl={blog.profileImageUrl}
-                  createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
-                />
+                <ImageListItem key={i}>
+                  <BlogsComp
+                    blogKey={i}
+                    username={blog.username}
+                    firstname={blog.firstName}
+                    lastname={blog.lastName}
+                    email={blog.email}
+                    title={blog.title}
+                    desc={blog.desc}
+                    imageUrl={blog.imageUrl}
+                    profileImageUrl={blog.profileImageUrl}
+                    createdAt={format(new Date(blog.createdAt), "d MMM yyyy")}
+                  />
+                </ImageListItem>
               ))}
-            </DialogsProvider>
-          </Box>
+            </ImageList>
+          </DialogsProvider>
 
           <Stack spacing={2} sx={{ marginTop: "2rem", alignItems: "center" }}>
             <Pagination

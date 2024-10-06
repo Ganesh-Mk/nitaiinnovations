@@ -441,9 +441,13 @@ const BlogsComp = ({
               <Box sx={{ whiteSpace: "pre-wrap" }}>
                 <Typography
                   variant="body1"
-                  sx={{ fontSize: "1rem", lineHeight: "1.5" }}
-                  dangerouslySetInnerHTML={{ __html: desc }}
-                />
+                  sx={{
+                    fontSize: "1rem",
+                    lineHeight: "1.5",
+                  }}
+                >
+                  {desc || <Skeleton width={600} />}
+                </Typography>
               </Box>
             </Typography>
           </DialogContent>
