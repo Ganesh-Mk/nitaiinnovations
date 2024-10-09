@@ -13,6 +13,7 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  useMediaQuery,
 } from "@mui/material";
 import { DialogsProvider } from "@toolpad/core/useDialogs";
 import axios from "axios";
@@ -27,6 +28,21 @@ function Blogs() {
   const theme = useTheme();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
+
+  const isMobileView = useMediaQuery("(max-width: 400px)");
+  const isTabView = useMediaQuery("(min-width: 401px) and (max-width: 800px)");
+  const isDesktopView = useMediaQuery("(min-width: 801px)");
+  const [viewSize, setViewSize] = useState(3);
+
+  useEffect(() => {
+    if (isMobileView) {
+      setViewSize(1);
+    } else if (isTabView) {
+      setViewSize(2);
+    } else if (isDesktopView) {
+      setViewSize(3);
+    }
+  });
 
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState("newest");
@@ -234,7 +250,7 @@ function Blogs() {
             </Box>
           )}
           <DialogsProvider>
-            <ImageList variant="masonry" cols={3} gap={20}>
+            <ImageList variant="masonry" cols={viewSize} gap={20}>
               {currentBlogs.map((blog, i) => (
                 <ImageListItem key={i}>
                   <BlogsComp
